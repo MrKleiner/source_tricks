@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300&display=swap');
+
+*
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+div
+{
+  /ddisplay: block;
+}
+
+body
+{ 
+  background-image: url("https://i.imgur.com/3M9XG2T.png");
+  background-attachment: fixed;
+}
+
+.top-navbar
+{
+  height: 85px;
+  display: flex;
+  background: rgba(21, 21, 22, 0.24);
+}
+
+.navbar-icon
+{
+  display: inline-block;
+  /*background: green; */
+  height: 100%;
+  width: 85px;
+  
+  position: relative;
+  margin-left: 1vw;
+  
+  background-image: url("https://i.imgur.com/Nq2pGaw.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+}
+
+#navbar-head
+{
+  position: relative;
+  top: 12.5%;
+  font-size: 3em;
+  font-family: 'Roboto Slab', serif;
+  color: white;
+}
+
+.head-text-container
+{
+  display: inline-block;
+  height: 100%;
+}
+
+.nav-side
+{
+  display: inline-block;
+  width: 200px;
+  margin: 6em 2em;
+}
+
+.nav-side-border
+{
+  position: relative;
+  height: 10px;
+  width: 100%;
+  background: white;
+}
+
+.nav-stuff-box
+{
+  width: 100%;
+  height: 551px;
+  background: rgba(9, 9, 17, 0.22);
+}
+
+.page_content
+{
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.article
+{
+  margin-top: 6em;
+  display: inline-block;
+  width: 85%;
+  float: right;
+  background: ;
+}
+
+.article_head
+{
+  display: flex;
+  width: 70%;
+  height: 72px;
+}
+
+.arcl_side_border
+{
+  display: inline-block;
+  height: 72px;
+  width: 11px;
+  background: #FF00A8;
+}
+
+.arcl_header
+{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 8, 9, 0.13);
+  
+}
+
+.arcl_header_p
+{
+  
+  font-family: 'Roboto Slab', serif;
+  font-size: 2vw;
+  height: 100%;
+  transform: translateY(25%);
+  color: white;
+  margin-left: 10px;
+}
+
+.article_content
+{
+  display: inline-block;
+  height: 1000px;
+  width: 95%;
+  background: ;
+  margin-top: 10px;
+}
+
+.tut_step
+{
+  background: ;
+  width: 100%;
+  margin-top: 95px;
+}
+
+.tut_step_head
+{
+  height: auto;
+  width: 100%;
+  background: rgba(8, 8, 9, 0.13);
+}
+
+.tut_step_head_text
+{
+  padding-left: 5px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.9vw;
+  padding-top: 10px;
+  color: white;
+  border-top: 11px solid #64DAFF;
+}
+
+.tut_step > div:not(:first-child)
+{
+  transition: 1s;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tut_step div img
+{
+  width: 100%;
+}
+
+.tut_step button
+{
+ 
+  background: #64DAFF;
+  background-image: url(https://i.imgur.com/tBDh6rF.png);
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-position: center;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  left: -0px;
+  top: 0px;
+  border: none;
+  border-radius: 100%;
+}
+
+.tut_step_head button:hover
+{
+  cursor: pointer;
+}
+
+.tut_step_content_closed
+{
+  height: 0px;
+  transition: 1s;
+}
+
+.step_green_col
+{
+ border-top: 11px solid #64FF86;
+}
+
