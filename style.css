@@ -65,8 +65,8 @@ body
 .nav-side
 {
   display: inline-block;
-  width: 200px;
-  margin: 6em 2em;
+  width: 10vw;
+  margin: 6em 2vw;
 }
 
 .nav-side-border
@@ -181,7 +181,9 @@ body
 
 .tut_step button
 {
- 
+  transition: 0.3s;
+  transform: rotate(0deg);
+
   background: #64DAFF;
   background-image: url(https://i.imgur.com/tBDh6rF.png);
   background-repeat: no-repeat;
@@ -201,6 +203,13 @@ body
   cursor: pointer;
 }
 
+.tut_step_head button:hover
+{
+  transition: 0.3s;
+  transform: rotate(180deg);
+}
+
+
 .tut_step_content_closed
 {
   height: 0px;
@@ -213,11 +222,10 @@ body
 }
 
 
-/*.footer
+.footer
 {
 
-
-  display: block;
+  display: contents;
   bottom: 0px;
   left: 0px;
   width: 100%;
@@ -226,15 +234,15 @@ body
   vertical-align: bottom;
 
 }
-*/
-/*
+
+
 .footer p
 {
   font-size: 1vw;
   padding: 20px;
   color: white;
 }
-*/
+
 
 
 
