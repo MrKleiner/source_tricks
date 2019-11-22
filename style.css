@@ -196,6 +196,8 @@ body
   top: 0px;
   border: none;
   border-radius: 100%;
+
+  outline: none;
 }
 
 .tut_step_head button:hover
@@ -242,8 +244,5 @@ body
   padding: 20px;
   color: white;
 }
-
-
-
 
 
