@@ -161,10 +161,10 @@ body
 {
   padding-left: 5px;
   font-family: 'Roboto Slab', serif;
-  font-size: 1.9vw;
+  font-size: 1.4vw;
   padding-top: 10px;
   color: white;
-  border-top: 11px solid #64DAFF;
+  border-top: 10px solid #64DAFF;
 }
 
 .tut_step > div:not(:first-child)
@@ -220,7 +220,7 @@ body
 
 .step_green_col
 {
- border-top: 11px solid #64FF86;
+ border-top: 10px solid #64FF86;
 }
 
 
