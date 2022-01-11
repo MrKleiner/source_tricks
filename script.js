@@ -1,5 +1,5 @@
 window.blender_edit_mode = false
-
+window.preview_mode = false
 
 document.addEventListener('click', event => {
     console.log('click_registered');
@@ -46,6 +46,35 @@ document.addEventListener('click', event => {
     const boxadd = event.target.closest('.add_box');
     if (boxadd) { add_bbox(boxadd) }
 
+	// delete box
+    const boxdel = event.target.closest('.delete_box');
+    if (boxdel) { delete_bbox(boxdel, event) }
+
+
+	// preview page
+    const pagepreview = event.target.closest('.preview_page');
+    if (pagepreview) { toggle_page_preview() }
+
+
+	// toggle folder content
+    const ftoggler = event.target.closest('.fname_text');
+    if (ftoggler) { folder_toggler($(ftoggler).closest('.folder_name')) }
+
+	// toggle folder content
+    const ctman = event.target.closest('.ctg_button');
+    if (ctman) { catalogue_manager(ctman, event) }
+
+
+
+
+	// wrapper
+    const wrapper = event.target.closest('.mkbold_text');
+    if (wrapper) { wraptext() }
+
+
+
+
+
 
 });
 
@@ -69,13 +98,73 @@ document.addEventListener('change', event => {
 });
 
 
+$(document).ready(function(){
+
+	fetch("content_index.sex", {
+		"headers": {
+			"accept": "*/*",
+			"cache-control": "no-cache",
+			"pragma": "no-cache"
+		},
+		"referrerPolicy": "strict-origin-when-cross-origin",
+		"body": null,
+		"method": "GET",
+		"mode": "cors",
+		"credentials": "omit"
+	})
+	.then(response => response.text())
+	.then(data => $('.nav_stuff_box').append(data));
+
+});
 
 
+
+
+function surroundSelection(textBefore, textAfter) {
+    if (window.getSelection) {
+        var sel = window.getSelection();
+        if (sel.rangeCount > 0) {
+            var range = sel.getRangeAt(0);
+            var startNode = range.startContainer, startOffset = range.startOffset;
+
+            var startTextNode = document.createTextNode(textBefore);
+            var endTextNode = document.createTextNode(textAfter);
+
+            var boundaryRange = range.cloneRange();
+            boundaryRange.collapse(false);
+            boundaryRange.insertNode(endTextNode);
+            boundaryRange.setStart(startNode, startOffset);
+            boundaryRange.collapse(true);
+            boundaryRange.insertNode(startTextNode);
+
+            // Reselect the original text
+            range.setStartAfter(startTextNode);
+            range.setEndBefore(endTextNode);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    }
+}
+
+function htmlDecode(input){
+  var e = document.createElement('textarea');
+  e.innerHTML = input;
+  // handle case of empty input
+  var fuck = e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  $(e).remove();
+  return fuck
+}
+
+function htmlenc(inp)
+{
+	return $('<div/>').text(inp).html();
+}
 
 
 function img_toggler(etgt)
 {
-    $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
+    // $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
+    $(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
 }
 
 
@@ -105,6 +194,8 @@ function activate_edit_mode(evee)
 						<div class="article_movetop"><div class="mv_triangle"></div></div>
 						<div class="article_movebot"><div class="mv_triangle"></div></div>
 					</div>
+					<div class="delete_box">Del</div>
+					<div class="mkbold_text">B</div>
 				</div>
 
 			`;
@@ -131,13 +222,59 @@ function activate_edit_mode(evee)
 				</div>
 			`;
 
+			var ctg_btns = 
+			`
+				<div fman_act="mv_tut" class="ctg_button move_ctg_item">M</div>
+				<div fman_act="del_tut" class="ctg_button del_ctg_item">D</div>
+			`;
+
+			var folder_btns=
+			`
+				<div fman_act="add_tut" class="ctg_button add_ctg_tut">AT</div>
+				<div fman_act="add_fld" class="ctg_button add_ctg_folder">AD</div>
+				<div fman_act="mv_fld" class="ctg_button move_ctg_item">M</div>
+				<div fman_act="del_fld" class="ctg_button del_ctg_item">D</div>
+				<div fman_act="paste_elem" class="ctg_button paste_btn e_hidden">Here</div>
+
+			`;
+
 
 			$('.tut_step_head').append(border_edit_m);
 			$('.tut_step').append(img_adder);
 			$('.tut_step_content').append(img_editor);
 			$('.article_content').append('<div class="add_box">Lizard Sex</div>');
 			$('.article_content').append('<div class="cum_on_a_lizard">Cum on a sexy lizard</div>');
+			$('.rquick_index').append('<div class="preview_page">Preview</div>');
+
+			$('.nav_tutorial').append(ctg_btns);
+			$('.folder_name').append(folder_btns);
+
+			$('.nav-side').append('<div fman_act="cancel" class="ctg_button ctg_cancel_operation">Cancel</div>')
+			$('.nav_stuff_box').prepend('<div fman_act="rootpaste" class="e_hidden ctg_button ctg_rootpaste">Paste To Root</div>')
+
 			$('.tut_step_head').after('<input class="section_name" type="text">');
+
+
+
+			// if an image has width style - show it
+			console.log($('.tut_step_content'));
+
+			tits = $('.tut_step_content');
+
+			for (var nen in tits)
+			{
+				console.log(tits[nen]);
+				var ime = $(tits[nen]).find('img');
+				var target_f = $(tits[nen]).find('.c_image_size');
+				if ($(ime)[0].hasAttribute('style'))
+				{
+					if ($(ime).attr('style').includes('width'))
+					{
+						$(target_f).val(parseFloat($(ime).css('width')));
+					}
+				}
+
+			}
 		}
 	}
 }
@@ -275,5 +412,151 @@ function add_bbox(etgt)
 	$(etgt).before(bbox);
 
 }
+
+
+function delete_bbox(etgt, evee)
+{
+	if(evee.altKey)
+	{
+		$(etgt).closest('.tut_step').remove();
+	}
+}
+
+function toggle_page_preview()
+{
+	/*
+	at_border_edit_box
+	image_adder_btn
+	image_editor
+	add_box
+	cum_on_a_lizard
+	section_name
+	*/
+
+	$('.at_border_edit_box, .image_adder_btn, .image_editor, .add_box, .cum_on_a_lizard, .section_name').toggleClass('e_hidden');
+	if (window.preview_mode == false){
+		window.preview_mode = true
+		eval_to_colors()
+	}else if(window.preview_mode == true){
+		window.preview_mode = false
+		eval_to_code()
+	}
+}
+
+
+function folder_toggler(etgt)
+{
+
+	$(etgt).siblings('.folder_content').toggleClass('e_hidden');
+}
+
+
+
+function catalogue_manager(etgt, evee)
+{
+	console.log(etgt);
+
+	if($(etgt).attr('fman_act') == 'mv_tut')
+	{
+		window.func_movelinear = $(etgt).closest('.nav_tutorial');
+		$('.ctg_button').addClass('e_hidden');
+		$('.paste_btn, .ctg_rootpaste').removeClass('e_hidden');
+	}
+
+	if($(etgt).attr('fman_act') == 'mv_fld')
+	{
+		window.func_movelinear = $(etgt).closest('.nav_folder');
+		$('.ctg_button').addClass('e_hidden');
+		$('.paste_btn, .ctg_rootpaste').removeClass('e_hidden');
+		$(etgt).closest('.nav_folder').find('.paste_btn').addClass('e_hidden');
+	}
+
+	if($(etgt).attr('fman_act') == 'paste_elem')
+	{
+		$(etgt).closest('.folder_name').siblings('.folder_content').append(window.func_movelinear);
+		window.func_movelinear = 'nil';
+		$('.ctg_button').removeClass('e_hidden');
+		$('.paste_btn, .ctg_rootpaste').addClass('e_hidden');
+	}
+
+	if($(etgt).attr('fman_act') == 'rootpaste')
+	{
+		$('.nav_stuff_box').append(window.func_movelinear);
+		window.func_movelinear = 'nil';
+		$('.ctg_button').removeClass('e_hidden');
+		$('.paste_btn, .ctg_rootpaste').addClass('e_hidden');
+	}
+
+
+	if($(etgt).attr('fman_act') == 'cancel')
+	{
+		window.func_movelinear = 'nil';
+		$('.ctg_button').removeClass('e_hidden');
+		$('.paste_btn, .ctg_rootpaste').addClass('e_hidden');
+	}
+
+	if($(etgt).attr('fman_act') == 'del_fld' && evee.altKey)
+	{
+		$(etgt).closest('.nav_folder').remove();
+	}
+	if($(etgt).attr('fman_act') == 'del_tut' && evee.altKey)
+	{
+		$(etgt).closest('.nav_tutorial').remove();
+	}
+
+
+
+
+
+
+
+	$('.ctg_cancel_operation').removeClass('e_hidden');
+}
+
+
+
+function wraptext()
+{
+	surroundSelection('<st bold strike color="#64DAFF">', '</st>')
+}
+
+
+
+function eval_to_colors()
+{
+
+	// htmlDecode
+	// $('.tut_step_head_text')
+
+    $('.tut_step_head_text').each(function(){
+        var appendant = htmlDecode($(this).html());
+        $(this).empty();
+        $(this).append(appendant);
+    });
+
+    $('st').each(function(){
+    	$(this).css('color', $(this).attr('color'));
+    });
+
+}
+
+
+
+function eval_to_code()
+{
+	// $($0).replaceWith(htmlenc($($0)[0].outerHTML.replaceAll('=""', '')))
+
+    $('st').each(function(){
+    	$(this).removeAttr('style');
+        var convertor = htmlenc($(this)[0].outerHTML.replaceAll('=""', ''));
+        $(this).replaceWith(convertor);
+    });
+
+
+}
+
+
+
+
 
 

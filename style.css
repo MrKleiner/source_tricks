@@ -75,7 +75,8 @@ img
 .nav-side
 {
   display: flex;
-  width: 200px;
+  flex-direction: column;
+  width: 300px;
   /*margin: 6em 2vw;*/
   margin: 6em 50px 0px 30px;
 }
@@ -88,8 +89,10 @@ img
   background: white;
 }*/
 
-.nav-stuff-box
+.nav_stuff_box
 {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 	height: 551px;
 	background: rgba(9, 9, 17, 0.22);
@@ -291,6 +294,7 @@ img
 	margin-top: 135px;
 	margin-right: 2em;
 	background: rgba(9, 9, 17, 0.22);
+	flex-direction: column;
 }
 
 
@@ -423,7 +427,7 @@ img
 	margin-top: 10px;
 }
 
-.image_adder_btn, .add_box, .cum_on_a_lizard
+.image_adder_btn, .add_box, .cum_on_a_lizard, .delete_box, .preview_page, .ctg_button, .ctg_cancel_operation, .mkbold_text
 {
 	user-select: none;
 	color: white;
@@ -439,11 +443,35 @@ img
 .add_box, .cum_on_a_lizard
 {
 	width: auto;
-	margin-top:100px;
+	margin-top: 100px;
 }
 
+.delete_box
+{
+	width: 30px;
+	margin-top: 5px;
+	color: black;
+}
 
-.image_deleter:active, .image_adder_btn:active, .add_box:active, .cum_on_a_lizard:active
+.preview_page
+{
+	width: auto;
+}
+
+.ctg_button
+{
+	margin: 0px 0px 0px 3px;
+	width: 20px;
+	font-size: 12px;
+}
+
+.ctg_cancel_operation
+{
+	width: auto;
+	font-size: 20px;
+}
+
+.image_deleter:active, .image_adder_btn:active, .add_box:active, .cum_on_a_lizard:active, .delete_box:active, .preview_page:active, .ctg_button:active, .ctg_cancel_operation:active, .mkbold_text:active
 {
 	outline: 2px solid white;
 }
@@ -465,3 +493,61 @@ img
 	margin-top: 20px;
 	width: 300px;
 }
+
+.nav_folder
+{
+	display: flex;
+	flex-direction: column;
+	/*margin-left: 10px;*/
+}
+
+.folder_name
+{
+	display: flex;
+	color: green;
+	user-select: none;
+}
+
+.folder_content
+{
+	display: flex;
+	flex-direction: column;
+	margin-left: 15px;
+}
+
+.nav_tutorial
+{
+	display: flex;
+	color: white;
+}
+
+.ctg_rootpaste
+{
+	/*align-self: flex-end;*/
+	order: 214748364;
+	width: auto;
+	font-size: 14px;
+
+}
+
+
+st
+{
+	display: inline;
+}
+
+st[bold]
+{
+	font-weight: 700;
+}
+
+st[italic]
+{
+	font-style: italic;
+}
+
+st[strike]
+{
+	text-decoration: line-through;
+}
+
