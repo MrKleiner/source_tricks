@@ -29,6 +29,11 @@ body
   flex-grow: 1;
 }
 
+img
+{
+	user-select: none;
+}
+
 .top-navbar
 {
   height: 85px;
@@ -95,7 +100,7 @@ body
 {
   /*display: inline-block;*/
   display: flex;
-  min-width: 1300px;
+  min-width: 1385px;
 }
 
 .article
@@ -163,7 +168,7 @@ body
 {
   display: inline-block;
   /*width: 50%;*/
-  width: 780px;
+  width: 880px;
   margin-top: 60px;
   margin-right: 0px;
 }
@@ -186,7 +191,8 @@ body
 	/*font-size: 0.9vw;*/
 	font-size: 17px;
 	padding-top: 10px;
-	color: white;
+	/*color: white;*/
+	color: rgb(240, 240, 240);
 	border-top: 5px solid #64DAFF;
 }
 
@@ -290,7 +296,7 @@ body
 
 @media (min-width: 1580px)
 {
-  .rquick_index
+  .rquick_indexss
   {
     /*margin-right: 1px;*/
     margin-right: 300px;
@@ -416,7 +422,27 @@ body
 	margin-top: 10px;
 }
 
-.image_deleter:active
+.image_adder_btn, .add_box, .cum_on_a_lizard
+{
+	user-select: none;
+	color: white;
+	background: gray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	width: 100px;
+	margin-top: 10px;
+}
+
+.add_box, .cum_on_a_lizard
+{
+	width: auto;
+	margin-top:100px;
+}
+
+
+.image_deleter:active, .image_adder_btn:active, .add_box:active, .cum_on_a_lizard:active
 {
 	outline: 2px solid white;
 }
@@ -431,4 +457,10 @@ body
 {
 	color: white;
 	margin-top: 5px;
+}
+
+.section_name
+{
+	margin-top: 20px;
+	width: 300px;
 }

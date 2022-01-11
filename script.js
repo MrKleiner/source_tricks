@@ -30,6 +30,23 @@ document.addEventListener('click', event => {
     const boxmoverb = event.target.closest('.article_movebot');
     if (boxmoverb) { box_mover(boxmoverb, 'b') }
 
+
+
+	// delete preview image
+    const imgdel = event.target.closest('.image_deleter');
+    if (imgdel) { img_preview_delete(imgdel) }
+
+	// add preview image
+    const imgadd = event.target.closest('.image_adder_btn');
+    if (imgadd) { img_preview_add(imgadd) }
+
+
+
+	// add box
+    const boxadd = event.target.closest('.add_box');
+    if (boxadd) { add_bbox(boxadd) }
+
+
 });
 
 document.addEventListener('change', event => {
@@ -40,8 +57,14 @@ document.addEventListener('change', event => {
     if (btopcol) { set_border_top_col(btopcol, false) }
 
     // image preview
-    const imgprev = event.target.closest('.top_border_color_inp');
-    if (imgprev) { c_image_input(btopcol, false) }
+    const imgprev = event.target.closest('.c_image_input');
+    if (imgprev) { img_preview(imgprev) }
+
+    // set size of the image
+    const imgprev_size = event.target.closest('.c_image_size');
+    if (imgprev_size) { img_preview_set_size(imgprev_size) }
+
+
 
 });
 
@@ -68,7 +91,7 @@ function activate_edit_mode(evee)
 			$('.arcl_header_p').attr('contenteditable', true);
 			// make articles editable
 			$('.tut_step_head_text').attr('contenteditable', true);
-			var border_edit_m = 
+			window.border_edit_m = 
 			`
 				<div class="at_border_edit_box">
 					<label class="enable_border_checkbox"><input checked type="checkbox" class="at_border_top_ena_ch">Enable border</label>
@@ -87,12 +110,22 @@ function activate_edit_mode(evee)
 			`;
 			var img_adder = 
 			`
-				<div class="image_adder_btn"></div>
+				<div class="image_adder_btn">Add Image</div>
 			`;
-			var img_editor = 
+
+/*			window.img_editor = 
 			`
 				<div class="image_editor">
-					<input class="c_image_input" type="file" accept=".png,.jpeg,.jpg,.jfif">
+					<input class="c_image_input" type="file" accept=".png,.jpeg,.jpg,.jfif,.bmp">
+					<input class="c_image_size" type="number" class="image_sizer">
+					<div class="image_deleter">Delete</div>
+				</div>
+			`;
+			*/
+			window.img_editor = 
+			`
+				<div class="image_editor">
+					<input class="c_image_input" type="file" accept="image/png, image/gif, image/jpeg, image/bmp, image/webp">
 					<input class="c_image_size" type="number" class="image_sizer">
 					<div class="image_deleter">Delete</div>
 				</div>
@@ -102,9 +135,10 @@ function activate_edit_mode(evee)
 			$('.tut_step_head').append(border_edit_m);
 			$('.tut_step').append(img_adder);
 			$('.tut_step_content').append(img_editor);
+			$('.article_content').append('<div class="add_box">Lizard Sex</div>');
+			$('.article_content').append('<div class="cum_on_a_lizard">Cum on a sexy lizard</div>');
+			$('.tut_step_head').after('<input class="section_name" type="text">');
 		}
-
-
 	}
 }
 
@@ -179,4 +213,67 @@ function box_mover(etgt, side)
 function img_preview(etgt)
 {
 
+	var image_slot = $(etgt).closest('.tut_step_content').find('img');
+	console.log(image_slot)
+    var reader = new FileReader();
+    reader.readAsArrayBuffer(etgt.files[0], 'UTF-8');
+    reader.onload = function (evt) {
+		// var boobs = new Blob([new Uint8Array(reader.result)], {type: $('#lizards_pussy')[0].files[0] });
+		var boobs = new Blob([reader.result], {type: etgt.files[0].type });
+		
+		var urlCreator = window.URL || window.webkitURL;
+		var imageUrl = urlCreator.createObjectURL(boobs);
+		
+		$(image_slot)[0].src = imageUrl
+		console.log(reader.result.length)
+/*		console.log(reader.result);
+		window.softimage = new Image();
+		window.softimage.src = imageUrl;
+		$('body').append(window.softimage);
+		$('body').append('\n');
+		console.log(reader.result.length)*/
+		// document.getElementById('lizards_pussy2').setAttribute('value', reader.result);
+    }
+
 }
+
+
+
+function img_preview_set_size(etgt)
+{
+	$(etgt).closest('.tut_step_content').find('img').css('width', $(etgt).val());
+
+}
+
+function img_preview_delete(etgt)
+{
+
+	$(etgt).closest('.tut_step_content').remove();
+}
+
+function img_preview_add(etgt)
+{
+	// tut_step_content
+	$(etgt).before('<div class="tut_step_content"><img class="tut_img" src="">' + window.img_editor + '</div>')
+}
+
+
+function add_bbox(etgt)
+{
+	var bbox = 
+	`
+		<div class="tut_step">
+			<div class="tut_step_head">
+				<p contenteditable class="tut_step_head_text">cum</p>
+				` + window.border_edit_m + `
+			</div>
+			<input class="section_name" type="text">
+			<div class="image_adder_btn">Add Image</div>
+		</div>
+	`;
+
+	$(etgt).before(bbox);
+
+}
+
+
