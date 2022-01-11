@@ -285,7 +285,7 @@ img
 	display: flex;
 	width: 200px;
 	height: 100px;
-	background-color: red;
+	/*background-color: red;*/
 	align-self: flex-end;
 	position: fixed;
 	margin-top: 135px;
