@@ -90,10 +90,10 @@ img
 
 .nav-stuff-box
 {
-  width: 100%;
-  height: 551px;
-  background: rgba(9, 9, 17, 0.22);
-  border-top: 10px solid white;
+	width: 100%;
+	height: 551px;
+	background: rgba(9, 9, 17, 0.22);
+	border-top: 10px solid white;
 }
 
 .page_content
@@ -282,14 +282,15 @@ img
 
 .rquick_index
 {
-  display: flex;
-  width: 200px;
-  height: 100px;
-  background-color: red;
-  align-self: flex-end;
-  position: fixed;
-  margin-top: 135px;
-  margin-right: 2em;
+	display: flex;
+	width: 200px;
+	height: 100px;
+	background-color: red;
+	align-self: flex-end;
+	position: fixed;
+	margin-top: 135px;
+	margin-right: 2em;
+	background: rgba(9, 9, 17, 0.22);
 }
 
 
