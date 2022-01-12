@@ -892,7 +892,7 @@ function article_compiler()
 	zip.generateAsync({type:"blob"})
 	.then(function(content) {
 	    // see FileSaver.js
-	    saveAs(content, "exampled.zip");
+	    saveAs(content, window.current_zid + ".zip");
 	});
 	console.log('ohfuck')
 
