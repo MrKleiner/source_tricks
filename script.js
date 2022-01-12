@@ -731,7 +731,7 @@ function pgloader(pgx)
 	{
 
 
-		if (ct.includes('Error code: 404'))
+		if (ct.includes('The site configured at this address does not'))
 		{
 			$('.tut_step').remove();
 			$('.arcl_header_p').text('Does not exist. Go fuck a lizard');
