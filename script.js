@@ -82,6 +82,10 @@ document.addEventListener('click', event => {
     const wrapper = event.target.closest('.mkbold_text');
     if (wrapper) { wraptext() }
 
+	// saver
+    const saveshit = event.target.closest('.cum_on_a_lizard');
+    if (saveshit) { article_compiler() }
+
 
 
 });
@@ -703,9 +707,10 @@ function ctg_name_actuator(etgt, evee)
 	{
 		$(etgt).attr('contenteditable', true).focus();
 	}else{
-
-		pgloader($(etgt).closest('.nav_tutorial').attr('asset_idx'))
-
+		if ($(etgt).hasClass('tut_name_text'))
+		{
+			pgloader($(etgt).closest('.nav_tutorial').attr('asset_idx'))
+		}
 	}
 }
 
@@ -722,7 +727,7 @@ function img_preview_set_url(etgt)
 function pgloader(pgx)
 {
 
-	function pgload(ct)
+	function pgload(ct, ref_index)
 	{
 
 
@@ -730,6 +735,7 @@ function pgloader(pgx)
 		{
 			$('.tut_step').remove();
 			$('.arcl_header_p').text('Does not exist. Go fuck a lizard');
+			window.current_zid = ref_index
 		}else{
 			console.log(ct)
 		}
@@ -765,7 +771,7 @@ function pgloader(pgx)
 		"credentials": "omit"
 	})
 	.then(response => response.text())
-	.then(data => pgload(data) );
+	.then(data => pgload(data, pgx) );
 
 
 }
