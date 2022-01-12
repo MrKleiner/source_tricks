@@ -303,7 +303,7 @@ function activate_edit_mode(evee)
 				</div>
 			`;
 
-			var ctg_btns = 
+			window.ctg_btns = 
 			`
 				<div fman_act="mv_tut" class="ctg_button move_ctg_item">M</div>
 				<div fman_act="del_tut" class="ctg_button del_ctg_item">D</div>
@@ -333,7 +333,7 @@ function activate_edit_mode(evee)
 			$('.tut_step').append(img_adder);
 			$('.tut_step_content').append(img_editor);
 			$('.article_content').append('<div class="add_box">Lizard Sex</div>');
-			$('.article_content').append('<div class="cum_on_a_lizard">Cum on a sexy lizard</div>');
+			$('.article_content').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
 
 			$('.nav_tutorial').append(ctg_btns);
@@ -625,7 +625,7 @@ function catalogue_manager(etgt, evee)
 		var today = new Date();
 		var rndname = CryptoJS.MD5(today.getTime() + liz3_rndwave(16, 'num', '')).toString();
 		// console.log(CryptoJS.MD5('shit').toString());
-		$(etgt).closest('.folder_name').siblings('.folder_content').append($('<div class="nav_tutorial"><div contenteditable class="tut_name_text">How to lizard sex</div></div>').attr('asset_idx', rndname));
+		$(etgt).closest('.folder_name').siblings('.folder_content').append($('<div class="nav_tutorial"><div class="tut_name_text">How to lizard sex</div>' + window.ctg_btns + '</div>').attr('asset_idx', rndname));
 	}
 
 
@@ -702,6 +702,10 @@ function ctg_name_actuator(etgt, evee)
 	if(evee.altKey)
 	{
 		$(etgt).attr('contenteditable', true).focus();
+	}else{
+
+		pgloader($(etgt).closest('.nav_tutorial').attr('asset_idx'))
+
 	}
 }
 
@@ -721,6 +725,25 @@ function pgloader(pgx)
 	function pgload(ct)
 	{
 
+
+		if (ct.includes('Error code: 404'))
+		{
+			$('.tut_step').remove();
+			$('.arcl_header_p').text('Does not exist. Go fuck a lizard');
+		}else{
+			console.log(ct)
+		}
+
+
+
+
+
+
+
+
+
+
+
 	}
 
 
@@ -729,7 +752,7 @@ function pgloader(pgx)
 
 
 
-	fetch("content_index.sex", {
+	fetch('content/' + pgx + '/' + pgx, {
 		"headers": {
 			"accept": "*/*",
 			"cache-control": "no-cache",
@@ -742,7 +765,7 @@ function pgloader(pgx)
 		"credentials": "omit"
 	})
 	.then(response => response.text())
-	// .then(data => if(!data.includes('Error code: 404')){ pgload(data) });
+	.then(data => pgload(data) );
 
 
 }
@@ -855,9 +878,9 @@ function article_compiler()
 
     // also construct index
     // nav_stuff_box
-    var make_index_html = $($('.nav_stuff_box').html());
-    make_index_html.find('.ctg_button').remove();
-    zip.file('content_index.sex', make_index_html.html());
+	var make_index_html = $('.nav_stuff_box')[0].cloneNode(true);
+	$(make_index_html).find('.ctg_button').remove();
+    zip.file('content_index.sex', $(make_index_html).html());
 
 
 	zip.generateAsync({type:"blob"})
