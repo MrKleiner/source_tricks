@@ -58,11 +58,22 @@ document.addEventListener('click', event => {
 
 	// toggle folder content
     const ftoggler = event.target.closest('.fname_text');
-    if (ftoggler) { folder_toggler($(ftoggler).closest('.folder_name')) }
+    if (ftoggler) { folder_toggler($(ftoggler).closest('.folder_name'), event, ftoggler) }
 
-	// toggle folder content
+	// catalogue manager buttons
     const ctman = event.target.closest('.ctg_button');
     if (ctman) { catalogue_manager(ctman, event) }
+
+	// ctg name editing actuator
+    const ectgnames = event.target.closest('.fname_text');
+    const ectgnames_t = event.target.closest('.tut_name_text');
+    if (ectgnames){
+    	var ses = ectgnames
+    }
+    if (ectgnames_t){
+    	var ses = ectgnames_t
+    }
+    if (ectgnames || ectgnames_t) { ctg_name_actuator(ses, event) }
 
 
 
@@ -70,9 +81,6 @@ document.addEventListener('click', event => {
 	// wrapper
     const wrapper = event.target.closest('.mkbold_text');
     if (wrapper) { wraptext() }
-
-
-
 
 
 
@@ -94,8 +102,36 @@ document.addEventListener('change', event => {
     if (imgprev_size) { img_preview_set_size(imgprev_size) }
 
 
+    // image url
+    const imgprev_url = event.target.closest('.c_image_url');
+    if (imgprev_url) { img_preview_set_url(imgprev_url) }
+
+    // image use url
+    // const imgprev_useurl = event.target.closest('.imguseurl');
+    // if (imgprev_useurl) { img_preview_use_url(imgprev_useurl) }
+
+
 
 });
+
+
+document.addEventListener('focusout', event => {
+    console.log('focusout_registered');
+	// focusout
+    // border top colour
+    const ctgnames = event.target.closest('.fname_text');
+    const ctgnames_t = event.target.closest('.tut_name_text');
+    if (ctgnames){
+    	var sas = ctgnames
+    }
+    if (ctgnames_t){
+    	var sas = ctgnames_t
+    }
+    if (ctgnames || ctgnames_t) { ctg_name_bitlocker(sas) }
+	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
+});
+
+
 
 
 $(document).ready(function(){
@@ -114,7 +150,13 @@ $(document).ready(function(){
 	})
 	.then(response => response.text())
 	.then(data => $('.nav_stuff_box').append(data));
-
+/*    xmlDoc = $.parseXML(tml);
+	// fuckjq = $(xmlDoc)
+	// console.log(fuckjq)
+	window.fuckvmix = xmlDoc;
+	console.log(xmlDoc);
+	
+	var pootis = $(xmlDoc).find('inputs[title="28_08_2021_beach_title.xaml"]').end().find('text[name="top_pair"]').text();*/
 });
 
 
@@ -159,6 +201,44 @@ function htmlenc(inp)
 {
 	return $('<div/>').text(inp).html();
 }
+
+function liz3_rndwave(length, method, addchars) {
+    var result           = '';
+	var addon_chars = '';
+	if (typeof addchars == 'undefined')
+	{
+		var addon_chars = '';
+	}else{
+		var addon_chars = addchars.toString().replaceAll(' ', '');
+	}
+	switch (method) {
+		case 'flac':
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-()=+*#/!&?<>$~' + addon_chars;
+			break;
+		case 'num':
+		var characters = '1234567890' + addon_chars;
+			break;
+		case 'def':
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-' + addon_chars;
+			break;
+		default:
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-' + addon_chars;
+		// console.log(`Sorry, we are out of ${expr}.`);
+			break;
+	}
+	
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
+
+
+
+
+
 
 
 function img_toggler(etgt)
@@ -216,8 +296,9 @@ function activate_edit_mode(evee)
 			window.img_editor = 
 			`
 				<div class="image_editor">
-					<input class="c_image_input" type="file" accept="image/png, image/gif, image/jpeg, image/bmp, image/webp">
-					<input class="c_image_size" type="number" class="image_sizer">
+					<div class="imgrow"><input class="c_image_input" type="file" accept="image/png, image/gif, image/jpeg, image/bmp, image/webp"></div>
+					<div class="imgrow"><input class="c_image_url" type="text"><input class="imguseurl" type="checkbox"></div>
+					<input class="c_image_size" type="number">
 					<div class="image_deleter">Delete</div>
 				</div>
 			`;
@@ -228,7 +309,7 @@ function activate_edit_mode(evee)
 				<div fman_act="del_tut" class="ctg_button del_ctg_item">D</div>
 			`;
 
-			var folder_btns=
+			window.folder_btns =
 			`
 				<div fman_act="add_tut" class="ctg_button add_ctg_tut">AT</div>
 				<div fman_act="add_fld" class="ctg_button add_ctg_folder">AD</div>
@@ -236,6 +317,15 @@ function activate_edit_mode(evee)
 				<div fman_act="del_fld" class="ctg_button del_ctg_item">D</div>
 				<div fman_act="paste_elem" class="ctg_button paste_btn e_hidden">Here</div>
 
+			`;
+
+			window.folder_htm = 
+			`
+				<div id_folder_name="nil" class="nav_folder">
+					<div class="folder_name"><div contenteditable class="fname_text">Sample Text (MLG)</div>` + window.folder_btns + `</div>
+					<div class="folder_content">
+					</div>
+				</div>
 			`;
 
 
@@ -249,23 +339,30 @@ function activate_edit_mode(evee)
 			$('.nav_tutorial').append(ctg_btns);
 			$('.folder_name').append(folder_btns);
 
+			// $('.fname_text, .tut_name_text').attr('contenteditable', true);
+
 			$('.nav-side').append('<div fman_act="cancel" class="ctg_button ctg_cancel_operation">Cancel</div>')
-			$('.nav_stuff_box').prepend('<div fman_act="rootpaste" class="e_hidden ctg_button ctg_rootpaste">Paste To Root</div>')
+			$('.nav_stuff_box').append('<div fman_act="rootpaste" class="e_hidden ctg_button ctg_rootpaste">Paste To Root</div><div fman_act="rootnewdir" class="ctg_button add_new_dir_to_root">Add New Dir To Root</div>')
 
 			$('.tut_step_head').after('<input class="section_name" type="text">');
 
 
 
 			// if an image has width style - show it
+			// and show urls
 			console.log($('.tut_step_content'));
 
-			tits = $('.tut_step_content');
+			// tits = $('.tut_step_content');
 
-			for (var nen in tits)
-			{
-				console.log(tits[nen]);
-				var ime = $(tits[nen]).find('img');
-				var target_f = $(tits[nen]).find('.c_image_size');
+
+
+		    $('.tut_step_content').each(function(){
+
+				console.log(this);
+				var ime = $(this).find('img');
+				var target_f = $(this).find('.c_image_size');
+				$(this).find('.c_image_url').val(ime[0].src);
+				$(this).find('.imguseurl').prop('checked', true);
 				if ($(ime)[0].hasAttribute('style'))
 				{
 					if ($(ime).attr('style').includes('width'))
@@ -274,7 +371,8 @@ function activate_edit_mode(evee)
 					}
 				}
 
-			}
+		    });
+
 		}
 	}
 }
@@ -363,6 +461,9 @@ function img_preview(etgt)
 		
 		$(image_slot)[0].src = imageUrl
 		console.log(reader.result.length)
+
+		window[etgt] = reader.result
+
 /*		console.log(reader.result);
 		window.softimage = new Image();
 		window.softimage.src = imageUrl;
@@ -444,10 +545,13 @@ function toggle_page_preview()
 }
 
 
-function folder_toggler(etgt)
+function folder_toggler(etgt, evee, orign)
 {
-
-	$(etgt).siblings('.folder_content').toggleClass('e_hidden');
+	console.log(orign)
+	if(!$(orign)[0].hasAttribute('contenteditable') && !evee.altKey)
+	{
+		$(etgt).siblings('.folder_content').toggleClass('e_hidden');
+	}
 }
 
 
@@ -504,9 +608,25 @@ function catalogue_manager(etgt, evee)
 		$(etgt).closest('.nav_tutorial').remove();
 	}
 
+	if($(etgt).attr('fman_act') == 'rootnewdir')
+	{
+		$('.nav_stuff_box').append(window.folder_htm);
+	}
 
+	if($(etgt).attr('fman_act') == 'add_fld')
+	{
 
+		$(etgt).closest('.folder_name').siblings('.folder_content').append(window.folder_htm);
+	}
 
+	if($(etgt).attr('fman_act') == 'add_tut')
+	{
+
+		var today = new Date();
+		var rndname = CryptoJS.MD5(today.getTime() + liz3_rndwave(16, 'num', '')).toString();
+		// console.log(CryptoJS.MD5('shit').toString());
+		$(etgt).closest('.folder_name').siblings('.folder_content').append($('<div class="nav_tutorial"><div contenteditable class="tut_name_text">How to lizard sex</div></div>').attr('asset_idx', rndname));
+	}
 
 
 
@@ -527,7 +647,7 @@ function eval_to_colors()
 
 	// htmlDecode
 	// $('.tut_step_head_text')
-
+	iwant2die()
     $('.tut_step_head_text').each(function(){
         var appendant = htmlDecode($(this).html());
         $(this).empty();
@@ -538,25 +658,221 @@ function eval_to_colors()
     	$(this).css('color', $(this).attr('color'));
     });
 
+
 }
 
-
-
-function eval_to_code()
+function iwant2die()
 {
-	// $($0).replaceWith(htmlenc($($0)[0].outerHTML.replaceAll('=""', '')))
+/*	var wrapperNodes = document.querySelectorAll('.tut_step_head_text span')
+	for (var fuck in wrapperNodes)
+	{
+		wrapperNodes[fuck].replaceWith(...wrapperNodes[fuck].childNodes)
+	}
+*/
 
-    $('st').each(function(){
-    	$(this).removeAttr('style');
-        var convertor = htmlenc($(this)[0].outerHTML.replaceAll('=""', ''));
-        $(this).replaceWith(convertor);
+    $('.tut_step_head_text span').each(function(){
+		this.replaceWith(...this.childNodes)
     });
 
 
 }
 
 
+function eval_to_code()
+{
+	// $($0).replaceWith(htmlenc($($0)[0].outerHTML.replaceAll('=""', '')))
+	iwant2die()
+    $('st').each(function(){
+    	$(this).removeAttr('style');
+        var convertor = htmlenc($(this)[0].outerHTML.replaceAll('=""', ''));
+        $(this).replaceWith(convertor);
+    });
+
+}
+
+
+
+function ctg_name_bitlocker(etgt)
+{
+	$(etgt).removeAttr('contenteditable');
+}
+
+function ctg_name_actuator(etgt, evee)
+{
+	if(evee.altKey)
+	{
+		$(etgt).attr('contenteditable', true).focus();
+	}
+}
+
+
+
+function img_preview_set_url(etgt)
+{
+	var image_slot = $(etgt).closest('.tut_step_content').find('img');
+	$(image_slot)[0].src = $(etgt).val();
+}
+
+
+
+function pgloader(pgx)
+{
+
+	function pgload(ct)
+	{
+
+	}
 
 
 
 
+
+
+
+	fetch("content_index.sex", {
+		"headers": {
+			"accept": "*/*",
+			"cache-control": "no-cache",
+			"pragma": "no-cache"
+		},
+		"referrerPolicy": "strict-origin-when-cross-origin",
+		"body": null,
+		"method": "GET",
+		"mode": "cors",
+		"credentials": "omit"
+	})
+	.then(response => response.text())
+	// .then(data => if(!data.includes('Error code: 404')){ pgload(data) });
+
+
+}
+
+
+
+
+
+
+
+
+function article_compiler()
+{
+
+/*	var zip = new JSZip();
+	zip.file("Hello.txt", "Hello World\n");
+	var img = zip.folder("images");
+	// img.file("smile.gif", imgData, {base64: true});
+	zip.generateAsync({type:"blob"})
+	.then(function(content) {
+	    // see FileSaver.js
+	    saveAs(content, "example.zip");
+	});
+*/
+
+	// collect our rubbish
+
+	var constructed_article = {
+		'atitle': 'nil',
+		'boxes': [],
+		'selfid': ''
+
+	}
+
+
+	// save title
+	constructed_article['atitle'] = $('.arcl_header_p').text();
+
+	var zip = new JSZip();
+	var tut_data = zip.folder('content/' + window.current_zid + '/data');
+
+	// collect boxes
+    $('.tut_step').each(function(){
+    	var madebox = {
+    		'text': $(this).find('.tut_step_head_text').html(),
+    		'contents': [],
+    		'border_w': $(this).find('.tut_step_head_text').css('border-width'),
+    		'border_c': $(this).find('.tut_step_head_text').css('border-color'),
+    		'chapter': ''
+    	}
+
+    	// chapter, if any
+    	if ($(this).find('.section_name').val().trim() != '')
+    	{
+    		madebox['chapter'] = $(this).find('.section_name').val().trim();
+    	}
+
+
+	    $(this).find('.tut_step_content').each(function(){
+	    	var makecont = {
+	    		'imguseurl': '0',
+	    		'imgsize': ''
+	    	}
+	    	if ($(this).find('.imguseurl')[0].checked)
+	    	{
+	    		// todo: use true/false instead
+    			makecont['imguseurl'] = '1';
+    			makecont['imgurl'] = $(this).find('.c_image_url').val();
+	    	}else{
+	    		// make name
+				var today = new Date();
+				var mkimgname = CryptoJS.MD5(liz3_rndwave(256, 'flac', '')).toString() + '.' + $(this).find('.c_image_input')[0].files[0].type.split('/').at(-1);
+
+/*				// var reader = new FileReader();
+				var reader = new FileReaderSync();
+				reader.readAsArrayBuffer($(this).find('.c_image_input')[0].files[0], 'UTF-8');
+				reader.onload = function (evt) {
+				    tut_data.file(mkimgname, reader.result);
+				    console.log('ohno')
+				}
+*/
+				// place the image into the folder
+				tut_data.file(mkimgname, window[$(this).find('.c_image_input')[0]]);
+
+				// append this image's name and extension as well as its original one
+				makecont['imgn'] = mkimgname
+				// original
+				makecont['imgn_original'] = $(this).find('.c_image_input')[0].files[0].name
+				// format
+				makecont['img_ext'] = $(this).find('.c_image_input')[0].files[0].type.split('/').at(-1);
+
+	    	}
+	    	// img width, if any
+	    	if ($(this).find('.c_image_size').val().trim() != '')
+	    	{
+	    		makecont['imgsize'] = $(this).find('.c_image_size').val().trim()
+	    	}
+
+	    	// finally, append content
+	    	madebox['contents'].push(makecont);
+
+	    });
+
+	    constructed_article['boxes'].push(madebox);
+
+    });
+
+    // once done with all the steps - stringify and save as file
+    zip.file('content/' + window.current_zid + '/' + window.current_zid, JSON.stringify(constructed_article));
+
+    // also construct index
+    // nav_stuff_box
+    var make_index_html = $($('.nav_stuff_box').html());
+    make_index_html.find('.ctg_button').remove();
+    zip.file('content_index.sex', make_index_html.html());
+
+
+	zip.generateAsync({type:"blob"})
+	.then(function(content) {
+	    // see FileSaver.js
+	    saveAs(content, "exampled.zip");
+	});
+	console.log('ohfuck')
+
+}
+
+
+/*
+zip.generateAsync({type:"blob"})
+.then(function(content) {
+    // see FileSaver.js
+    saveAs(content, "exampled.zip");
+});*/

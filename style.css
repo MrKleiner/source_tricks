@@ -94,9 +94,10 @@ img
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 551px;
+	min-height: 551px;
 	background: rgba(9, 9, 17, 0.22);
 	border-top: 10px solid white;
+	padding: 10px 10px 10px 15px;
 }
 
 .page_content
@@ -427,7 +428,7 @@ img
 	margin-top: 10px;
 }
 
-.image_adder_btn, .add_box, .cum_on_a_lizard, .delete_box, .preview_page, .ctg_button, .ctg_cancel_operation, .mkbold_text
+.image_adder_btn, .add_box, .cum_on_a_lizard, .delete_box, .preview_page, .ctg_button, .ctg_cancel_operation, .mkbold_text, .add_new_dir_to_root
 {
 	user-select: none;
 	color: white;
@@ -470,8 +471,14 @@ img
 	width: auto;
 	font-size: 20px;
 }
+.add_new_dir_to_root
+{
+	width: auto;
+	margin-top: 10px;
+	order: 214748363;
+}
 
-.image_deleter:active, .image_adder_btn:active, .add_box:active, .cum_on_a_lizard:active, .delete_box:active, .preview_page:active, .ctg_button:active, .ctg_cancel_operation:active, .mkbold_text:active
+.image_deleter:active, .image_adder_btn:active, .add_box:active, .cum_on_a_lizard:active, .delete_box:active, .preview_page:active, .ctg_button:active, .ctg_cancel_operation:active, .mkbold_text:active, .add_new_dir_to_root:active
 {
 	outline: 2px solid white;
 }
@@ -551,3 +558,13 @@ st[strike]
 	text-decoration: line-through;
 }
 
+.tut_name_text, .fname_text
+{
+	min-height: 15px;
+	min-width: 30px;
+}
+
+.imgrow
+{
+	display: flex;
+}
