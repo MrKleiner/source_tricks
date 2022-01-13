@@ -446,6 +446,10 @@ img
 	width: auto;
 	margin-top: 100px;
 }
+.cum_on_a_lizard, .add_box
+{
+	order: 214748363;
+}
 
 .delete_box
 {
@@ -562,6 +566,7 @@ st[strike]
 {
 	min-height: 15px;
 	min-width: 30px;
+	user-select: none;
 }
 
 .imgrow

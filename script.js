@@ -258,12 +258,14 @@ function activate_edit_mode(evee)
 	{
 		if (window.blender_edit_mode == false)
 		{
-			window.blender_edit_mode = true
+			// window.blender_edit_mode = true
 			console.log('enter edit mode')
 			// make article header editable
 			$('.arcl_header_p').attr('contenteditable', true);
 			// make articles editable
-			$('.tut_step_head_text').attr('contenteditable', true);
+			$('.tut_step_head_text')
+			.attr('contenteditable', true)
+			.addClass('single_lizrd_looking_for_sex');
 			window.border_edit_m = 
 			`
 				<div class="at_border_edit_box">
@@ -376,8 +378,24 @@ function activate_edit_mode(evee)
 				}
 
 		    });
-
+		    
+		    window.preview_mode = false
+		    toggle_page_preview()
 		}
+		if (window.blender_edit_mode == true)
+		{
+			// todo: add a special class to all the editor elements for faster delete
+			$('.ctg_button, .preview_page, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
+			if (window.preview_mode == false)
+			{
+				toggle_page_preview()
+			}
+			window.blender_edit_mode = false
+		}else{
+			window.blender_edit_mode = true
+		}
+
+		
 	}
 }
 
@@ -506,7 +524,7 @@ function add_bbox(etgt)
 	`
 		<div class="tut_step">
 			<div class="tut_step_head">
-				<p contenteditable class="tut_step_head_text">cum</p>
+				<p contenteditable class="single_lizrd_looking_for_sex tut_step_head_text">cum</p>
 				` + window.border_edit_m + `
 			</div>
 			<input class="section_name" type="text">
@@ -514,7 +532,7 @@ function add_bbox(etgt)
 		</div>
 	`;
 
-	$(etgt).before(bbox);
+	$('.article_content').append(bbox);
 
 }
 
@@ -641,7 +659,11 @@ function catalogue_manager(etgt, evee)
 
 function wraptext()
 {
-	surroundSelection('<st bold strike color="#64DAFF">', '</st>')
+	if ($(window.getSelection().anchorNode).closest('.single_lizrd_looking_for_sex').length > 0)
+	{
+		surroundSelection('<st bold strike color="#64DAFF">', '</st>')
+	}
+	
 }
 
 
@@ -707,7 +729,7 @@ function ctg_name_actuator(etgt, evee)
 	{
 		$(etgt).attr('contenteditable', true).focus();
 	}else{
-		if ($(etgt).hasClass('tut_name_text'))
+		if ($(etgt).hasClass('tut_name_text') && !$(etgt)[0].hasAttribute('contenteditable'))
 		{
 			pgloader($(etgt).closest('.nav_tutorial').attr('asset_idx'))
 		}
@@ -727,28 +749,91 @@ function img_preview_set_url(etgt)
 function pgloader(pgx)
 {
 
-	function pgload(ct, ref_index)
+	function pgload(ct, ref_index, rscode)
 	{
 
 
-		if (ct.includes('The site configured at this address does not'))
+		if (rscode == 404)
 		{
 			$('.tut_step').remove();
+			$('.rquick_index').empty();
 			$('.arcl_header_p').text('Does not exist. Go fuck a lizard');
 			window.current_zid = ref_index
 		}else{
-			console.log(ct)
+			window.current_zid = ref_index
+			console.log(ct);
+			$('.rquick_index').empty();
+			$('.tut_step').remove();
+			window.cpage_src = JSON.parse(ct);
+
+			// set title
+			$('.arcl_header_p').text(cpage_src['atitle']);
+
+			// build boxes
+			for (var zbox in cpage_src['boxes'])
+			{
+				// create empty box
+				var ebox = 
+				`
+					<div class="tut_step">
+						<div class="tut_step_head">
+							<p class="tut_step_head_text"></p>
+						</div>
+					</div>
+				`;
+				var emptybox = $(ebox);
+
+				// set headtext
+				$(emptybox).find('.tut_step_head_text').append(cpage_src['boxes'][zbox]['text']);
+				// set border
+				$(emptybox).find('.tut_step_head_text')
+					.css('border-color', cpage_src['boxes'][zbox]['border_c'].split(')')[0] + ')')
+					.css('border-width', cpage_src['boxes'][zbox]['border_w'])
+				// set chapter if any
+				// todo: also append the chapter to the box from the right. Done
+				if (cpage_src['boxes'][zbox]['chapter'] != ''){
+					$(emptybox).attr('id', cpage_src['boxes'][zbox]['chapter']);
+					$('.rquick_index').append('<a href="#' + cpage_src['boxes'][zbox]['chapter'] + '" class="rqindex_item">' + cpage_src['boxes'][zbox]['chapter'] + '</a>')
+				}
+
+				// if it has content - append button
+				// todo: make button evaluation a separate function and run it after the article is done
+				if (cpage_src['boxes'][zbox]['contents'].length > 0){
+					$(emptybox).find('.tut_step_head').append('<button class="tut_img_button"></button>')
+				}
+
+				// construct contents
+				for (var bxc in cpage_src['boxes'][zbox]['contents'])
+				{
+					var econ = $(`
+						<div class="tut_step_content">
+							<img id="test_scale" src="">
+						</div>
+					`);
+					if (cpage_src['boxes'][zbox]['contents'][bxc]['imguseurl'] == '1')
+					{
+						econ.find('img')[0].src = cpage_src['boxes'][zbox]['contents'][bxc]['imgurl']
+					}else{
+						var mksrc = 'content/' + cpage_src['selfid'] + '/data/' + cpage_src['boxes'][zbox]['contents'][bxc]['imgn'];
+						econ.find('img')[0].src = mksrc;
+					}
+					econ.find('img').css('width', cpage_src['boxes'][zbox]['contents'][bxc]['imgsize']);
+					$(emptybox).append(econ);
+				}
+
+				// append box to page
+				$('.article_content').append(emptybox);
+
+			}
+
+
+
+
+
+
+
+
 		}
-
-
-
-
-
-
-
-
-
-
 
 	}
 
@@ -757,6 +842,21 @@ function pgloader(pgx)
 
 
 
+
+	// fetch('content/' + pgx + '/' + pgx, {
+	// 	"headers": {
+	// 		"accept": "*/*",
+	// 		"cache-control": "no-cache",
+	// 		"pragma": "no-cache"
+	// 	},
+	// 	"referrerPolicy": "strict-origin-when-cross-origin",
+	// 	"body": null,
+	// 	"method": "GET",
+	// 	"mode": "cors",
+	// 	"credentials": "omit"
+	// })
+	// .then(response => response.text())
+	// .then(data => pgload(data, pgx) );
 
 	fetch('content/' + pgx + '/' + pgx, {
 		"headers": {
@@ -770,10 +870,12 @@ function pgloader(pgx)
 		"mode": "cors",
 		"credentials": "omit"
 	})
-	.then(response => response.text())
-	.then(data => pgload(data, pgx) );
-
-
+	.then(function(response) {
+		console.log(response.status);
+		response.text().then(function(data) {
+			pgload(data, pgx, response.status)
+		});
+	});
 }
 
 
@@ -802,7 +904,7 @@ function article_compiler()
 	var constructed_article = {
 		'atitle': 'nil',
 		'boxes': [],
-		'selfid': ''
+		'selfid': window.current_zid
 
 	}
 
@@ -889,10 +991,10 @@ function article_compiler()
     zip.file('content_index.sex', $(make_index_html).html());
 
 
-	zip.generateAsync({type:"blob"})
+	zip.generateAsync({type:'blob'})
 	.then(function(content) {
 	    // see FileSaver.js
-	    saveAs(content, window.current_zid + ".zip");
+	    saveAs(content, window.current_zid + '.zip');
 	});
 	console.log('ohfuck')
 
