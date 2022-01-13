@@ -729,7 +729,7 @@ function ctg_name_actuator(etgt, evee)
 	{
 		$(etgt).attr('contenteditable', true).focus();
 	}else{
-		if ($(etgt).hasClass('tut_name_text') && !$(etgt)[0].hasAttribute('contenteditable'))
+		if ($(etgt).hasClass('tut_name_text') && !$(etgt)[0].hasAttribute('contenteditable') && !window.blender_edit_mode)
 		{
 			pgloader($(etgt).closest('.nav_tutorial').attr('asset_idx'))
 		}

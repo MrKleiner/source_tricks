@@ -288,7 +288,7 @@ img
 {
 	display: flex;
 	width: 200px;
-	height: 100px;
+	/*height: 100px;*/
 	/*background-color: red;*/
 	align-self: flex-end;
 	position: fixed;
