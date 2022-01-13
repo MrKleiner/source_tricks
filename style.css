@@ -412,7 +412,7 @@ img
 {
 	display: flex;
 	flex-direction: column;
-	width: 300px;
+	width: 50%;
 }
 
 .image_deleter
@@ -572,4 +572,9 @@ st[strike]
 .imgrow
 {
 	display: flex;
+}
+
+.c_image_url
+{
+	width: 100%;
 }

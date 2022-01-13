@@ -988,7 +988,7 @@ function article_compiler()
     // nav_stuff_box
 	var make_index_html = $('.nav_stuff_box')[0].cloneNode(true);
 	$(make_index_html).find('.ctg_button').remove();
-    zip.file('content_index.sex', $(make_index_html).html());
+    zip.file('content_index.sex', html_beautify($(make_index_html).html().replaceAll('\t', '').replaceAll('\n', '')));
 
 
 	zip.generateAsync({type:'blob'})
