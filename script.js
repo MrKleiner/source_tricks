@@ -135,10 +135,74 @@ document.addEventListener('focusout', event => {
 	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
 });
 
-
+// todo: make this a string prototype
+function delnthchar(st, nth, use)
+{
+	if (st.toString() != '')
+	{
+		var todel = st.toString().split('');
+		var nthc = 1
+		var delres = []
+		for (var count in todel)
+		{	
+			if (use)
+			{
+				if (nthc != nth)
+				{
+					nthc += 1
+				}else{
+					delres.push(todel[count])
+					var nthc = 1
+				}
+			}else{
+				if (nthc != nth)
+				{
+					delres.push(todel[count])
+					nthc += 1
+				}else{
+					var nthc = 1
+				}
+			}
+		}
+		return delres.join('')
+	}else{
+		return ''
+	}
+}
 
 
 $(document).ready(function(){
+
+	function ihatethen(dt)
+	{
+		$('.nav_stuff_box').append(dt);
+		// load shit if it was linked to
+		var urlParams = new URLSearchParams(window.location.search);
+		var load_loc = urlParams.get('lt');
+		// if not null (exists) - load the tut
+		if (load_loc != null)
+		{
+			// we dont want huge fucking urls. We use every 4th character of an id
+			// and hope that there are no collisions...
+			// todo: create a smart nth returner function
+
+			// can't have shit in js...
+		    $('.nav_tutorial').each(function(){
+		    	// check every id
+		    	// downscale it first and then compare to the query
+				var string = $(this).attr('asset_idx');
+				var saltedString = delnthchar(string, 4, true)
+				if (load_loc == saltedString)
+				{
+					pgloader(string)
+				}
+
+		    });
+		}
+
+	}
+
+
 
 	fetch("content_index.sex", {
 		"headers": {
@@ -153,7 +217,11 @@ $(document).ready(function(){
 		"credentials": "omit"
 	})
 	.then(response => response.text())
-	.then(data => $('.nav_stuff_box').append(data));
+	// .then(data => $('.nav_stuff_box').append(data));
+	.then(data => ihatethen(data));
+	// YEA, one more fucking .then will do the shit, but I dont wanna
+
+
 /*    xmlDoc = $.parseXML(tml);
 	// fuckjq = $(xmlDoc)
 	// console.log(fuckjq)
@@ -249,6 +317,7 @@ function img_toggler(etgt)
 {
     // $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
     $(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
+    $(etgt).closest('.tut_step').find('.image_adder_btn').toggleClass('e_unclickable');
 }
 
 
@@ -338,8 +407,8 @@ function activate_edit_mode(evee)
 			$('.tut_step_head').append(border_edit_m);
 			$('.tut_step').append(img_adder);
 			$('.tut_step_content').append(img_editor);
-			$('.article_content').append('<div class="add_box">Lizard Sex</div>');
-			$('.article_content').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
+			$('.rquick_index').append('<div class="add_box">Lizard Sex</div>');
+			$('.rquick_index').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
 
 			$('.nav_tutorial').append(ctg_btns);
@@ -807,15 +876,17 @@ function pgloader(pgx)
 				{
 					var econ = $(`
 						<div class="tut_step_content">
-							<img id="test_scale" src="">
+							<img src="">
 						</div>
 					`);
 					if (cpage_src['boxes'][zbox]['contents'][bxc]['imguseurl'] == '1')
 					{
 						econ.find('img')[0].src = cpage_src['boxes'][zbox]['contents'][bxc]['imgurl']
+						econ.find('img').attr('orig_src', cpage_src['boxes'][zbox]['contents'][bxc]['imgurl']);
 					}else{
 						var mksrc = 'content/' + cpage_src['selfid'] + '/data/' + cpage_src['boxes'][zbox]['contents'][bxc]['imgn'];
 						econ.find('img')[0].src = mksrc;
+						econ.find('img').attr('orig_src', mksrc);
 					}
 					econ.find('img').css('width', cpage_src['boxes'][zbox]['contents'][bxc]['imgsize']);
 					$(emptybox).append(econ);
@@ -825,23 +896,18 @@ function pgloader(pgx)
 				$('.article_content').append(emptybox);
 
 			}
-
-
-
-
-
-
-
-
 		}
 
+	    // Construct URLSearchParams object instance from current URL querystring.
+	    var queryParams = new URLSearchParams(window.location.search);
+	     
+	    // Set new or modify existing parameter value. 
+	    queryParams.set('lt', delnthchar(window.current_zid, 4, true));
+	     
+	    // Replace current querystring with the new one.
+	    history.replaceState(null, null, "?"+queryParams.toString());
+
 	}
-
-
-
-
-
-
 
 	// fetch('content/' + pgx + '/' + pgx, {
 	// 	"headers": {
