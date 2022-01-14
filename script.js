@@ -8,7 +8,7 @@ document.addEventListener('click', event => {
     const img_minimize = event.target.closest('.tut_img_button');
     if (img_minimize) { img_toggler(img_minimize) }
 
-    // holster-unholster
+    // magic hat switch
     const hattrick = event.target.closest('.navbar-icon');
     if (hattrick) { activate_edit_mode(event) }
 
@@ -135,39 +135,47 @@ document.addEventListener('focusout', event => {
 	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
 });
 
-// todo: make this a string prototype
+// st - input string OR array
+// nth - every n character
+// use - if set to true, will return every n character
+// if set to false or not set, will return a string with every n character deleted
+// smartass: Works with arrays too
 function delnthchar(st, nth, use)
 {
-	if (st.toString() != '')
+	if (st.toString() == ''){ return ''}
+
+	if (Array.isArray(st))
 	{
+		var todel = st;
+	}else{
 		var todel = st.toString().split('');
-		var nthc = 1
-		var delres = []
-		for (var count in todel)
-		{	
-			if (use)
+	}
+
+	var nthc = 1
+	var delres = []
+	for (var count in todel)
+	{
+		if (use)
+		{
+			if (nthc != nth)
 			{
-				if (nthc != nth)
-				{
-					nthc += 1
-				}else{
-					delres.push(todel[count])
-					var nthc = 1
-				}
+				nthc += 1
 			}else{
-				if (nthc != nth)
-				{
-					delres.push(todel[count])
-					nthc += 1
-				}else{
-					var nthc = 1
-				}
+				delres.push(todel[count])
+				var nthc = 1
+			}
+		}else{
+			if (nthc != nth)
+			{
+				delres.push(todel[count])
+				nthc += 1
+			}else{
+				var nthc = 1
 			}
 		}
-		return delres.join('')
-	}else{
-		return ''
 	}
+	return delres.join('')
+
 }
 
 
@@ -199,7 +207,6 @@ $(document).ready(function(){
 
 		    });
 		}
-
 	}
 
 
@@ -220,7 +227,7 @@ $(document).ready(function(){
 	// .then(data => $('.nav_stuff_box').append(data));
 	.then(data => ihatethen(data));
 	// YEA, one more fucking .then will do the shit, but I dont wanna
-
+	// cuz like... one more fucking .then and THEN I'm gonna fucking kill myself
 
 /*    xmlDoc = $.parseXML(tml);
 	// fuckjq = $(xmlDoc)
@@ -285,17 +292,20 @@ function liz3_rndwave(length, method, addchars) {
 	}
 	switch (method) {
 		case 'flac':
-		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-()=+*#/!&?<>$~' + addon_chars;
+			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-()=+*#/!&?<>$~' + addon_chars;
 			break;
+
 		case 'num':
-		var characters = '1234567890' + addon_chars;
+			var characters = '1234567890' + addon_chars;
 			break;
+
 		case 'def':
-		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-' + addon_chars;
+			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-' + addon_chars;
 			break;
+
 		default:
-		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-' + addon_chars;
-		// console.log(`Sorry, we are out of ${expr}.`);
+			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-' + addon_chars;
+			// console.log(`Sorry, we are out of ${expr}.`);
 			break;
 	}
 	
@@ -905,7 +915,7 @@ function pgloader(pgx)
 	    queryParams.set('lt', delnthchar(window.current_zid, 4, true));
 	     
 	    // Replace current querystring with the new one.
-	    history.replaceState(null, null, "?"+queryParams.toString());
+	    history.replaceState(null, null, '?'+queryParams.toString());
 
 	}
 
