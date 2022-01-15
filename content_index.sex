@@ -22,5 +22,18 @@
         <div class="nav_tutorial" asset_idx="55aa44a384b255e38f8fa33c05128146">
             <div class="tut_name_text">Disclaimer</div>
         </div>
+        <div id_folder_name="nil" class="nav_folder">
+            <div class="folder_name">
+                <div class="fname_text">Knowledge</div>
+            </div>
+            <div class="folder_content">
+                <div class="nav_tutorial" asset_idx="52d2393cfb69b613b1c2ceabe325e807">
+                    <div class="tut_name_text">What are Meshes?</div>
+                </div>
+                <div class="nav_tutorial" asset_idx="3047069af6f7af2e8627c95ef8d94dab">
+                    <div class="tut_name_text">What are Materials?</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
