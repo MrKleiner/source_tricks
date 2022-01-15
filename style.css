@@ -104,7 +104,7 @@ img
 {
   /*display: inline-block;*/
   display: flex;
-  min-width: 1385px;
+  min-width: 1351px;
 }
 
 .article
@@ -280,7 +280,8 @@ img
 
 
 /*Corrective overwrites for text*/
-
+/*wat*/
+/*what kind of corrective overrides, you fucking lunatic ??*/
 
 
 
@@ -296,11 +297,12 @@ img
 	margin-right: 2em;
 	background: rgba(9, 9, 17, 0.22);
 	flex-direction: column;
+	max-width: 300px;
 }
 
 
 
-@media (min-width: 1580px)
+@media (min-width: 1590px)
 {
   .rquick_indexss
   {

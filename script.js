@@ -92,6 +92,9 @@ document.addEventListener('click', event => {
     const pingas = event.target.closest('.tut_step_content img');
     if (pingas) { imgmax(pingas) }
 
+	// breast enlargement (I hate it when girls do this)
+    const breasts = event.target.closest('.imgzoom');
+    if (breasts) { imgmin() }
 
 });
 
@@ -139,6 +142,58 @@ document.addEventListener('focusout', event => {
     if (ctgnames || ctgnames_t) { ctg_name_bitlocker(sas) }
 	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
 });
+
+// boxw - width of a desired box
+// mouse - x pos of cursor
+function guibox(boxw, mouse)
+{
+
+	// $(document).height();
+	var global_page_width = window.innerWidth;
+	
+	var global_cursor_location = e.pageX;
+	
+	if ((global_page_width - global_cursor_location) < 300)
+	{
+		var new_link_editor_x = global_cursor_location - 300;
+		
+		$('#global_super_link_editor')
+			.css({
+				left: new_link_editor_x,
+				top: e.pageY,
+			});
+		
+	}else{
+	
+	console.log(global_cursor_location);
+	
+	$("#global_super_link_editor")
+		.css({
+			left: e.pageX,
+			top: e.pageY,
+		})
+	
+	}
+
+
+	var global_page_width = window.innerWidth;
+	var global_cursor_location = e.pageX;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 // st - input string OR array
 // nth - every n character
@@ -212,7 +267,10 @@ $(document).ready(function(){
 
 		    });
 		}
-		cvready()
+		// cvready()
+		// set min width thingies
+		// todo: this is duplicated in page loader
+		$('.page_content').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
 	}
 
 
@@ -912,6 +970,7 @@ function pgloader(pgx)
 				$('.article_content').append(emptybox);
 
 			}
+			$('.page_content').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
 		}
 
 	    // Construct URLSearchParams object instance from current URL querystring.
@@ -921,7 +980,18 @@ function pgloader(pgx)
 	    queryParams.set('lt', delnthchar(window.current_zid, 4, true));
 	     
 	    // Replace current querystring with the new one.
-	    history.replaceState(null, null, '?'+queryParams.toString());
+	    // only keep hastag if it's actually present on the page
+	    // fun fact: JQuery shat itself
+	    var addhash = ''
+	    if (document.getElementById(decodeURI(window.location.hash).replace('#', '')) != null){
+	    	var addhash = window.location.hash
+	    	// even though I like chrome more - mozilla is giga chad in this situation
+	    }
+	    history.replaceState(null, null, '?'+queryParams.toString() + addhash);
+	    // ok now THIS is annoying...
+	    if (addhash != ''){
+	    	document.getElementById(decodeURI(window.location.hash).replace('#', '')).scrollIntoView();
+	    }
 
 	}
 
@@ -1094,17 +1164,25 @@ zip.generateAsync({type:"blob"})
 
 function imgmax(etgt)
 {
-	// $('.imgzoom').toggleClass('e_hidden')
-
-
-
-
-
-
+	$('.imgzoom').removeClass('e_hidden');
+	document.querySelector('body').style.overflow = 'hidden'
+	$('.imgzoom img')[0].src = $(etgt)[0].src
+	var imgw = $('.imgzoom img').width()
+	// downscale image if doesnt fit
+	if(window.innerWidth < imgw)
+	{
+		$('.imgzoom img').css('width', imgw * (window.innerWidth / imgw))
+		$('.imgzoom img').css('height', 'auto')
+	}
 
 }
 
-
+function imgmin()
+{
+	$('.imgzoom').addClass('e_hidden');
+	$('.imgzoom img').removeAttr('style');
+	document.querySelector('body').style.overflow = 'visible'
+}
 
 
 
