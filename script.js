@@ -143,55 +143,39 @@ document.addEventListener('focusout', event => {
 	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
 });
 
-// boxw - width of a desired box
+// box - box element
 // mouse - x pos of cursor
-function guibox(boxw, mouse)
+function guibox(box, mousex, mousey)
 {
 
-	// $(document).height();
-	var global_page_width = window.innerWidth;
-	
-	var global_cursor_location = e.pageX;
-	
-	if ((global_page_width - global_cursor_location) < 300)
+	// DOES IT ACTUALLY MAKE ANY SENSE TO MEASURE THIS DYNAMICALLY ?????????????????????????????????????????????????????
+	// $(".bmenu_root").removeClass("class_hidden");
+	var boxy_thing = $(box)
+	// wtf
+	var cs_x = mousex;
+	var cs_y = mousey;
+	var calc_menu_y = cs_y;
+	var calc_menu_x = cs_x;
+
+	if (parseInt(cs_x) > ( window.innerWidth - boxy_thing.outerWidth(true) ) )
 	{
-		var new_link_editor_x = global_cursor_location - 300;
-		
-		$('#global_super_link_editor')
-			.css({
-				left: new_link_editor_x,
-				top: e.pageY,
-			});
-		
-	}else{
-	
-	console.log(global_cursor_location);
-	
-	$("#global_super_link_editor")
-		.css({
-			left: e.pageX,
-			top: e.pageY,
-		})
-	
+	    var calc_menu_x = parseInt(cs_x) - ((parseInt(cs_x) + boxy_thing.outerWidth(true)) - window.innerWidth) - 20;
+	    console.log('calc x is ' + calc_menu_x + ' original x is ' + cs_x);
 	}
 
+	if (parseInt(cs_y) > ( window.innerHeight - boxy_thing.outerHeight(true) ) )
+	{
+	    var calc_menu_y = parseInt(cs_y) - ((parseInt(cs_y) + boxy_thing.outerHeight(true)) - window.innerHeight) -  20;
+	    console.log('calc is ' + calc_menu_y + ' original is ' + cs_y);
+	}
 
-	var global_page_width = window.innerWidth;
-	var global_cursor_location = e.pageX;
+	 console.log('calc is ' + calc_menu_y + 'original is ' + cs_y);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	boxy_thing
+	    .css({
+	    left: calc_menu_x,
+	    top: calc_menu_y,
+	});
 
 }
 
@@ -864,6 +848,7 @@ function eval_to_code()
 function ctg_name_bitlocker(etgt)
 {
 	$(etgt).removeAttr('contenteditable');
+	$(etgt).text($(etgt).text());
 }
 
 function ctg_name_actuator(etgt, evee)
@@ -985,7 +970,7 @@ function pgloader(pgx)
 	    var addhash = ''
 	    if (document.getElementById(decodeURI(window.location.hash).replace('#', '')) != null){
 	    	var addhash = window.location.hash
-	    	// even though I like chrome more - mozilla is giga chad in this situation
+	    	// even though I like chrome more - mozilla is extra giga chad in this situation
 	    }
 	    history.replaceState(null, null, '?'+queryParams.toString() + addhash);
 	    // ok now THIS is annoying...
@@ -1174,7 +1159,6 @@ function imgmax(etgt)
 		$('.imgzoom img').css('width', imgw * (window.innerWidth / imgw))
 		$('.imgzoom img').css('height', 'auto')
 	}
-
 }
 
 function imgmin()
@@ -1183,8 +1167,6 @@ function imgmin()
 	$('.imgzoom img').removeAttr('style');
 	document.querySelector('body').style.overflow = 'visible'
 }
-
-
 
 
 

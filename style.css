@@ -603,4 +603,34 @@ st[strike]
 {
 	width: auto;
 	height: 100%;
+	outline
+}
+
+/*.tut_step
+{
+	outline: 5px solid;
+	outline-color: transparent;
+	transition: .5s;
+}
+*/
+
+/*.tut_step:hover
+{
+	outline: 5px solid;
+	outline-color: rgba(255, 0, 0, 1);
+	transition: .1s;
+}*/
+
+.hlight
+{
+	outline: 5px solid;
+	outline-color: rgba(255, 0, 0, 1);
+	transition: 0s;
+}
+
+.nohlight
+{
+	outline: 5px solid;
+	outline-color: transparent !important;
+	transition: .9s;
 }
