@@ -272,6 +272,7 @@ $(document).ready(function(){
 				var saltedString = delnthchar(string, 4, true)
 				if (load_loc == saltedString)
 				{
+					// async !!!!
 					pgloader(string)
 				}
 
@@ -1002,7 +1003,10 @@ function pgloader(pgx)
 	    // Replace current querystring with the new one.
 	    // only keep hastag if it's actually present on the page
 	    // fun fact: JQuery shat itself
+
 	    var addhash = ''
+	    /*
+	    
 	    if (document.getElementById(decodeURI(window.location.hash).replace('#', '')) != null){
 	    	var addhash = window.location.hash
 	    	// even though I like chrome more - mozilla is extra giga chad in this situation
@@ -1012,6 +1016,20 @@ function pgloader(pgx)
 	    if (addhash != ''){
 	    	document.getElementById(decodeURI(window.location.hash).replace('#', '')).scrollIntoView();
 	    }
+	    */
+	    
+	    if (document.getElementById(decodeURI(window.location.hash).replace('#', '')) != null){
+	    	var addhash = window.location.hash
+
+			setTimeout(function() {
+			    document.getElementById(decodeURI(window.location.hash).replace('#', '')).scrollIntoView()
+			}, 200);
+
+	    	
+	    	// even though I like chrome more - mozilla is extra giga chad in this situation
+	    }
+	    history.replaceState(null, null, '?'+queryParams.toString() + addhash);
+
 
 	}
 
