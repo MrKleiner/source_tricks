@@ -503,9 +503,18 @@ function activate_edit_mode(evee)
 			$('.nav-side').append('<div fman_act="cancel" class="ctg_button ctg_cancel_operation">Cancel</div>')
 			$('.nav_stuff_box').append('<div fman_act="rootpaste" class="e_hidden ctg_button ctg_rootpaste">Paste To Root</div><div fman_act="rootnewdir" class="ctg_button add_new_dir_to_root">Add New Dir To Root</div>')
 
-			$('.tut_step_head').after('<input class="section_name" type="text">');
-
-
+			
+			
+			// readd chapter, if any
+		    $('.tut_step').each(function(){
+		    	if(this.hasAttribute('id')){
+		    		// todo: make this look better
+		    		$(this).find('.tut_step_head').after($('<input class="section_name" type="text">').val($(this).attr('id')));
+		    	}else{
+		    		$(this).find('.tut_step_head').after('<input class="section_name" type="text">');
+		    	}
+		    });
+			
 
 			// if an image has width style - show it
 			// and show urls
