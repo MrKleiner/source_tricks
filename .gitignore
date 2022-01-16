@@ -1,2 +1,3 @@
 ﻿starter.cmd
 htbin/*.py
+__pycache__
