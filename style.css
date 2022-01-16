@@ -17,7 +17,7 @@ html
 
 div
 {
-  /ddisplay: block;
+  ddisplay: block;
 }
 
 body
@@ -27,6 +27,7 @@ body
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  min-width: 1351px;
 }
 
 img
@@ -102,9 +103,9 @@ img
 
 .page_content
 {
-  /*display: inline-block;*/
-  display: flex;
-  min-width: 1351px;
+	/*display: inline-block;*/
+	display: flex;
+	/*min-width: 1351px;*/
 }
 
 .article
@@ -288,7 +289,7 @@ img
 .rquick_index
 {
 	display: flex;
-	width: 200px;
+	min-width: 200px;
 	/*height: 100px;*/
 	/*background-color: red;*/
 	align-self: flex-end;
@@ -596,6 +597,7 @@ st[strike]
 	z-index: 65535;
 	width: 100%;
 	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
 	/*background: red;*/
 }
 
@@ -603,7 +605,6 @@ st[strike]
 {
 	width: auto;
 	height: 100%;
-	outline
 }
 
 /*.tut_step
@@ -634,3 +635,4 @@ st[strike]
 	outline-color: transparent !important;
 	transition: .9s;
 }
+

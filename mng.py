@@ -1,16 +1,17 @@
 import os
 from pathlib import Path
 
+application_path = os.path.dirname(sys.executable)
+# print(application_path)
 
-managercode = """
-lizardpussy
+managercode = """lizardpussy
 import cgi, cgitb
 import os, sys, json
 from pathlib import Path
 import subprocess
 
 
-theroot = addon_root_dir = Path(__file__).absolute().parent.parent
+theroot = Path(__file__).absolute().parent.parent
 
 # encode
 def atob(strin):
@@ -57,7 +58,7 @@ data = sys.stdin.read()
 # form = cgi.FieldStorage()
 # domrip=form.getvalue('domrip')
 # data = sys.stdin.read(int(os.environ.get('HTTP_CONTENT_LENGTH', 0)))
-print ('Content-type:text/plain\r\n\r\n')
+print ('Content-type:text/plain\\r\\n\\r\\n')
 if data and len(data) > 105:
 	all = json.loads(data)
 	# theroot = Path('content')
@@ -103,7 +104,8 @@ else:
 
 
 # first - check if python path file is there
-theroot = Path(__file__).absolute().parent
+# theroot = Path(__file__).absolute().parent
+theroot = Path(application_path).absolute()
 
 if (theroot / 'path_to_python.cum').is_file():
 	# if it's there - read it and create cmd starter with manager
@@ -112,11 +114,11 @@ if (theroot / 'path_to_python.cum').is_file():
 	    balls = balls.replace('"', '').replace('\n', '')
 
     # correct managercode
-	managercode = managercode.replace('lizardpussy\n', """#!""" + balls)
+	managercode = managercode.replace('lizardpussy', """#!""" + balls)
 
     # create cmd starter
 	cmdf = open(theroot / 'starter.cmd', 'w')
-	cmdf.write('cd /d ' + str(theroot) + '\n' + 'py ' + balls)
+	cmdf.write('cd /d ' + str(theroot) + '\n' + balls + ' ' + str(theroot / 'simple_http_serv.py'))
 	cmdf.close()
 
 	# create manager
