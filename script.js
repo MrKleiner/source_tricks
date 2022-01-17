@@ -591,7 +591,9 @@ function activate_edit_mode(evee)
 			window.folder_htm = 
 			`
 				<div id_folder_name="nil" class="nav_folder">
-					<div class="folder_name"><div contenteditable class="fname_text">Sample Text (MLG)</div>` + window.folder_btns + `</div>
+					<div class="folder_name">
+						<div class="folder_triangle"><div class="folder_triangle_ico"></div></div>
+						<div contenteditable class="fname_text">Sample Text (MLG)</div>` + window.folder_btns + `</div>
 					<div class="folder_content">
 					</div>
 				</div>
