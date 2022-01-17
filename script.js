@@ -576,12 +576,21 @@ function activate_edit_mode(evee)
 
 			window.ctg_btns = 
 			`
+
+				<div fman_act="shuf" class="ctg_button shuffle_ctg_item">
+					<div class="shuffle_ctg_item_top"><div class="btnsico"></div></div>
+					<div class="shuffle_ctg_item_bot"><div class="btnsico"></div></div>
+				</div>
 				<div fman_act="mv_tut" class="ctg_button move_ctg_item"><div class="btnsico"></div></div>
 				<div fman_act="del_tut" class="ctg_button del_ctg_item"><div class="btnsico"></div></div>
 			`;
 
 			window.folder_btns =
 			`
+				<div fman_act="shuf" class="ctg_button shuffle_ctg_item">
+					<div class="shuffle_ctg_item_top"><div class="btnsico"></div></div>
+					<div class="shuffle_ctg_item_bot"><div class="btnsico"></div></div>
+				</div>
 				<div fman_act="add_tut" class="ctg_button add_ctg_tut"><div class="btnsico"></div></div>
 				<div fman_act="add_fld" class="ctg_button add_ctg_folder"><div class="btnsico"></div></div>
 				<div fman_act="mv_fld" class="ctg_button move_ctg_item"><div class="btnsico"></div></div>
@@ -609,7 +618,7 @@ function activate_edit_mode(evee)
 			$('.rquick_index').append('<div class="add_box">Lizard Sex</div>');
 			$('.rquick_index').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
-			$('.rquick_index').append('<div><input type="color" class="color_maker"><p style="color: white; padding: 3px; font-size: 19px;"></p></div>');
+			$('.rquick_index').append('<div class="imgeditjs"><input type="color" class="color_maker"><p style="color: white; padding: 3px; font-size: 19px;"></p></div>');
 
 			$('.nav_tutorial').append(ctg_btns);
 			$('.folder_name').append(folder_btns);
@@ -665,7 +674,7 @@ function activate_edit_mode(evee)
 		if (window.blender_edit_mode == true)
 		{
 			// todo: add a special class to all the editor elements for faster delete
-			$('.ctg_button, .preview_page, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
+			$('.ctg_button, .preview_page, .imgeditjs, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
 			$('.nav-side').removeAttr('style');
 			if (window.preview_mode == false)
 			{
@@ -937,13 +946,30 @@ function catalogue_manager(etgt, evee)
 
 	if($(etgt).attr('fman_act') == 'add_tut')
 	{
-
 		var today = new Date();
-		var rndname = CryptoJS.MD5(today.getTime() + liz3_rndwave(16, 'num', '')).toString();
+		var rndname = CryptoJS.MD5(today.getTime().toString() + liz3_rndwave(128, 'flac', '')).toString();
+		console.log(rndname)
 		// console.log(CryptoJS.MD5('shit').toString());
 		$(etgt).closest('.folder_name').siblings('.folder_content').append($('<div class="nav_tutorial"><div class="tut_name_text">How to lizard sex</div>' + window.ctg_btns + '</div>').attr('asset_idx', rndname));
 	}
 
+	// <div fman_act="shuf" class="ctg_button shuffle_ctg_item">
+	// 	<div class="shuffle_ctg_item_top"><div class="btnsico"></div></div>
+	// 	<div class="shuffle_ctg_item_bot"><div class="btnsico"></div></div>
+	// </div>
+	if($(etgt).attr('fman_act') == 'shuf')
+	{
+		var chooser = $(etgt).closest('.nav_tutorial')[0] || $(etgt).closest('.nav_folder')[0]
+		if(evee.target.closest('.shuffle_ctg_item_top'))
+		{
+			$(chooser).insertBefore($(chooser).prev())
+		}
+
+		if(evee.target.closest('.shuffle_ctg_item_bot'))
+		{
+			$(chooser).insertAfter($(chooser).next())
+		}
+	}
 
 
 	$('.ctg_cancel_operation').removeClass('e_hidden');

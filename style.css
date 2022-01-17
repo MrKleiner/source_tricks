@@ -852,3 +852,76 @@ some fancy shit
 {
 	background: rgba(20, 255, 0, 0.08);
 }
+
+
+.shuffle_ctg_item
+{
+	display: flex;
+	/*height: 100%;*/
+	width: 25px;
+	flex-direction: column;
+	padding: 0px !important;
+}
+
+.shuffle_ctg_item:hover
+{
+	background: transparent !important;
+}
+
+.shuffle_ctg_item:active{
+	outline: 0px solid white !important;
+}
+
+.shuffle_ctg_item_top, .shuffle_ctg_item_bot
+{
+	display: flex;
+	height: 50%;
+	width: 100%;
+
+}
+
+.shuffle_ctg_item_top .btnsico
+{
+	background-image: url('assets/arrow_white.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.shuffle_ctg_item_bot .btnsico
+{
+	background-image: url('assets/arrow_white.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	transform: rotate(180deg);
+
+}
+
+
+.shuffle_ctg_item .shuffle_ctg_item_top:hover, .shuffle_ctg_item .shuffle_ctg_item_bot:hover
+{
+	background-color: rgb(60, 60, 80);
+}
+
+.shuffle_ctg_item .shuffle_ctg_item_top:active, .shuffle_ctg_item .shuffle_ctg_item_bot:active
+{
+	outline: 2px solid white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
