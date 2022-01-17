@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap&subset=cyrillic');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800&display=swap&subset=cyrillic');
+
 html
 {
   /*display: inline-block;*/
@@ -468,7 +469,7 @@ img
 .ctg_button
 {
 	margin: 0px 0px 0px 3px;
-	width: 20px;
+	width: 25px;
 	font-size: 12px;
 }
 
@@ -517,7 +518,6 @@ img
 .folder_name
 {
 	display: flex;
-	color: green;
 	user-select: none;
 }
 
@@ -525,7 +525,7 @@ img
 {
 	display: flex;
 	flex-direction: column;
-	margin-left: 15px;
+	margin-left: 17px;
 }
 
 .nav_tutorial
@@ -635,3 +635,183 @@ st[strike]
 	transition: .9s;
 }
 
+
+/*
+ =======================================
+
+some fancy shit
+
+
+=======================================
+*/
+
+.nav_stuff_box
+{
+	font-family: 'Open Sans', serif;
+	font-weight: 300;
+
+}
+
+
+
+
+
+.fname_text
+{
+	display: flex;
+	padding: 5px 5px 5px 5px;
+	/*background:;*/
+	flex-grow: 1;
+}
+
+
+
+.folder_name
+{
+	background: rgba(0, 0, 0, 0.19);
+	color: #58bb7e;
+}
+
+.folder_name:hover
+{
+	background: rgba(0, 0, 0, 0.27);
+}
+.folder_name:active
+{
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.nav_tutorial
+{
+	background: rgba(0, 0, 0, 0.08);
+}
+
+.nav_tutorial:hover
+{
+	/*background: rgba(200, 200, 200, 0.025);*/
+	/*background: rgba(97, 148, 244, 0.08);*/
+	background: rgba(97, 148, 244, 0.05);
+}
+.nav_tutorial:active
+{
+	background: rgba(20, 255, 0, 0.08);
+}
+
+.tut_name_text
+{
+	padding: 3px 3px 3px 3px;
+	flex-grow: 1;
+}
+
+.nav_folder
+{
+	margin-top: 4px;
+}
+
+.folder_name .ctg_button, .nav_tutorial .ctg_button
+{
+	/*display: flex;*/
+	margin: 0px;
+	border-radius: 0px;
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 6px 2px 6px 2px;
+	display: none;
+}
+
+.folder_name:hover .ctg_button, .nav_tutorial:hover .ctg_button
+{
+	display: flex;
+}
+
+
+.folder_name .ctg_button:hover, .nav_tutorial .ctg_button:hover
+{
+	background-color: black;
+}
+
+.btnsico
+{
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.folder_name .add_ctg_tut .btnsico
+{
+	background-image: url('assets/add_tut.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.folder_name .add_ctg_folder .btnsico
+{
+	background-image: url('assets/folder.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.folder_name .move_ctg_item .btnsico
+{
+	background-image: url('assets/move.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.folder_name .del_ctg_item .btnsico
+{
+	background-image: url('assets/rubbish.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+
+
+/*todo: comine with folder name css*/
+.nav_tutorial .move_ctg_item .btnsico
+{
+	background-image: url('assets/move.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.nav_tutorial .del_ctg_item .btnsico
+{
+	background-image: url('assets/rubbish.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+
+
+.folder_triangle
+{
+	display: flex;
+	width: 10px;
+	align-items: center;
+	padding: 0px 0px 0px 3px;
+}
+
+.folder_triangle_ico
+{
+	display: flex;
+	width: 100%;
+	height: 100%;
+	background-image: url('assets/arrow_white.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	transform: rotate(180deg);
+	opacity: 0.25;
+}
+
+
+.folder_tri_closed
+{
+	transform: rotate(90deg) !important;
+}

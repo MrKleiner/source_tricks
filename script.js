@@ -3,7 +3,7 @@ window.preview_mode = false
 
 document.addEventListener('click', event => {
     console.log('click_registered');
-  
+
     // holster-unholster
     const img_minimize = event.target.closest('.tut_img_button');
     if (img_minimize) { img_toggler(img_minimize) }
@@ -365,7 +365,7 @@ $(document).ready(function(){
 		{
 			// we dont want huge fucking urls. We use every 4th character of an id
 			// and hope that there are no collisions...
-			// todo: create a smart nth returner function
+			// todo: create a smart nth returner function. DOne
 
 			// can't have shit in js...
 		    $('.nav_tutorial').each(function(){
@@ -385,6 +385,7 @@ $(document).ready(function(){
 		// set min width thingies
 		// todo: this is duplicated in page loader
 		$('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
+		// $('.folder_name').prepend('<div class="folder_triangle"><div class="folder_triangle_ico"></div></div>');
 	}
 
 
@@ -515,6 +516,7 @@ function activate_edit_mode(evee)
 	{
 		if (window.blender_edit_mode == false)
 		{
+			$('.nav-side').css('width', (parseInt($('.nav-side').css('width')) + 100).toString()+'px')
 			// window.blender_edit_mode = true
 			console.log('enter edit mode')
 			// make article header editable
@@ -572,16 +574,16 @@ function activate_edit_mode(evee)
 
 			window.ctg_btns = 
 			`
-				<div fman_act="mv_tut" class="ctg_button move_ctg_item">M</div>
-				<div fman_act="del_tut" class="ctg_button del_ctg_item">D</div>
+				<div fman_act="mv_tut" class="ctg_button move_ctg_item"><div class="btnsico"></div></div>
+				<div fman_act="del_tut" class="ctg_button del_ctg_item"><div class="btnsico"></div></div>
 			`;
 
 			window.folder_btns =
 			`
-				<div fman_act="add_tut" class="ctg_button add_ctg_tut">AT</div>
-				<div fman_act="add_fld" class="ctg_button add_ctg_folder">AD</div>
-				<div fman_act="mv_fld" class="ctg_button move_ctg_item">M</div>
-				<div fman_act="del_fld" class="ctg_button del_ctg_item">D</div>
+				<div fman_act="add_tut" class="ctg_button add_ctg_tut"><div class="btnsico"></div></div>
+				<div fman_act="add_fld" class="ctg_button add_ctg_folder"><div class="btnsico"></div></div>
+				<div fman_act="mv_fld" class="ctg_button move_ctg_item"><div class="btnsico"></div></div>
+				<div fman_act="del_fld" class="ctg_button del_ctg_item"><div class="btnsico"></div></div>
 				<div fman_act="paste_elem" class="ctg_button paste_btn e_hidden">Here</div>
 
 			`;
@@ -657,6 +659,7 @@ function activate_edit_mode(evee)
 		{
 			// todo: add a special class to all the editor elements for faster delete
 			$('.ctg_button, .preview_page, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
+			$('.nav-side').removeAttr('style');
 			if (window.preview_mode == false)
 			{
 				toggle_page_preview()
@@ -852,6 +855,7 @@ function folder_toggler(etgt, evee, orign)
 	if(!$(orign)[0].hasAttribute('contenteditable') && !evee.altKey)
 	{
 		$(etgt).siblings('.folder_content').toggleClass('e_hidden');
+		$(etgt).find('.folder_triangle_ico').toggleClass('folder_tri_closed');
 	}
 }
 
@@ -1072,8 +1076,14 @@ function pgloader(pgx)
 			$('.rquick_index').empty();
 			$('.arcl_header_p').text('Does not exist. Go fuck a lizard');
 			window.current_zid = ref_index
+			$('.nav_tutorial .tut_name_text').removeAttr('style');
+			$('.nav_tutorial[asset_idx="' + ref_index + '"] .tut_name_text').css('border-left', '2px solid #63b6d7');
+
 		}else{
 			window.current_zid = ref_index
+			$('.nav_tutorial .tut_name_text').removeAttr('style');
+			$('.nav_tutorial[asset_idx="' + ref_index + '"] .tut_name_text').css('border-left', '2px solid #63b6d7');
+			console.log('.nav_tutorial[asset_idx="' + ref_index + '"] .tut_name_text')
 			console.log(ct);
 			$('.rquick_index').empty();
 			$('.tut_step').remove();
@@ -1482,6 +1492,7 @@ function article_compiler_py()
     // nav_stuff_box
 	var make_index_html = $('.nav_stuff_box')[0].cloneNode(true);
 	$(make_index_html).find('.ctg_button').remove();
+	// $(make_index_html).find('.ctg_butto').remove();
     // zip.file('content_index.sex', html_beautify($(make_index_html).html().replaceAll('\t', '').replaceAll('\n', '')));
     payload['ctlg'] = u8btoa(html_beautify($(make_index_html).html().replaceAll('\t', '').replaceAll('\n', '')));
     
