@@ -67,13 +67,7 @@ document.addEventListener('click', event => {
 	// ctg name editing actuator
     const ectgnames = event.target.closest('.fname_text');
     const ectgnames_t = event.target.closest('.tut_name_text');
-    if (ectgnames){
-    	var ses = ectgnames
-    }
-    if (ectgnames_t){
-    	var ses = ectgnames_t
-    }
-    if (ectgnames || ectgnames_t) { ctg_name_actuator(ses, event) }
+    if (ectgnames || ectgnames_t) { ctg_name_actuator(ectgnames || ectgnames_t, event) }
 
 
 
@@ -134,15 +128,19 @@ document.addEventListener('focusout', event => {
     // border top colour
     const ctgnames = event.target.closest('.fname_text');
     const ctgnames_t = event.target.closest('.tut_name_text');
-    if (ctgnames){
-    	var sas = ctgnames
-    }
-    if (ctgnames_t){
-    	var sas = ctgnames_t
-    }
-    if (ctgnames || ctgnames_t) { ctg_name_bitlocker(sas) }
+    if (ctgnames || ctgnames_t) { ctg_name_bitlocker(ctgnames || ctgnames_t) }
 	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
 });
+
+
+document.addEventListener('keypress', event => {
+	console.log('kp')
+    const fname_apply = event.target.closest('.fname_text');
+    const tutname_apply = event.target.closest('.tut_name_text');
+    if (fname_apply || tutname_apply) { ctg_name_apply(fname_apply || tutname_apply, event) }
+
+});
+
 
 
 document.addEventListener('paste', event => {
@@ -656,6 +654,7 @@ function activate_edit_mode(evee)
 		    
 		    window.preview_mode = false
 		    toggle_page_preview()
+		    $('.page_content').css('min-width', 100 + 1360 + $('.rquick_index').outerWidth(true));
 		}
 		if (window.blender_edit_mode == true)
 		{
@@ -872,6 +871,7 @@ function catalogue_manager(etgt, evee)
 		window.func_movelinear = $(etgt).closest('.nav_tutorial');
 		$('.ctg_button').addClass('e_hidden');
 		$('.paste_btn, .ctg_rootpaste').removeClass('e_hidden');
+		$(etgt).closest('.nav_tutorial').addClass('folder_mv_hlight');
 	}
 
 	if($(etgt).attr('fman_act') == 'mv_fld')
@@ -880,6 +880,7 @@ function catalogue_manager(etgt, evee)
 		$('.ctg_button').addClass('e_hidden');
 		$('.paste_btn, .ctg_rootpaste').removeClass('e_hidden');
 		$(etgt).closest('.nav_folder').find('.paste_btn').addClass('e_hidden');
+		$(etgt).closest('.nav_folder').addClass('folder_mv_hlight');
 	}
 
 	if($(etgt).attr('fman_act') == 'paste_elem')
@@ -888,6 +889,7 @@ function catalogue_manager(etgt, evee)
 		window.func_movelinear = 'nil';
 		$('.ctg_button').removeClass('e_hidden');
 		$('.paste_btn, .ctg_rootpaste').addClass('e_hidden');
+		$('.nav_folder, .nav_tutorial').removeClass('folder_mv_hlight');
 	}
 
 	if($(etgt).attr('fman_act') == 'rootpaste')
@@ -904,6 +906,7 @@ function catalogue_manager(etgt, evee)
 		window.func_movelinear = 'nil';
 		$('.ctg_button').removeClass('e_hidden');
 		$('.paste_btn, .ctg_rootpaste').addClass('e_hidden');
+		$('.nav_folder, .nav_tutorial').removeClass('folder_mv_hlight');
 	}
 
 	if($(etgt).attr('fman_act') == 'del_fld' && evee.altKey)
@@ -1007,6 +1010,7 @@ function ctg_name_bitlocker(etgt)
 {
 	$(etgt).removeAttr('contenteditable');
 	$(etgt).text($(etgt).text());
+	$(etgt).css('user-select', '');
 }
 
 function ctg_name_actuator(etgt, evee)
@@ -1014,6 +1018,7 @@ function ctg_name_actuator(etgt, evee)
 	if(evee.altKey)
 	{
 		$(etgt).attr('contenteditable', true).focus();
+		$(etgt).css('user-select', 'text');
 	}else{
 		if ($(etgt).hasClass('tut_name_text') && !$(etgt)[0].hasAttribute('contenteditable') && !window.blender_edit_mode)
 		{
@@ -1544,22 +1549,6 @@ function article_compiler_py()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 zip.generateAsync({type:"blob"})
 .then(function(content) {
@@ -1590,9 +1579,21 @@ function imgmin()
 	document.querySelector('body').style.overflow = 'visible'
 }
 
+function is_e(el, is)
+{
+	return $(el).hasClass(is)
 
+}
 
-
+// takes text input as an input
+function ctg_name_apply(etgt, evee)
+{
+	if (evee.keyCode == 13)
+	{
+		$(etgt).removeAttr('contenteditable');
+		$(etgt).blur();
+	}
+}
 
 
 

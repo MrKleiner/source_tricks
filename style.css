@@ -540,7 +540,7 @@ img
 	order: 214748364;
 	width: auto;
 	font-size: 14px;
-
+	margin-top: 20px;
 }
 
 
@@ -726,7 +726,8 @@ some fancy shit
 
 .folder_name .ctg_button:hover, .nav_tutorial .ctg_button:hover
 {
-	background-color: black;
+	/*background-color: gray;*/
+	background-color: rgb(60, 60, 80);
 }
 
 .btnsico
@@ -814,4 +815,10 @@ some fancy shit
 .folder_tri_closed
 {
 	transform: rotate(90deg) !important;
+}
+
+
+.folder_mv_hlight
+{
+	outline: 1px solid rgba(223, 185, 71, 0.41);
 }
