@@ -145,6 +145,109 @@ document.addEventListener('focusout', event => {
 });
 
 
+document.addEventListener('paste', event => {
+
+	const imgpaster = event.target.closest('.c_image_url');
+	if (imgpaster)
+	{
+        var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+        console.log(JSON.stringify(items)); // might give you mime types
+        for (var index in items) {
+            var item = items[index];
+            if (item.kind === 'file') {
+                var blob = item.getAsFile();
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    console.log(reader.result);
+                    // var boobs = new Blob([reader.result], {type: etgt.files[0].type });
+                    var boobs = new Blob([reader.result], {type: blob.type });
+                    // create actual blob url
+					var urlCreator = window.URL || window.webkitURL;
+					var imageUrl = urlCreator.createObjectURL(boobs);
+					
+					$(imgpaster).closest('.tut_step_content').find('img')[0].src = imageUrl
+					console.log(reader.result.length)
+
+					// todo: (doesnt has to do anything with async) Why buffer? You can easily read blob as buffer later...
+					// todo: make guid gen and assignation a separate function
+					// todo: ffs organize this finally...
+					var today = new Date();
+					guidgen = CryptoJS.SHA256(today.getTime().toString() + liz3_rndwave(512, 'flac', '')).toString();
+					$(imgpaster).closest('.image_editor').find('.c_image_input').attr('uuid', guidgen)
+					window[guidgen] = reader.result
+
+					$(imgpaster).closest('.image_editor').find('.imguseurl').prop('checked', false);
+
+					// set file back to whatever
+					// todo: this whole file thing is very poorly made now (it was organised when there was no paste whatsoever)
+					// what if... a global image bank with abstract structure?
+					// like a subfolder in the root or something
+					// anyway, it now also has to account for url downloads from imgur or whatever
+
+					var filez = new File([blob],'pasted'+liz3_rndwave(8, 'flac', ''),{type: blob.type });
+					var containerz = new DataTransfer();
+					containerz.items.add(filez);
+					$(imgpaster).closest('.image_editor').find('.c_image_input')[0].files = containerz.files;
+
+                }; 
+                // reader.readAsDataURL(blob);
+                // reader.readAsArrayBuffer(etgt.files[0], 'UTF-8');
+                reader.readAsArrayBuffer(blob, 'UTF-8');
+                console.log(blob)
+            }
+        }
+	}
+
+});
+
+
+// todo: pro tip
+/*
+https://i.imgur.com/0bWuUB4.png
+*/
+
+/*
+	// RAW BASE 64 !!!!!
+	var dataURI = 'Qk3QAAAAAAAAAD4AAAAoAAAAEAAAABIAAAABAAQAAAAAAJIAAAASCwAAEgsAAAIAAAACAAAAAAAAAP///wAQAAAAAAAAAQAAAAAAAAAAAAAAERAAAAAAAAAQAAAAAAAAABEQAAAAAAAAABAAAAAAAAAAEAAAAAAAABEQAAAAEAAAAAAAAAEQAAAAAAAAAQAAAAAAAAAAAAAAEREQAAAAAAAAEAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAEAAAAAAAABEQAAAAEAAAAAAAAAEAAA==';
+	var base64Response = await fetch(`data:image/bmp;base64,` + dataURI);
+
+	var blob = await base64Response.blob();
+
+	var filez = new File([blob],'lel.bmp',{type:"image/bmp"});
+	var containerz = new DataTransfer();
+	
+	// container.items.add(file);
+	containerz.items.add(filez);
+	//document.getElementById('lizards_pussy2').files = container.files;
+	$0.files = containerz.files;
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -457,7 +560,11 @@ function activate_edit_mode(evee)
 			`
 				<div class="image_editor">
 					<div class="imgrow"><input class="c_image_input" type="file" accept="image/png, image/gif, image/jpeg, image/bmp, image/webp"></div>
-					<div class="imgrow"><input class="c_image_url" type="text"><input class="imguseurl" type="checkbox"></div>
+					<div class="imgrow">
+						<input class="c_image_url" type="text">
+						<input class="imguseurl" type="checkbox">
+						<input checked class="imgdlurl" type="checkbox">
+					</div>
 					<input class="c_image_size" type="number">
 					<div class="image_deleter">Delete</div>
 				</div>
@@ -532,6 +639,7 @@ function activate_edit_mode(evee)
 				var target_f = $(this).find('.c_image_size');
 				$(this).find('.c_image_url').val(ime.attr('src'));
 				$(this).find('.imguseurl').prop('checked', true);
+				$(this).find('.imgdlurl').prop('checked', false);
 				if ($(ime)[0].hasAttribute('style'))
 				{
 					if ($(ime).attr('style').includes('width'))
@@ -647,7 +755,15 @@ function img_preview(etgt)
 		$(image_slot)[0].src = imageUrl
 		console.log(reader.result.length)
 
-		window[etgt] = reader.result
+
+		var today = new Date();
+		guidgen = CryptoJS.SHA256(today.getTime().toString() + liz3_rndwave(512, 'flac', '')).toString();
+		$(etgt).attr('uuid', guidgen)
+		window[guidgen] = reader.result
+
+		// console.log(window[etgt])
+
+		$(etgt).closest('.tut_step_content').find('.imguseurl').prop('checked', true);
 
 /*		console.log(reader.result);
 		window.softimage = new Image();
@@ -901,11 +1017,44 @@ function ctg_name_actuator(etgt, evee)
 }
 
 
-
+// well, it as such a cute little function before the url loader story...
 function img_preview_set_url(etgt)
 {
-	var image_slot = $(etgt).closest('.tut_step_content').find('img');
-	$(image_slot)[0].src = $(etgt).val();
+	if($(etgt).closest('.image_editor').find('.imgdlurl')[0].checked)
+	{
+		fetch($(etgt).val())
+				.then(function(response) {
+				console.log(response.status);
+				response.arrayBuffer().then(function(data) {
+					console.log(data);
+                    var boobs = new Blob([data], {type: 'image/' + $(etgt).val().split('.').at(-1)});
+                    // create actual blob url
+					var urlCreator = window.URL || window.webkitURL;
+					var imageUrl = urlCreator.createObjectURL(boobs);
+					$(etgt).closest('.tut_step_content').find('img')[0].src = imageUrl
+
+					var today = new Date();
+					guidgen = CryptoJS.SHA256(today.getTime().toString() + liz3_rndwave(512, 'flac', '')).toString();
+					$(etgt).closest('.image_editor').find('.c_image_input').attr('uuid', guidgen)
+					window[guidgen] = data
+
+
+					// set file back
+					// todo: duplicated code
+					var filez = new File([boobs],'loaded'+liz3_rndwave(8, 'flac', ''),{type: boobs.type });
+					var containerz = new DataTransfer();
+					containerz.items.add(filez);
+					$(etgt).closest('.image_editor').find('.c_image_input')[0].files = containerz.files;
+
+
+				});
+		});
+
+	}else{
+		var image_slot = $(etgt).closest('.tut_step_content').find('img');
+		$(image_slot)[0].src = $(etgt).val();
+	}
+
 }
 
 
@@ -1197,8 +1346,15 @@ function article_compiler()
 
 }
 
+/*
+async function getfetch(specific)
+{
 
+	var totalhax = await fetch($(this).find(''));
+	var blob = await totalhax.arrayBuffer();
 
+}
+*/
 
 
 function article_compiler_py()
@@ -1260,18 +1416,20 @@ function article_compiler_py()
 	    		'imguseurl': '0',
 	    		'imgsize': ''
 	    	}
-	    	if ($(this).find('.imguseurl')[0].checked)
+	    	if ($(this).find('.imguseurl')[0].checked && !$(this).find('.imgdlurl')[0].checked)
 	    	{
 	    		// todo: use true/false instead
     			makecont['imguseurl'] = '1';
     			makecont['imgurl'] = $(this).find('.c_image_url').val();
 	    	}else{
 	    		// make name
+	    		// todo: make a check for malformed file input data (like unspecified files etc)
 				var today = new Date();
 				if ($(this).find('.c_image_input')[0].hasAttribute('gn_name'))
 				{
 					var mkimgname = $(this).find('.c_image_input').attr('gn_name')
 				}else{
+					// it just seems cool to do it the total hax way (md5 hash n shit)
 					var mkimgname = CryptoJS.MD5(liz3_rndwave(256, 'flac', '')).toString() + '.' + $(this).find('.c_image_input')[0].files[0].type.split('/').at(-1);
 					// save generated name
 					$(this).find('.c_image_input').attr('gn_name', mkimgname);
@@ -1288,7 +1446,8 @@ function article_compiler_py()
 				// place the image into the folder
 				// tut_data.file(mkimgname, window[$(this).find('.c_image_input')[0]]);
 				var im = {}
-				im['dat'] = arrayBufferToBase64(window[$(this).find('.c_image_input')[0]]);
+				console.log(arrayBufferToBase64(window[$(this).find('.c_image_input').attr('uuid')]))
+				im['dat'] = arrayBufferToBase64(window[$(this).find('.c_image_input').attr('uuid')]);
 				im['nm'] = mkimgname;
 				payload['imgs'].push(im);
 
@@ -1349,6 +1508,7 @@ function article_compiler_py()
 				$('.cum_on_a_lizard').css('outline', '3px solid green');
 			}else{
 				$('.cum_on_a_lizard').css('outline', '3px solid red');
+				console.log(data)
 			}
 		});
 	});
