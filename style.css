@@ -53,7 +53,7 @@ img
   position: relative;
   margin-left: 1vw;
   
-  background-image: url("https://i.imgur.com/Nq2pGaw.png");
+  background-image: url("assets/magic_hat.png");
   background-repeat: no-repeat;
   background-size: 80%;
   background-position: center;
@@ -220,7 +220,7 @@ img
   transform: rotate(0deg);
 
   background: #64DAFF;
-  background-image: url(https://i.imgur.com/tBDh6rF.png);
+  background-image: url('assets/cross.png');
   background-repeat: no-repeat;
   background-size: 60%;
   background-position: center;
@@ -821,4 +821,34 @@ some fancy shit
 .folder_mv_hlight
 {
 	outline: 1px solid rgba(223, 185, 71, 0.41);
+}
+
+
+.rqindex_item
+{
+	all: unset;
+	color: white;
+	font-family: 'Roboto', serif;
+	font-weight: 300;
+	padding: 5px;
+	color: rgb(220, 220, 220);
+	font-size: 16px;
+	/*margin-left: 3px;*/
+	/*margin-right: 3px;*/
+}
+
+.rqindex_item:first-child
+{
+	margin-top: 10px;
+}
+
+.rqindex_item:hover
+{
+	cursor: pointer;
+	background: rgba(97, 148, 244, 0.05);
+}
+
+.rqindex_item:active
+{
+	background: rgba(20, 255, 0, 0.08);
 }
