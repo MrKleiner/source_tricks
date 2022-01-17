@@ -1494,7 +1494,7 @@ function article_compiler_py()
     // nav_stuff_box
 	var make_index_html = $('.nav_stuff_box')[0].cloneNode(true);
 	$(make_index_html).find('.ctg_button').remove();
-	// $(make_index_html).find('.ctg_butto').remove();
+	$(make_index_html).find('.tut_name_text').removeAttr('style');
     // zip.file('content_index.sex', html_beautify($(make_index_html).html().replaceAll('\t', '').replaceAll('\n', '')));
     payload['ctlg'] = u8btoa(html_beautify($(make_index_html).html().replaceAll('\t', '').replaceAll('\n', '')));
     

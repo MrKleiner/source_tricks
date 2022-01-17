@@ -23,7 +23,7 @@ div
 
 body
 { 
-  background-image: url("https://i.imgur.com/3M9XG2T.png");
+  background-image: url("assets/bg.png");
   background-attachment: fixed;
   display: flex;
   flex-direction: column;
