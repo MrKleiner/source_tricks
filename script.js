@@ -117,6 +117,10 @@ document.addEventListener('change', event => {
     // const imgprev_useurl = event.target.closest('.imguseurl');
     // if (imgprev_useurl) { img_preview_use_url(imgprev_useurl) }
 
+    // helper color picker
+    const cmaker = event.target.closest('.color_maker');
+    if (cmaker) { color_maker_helper() }
+
 
 
 });
@@ -601,9 +605,11 @@ function activate_edit_mode(evee)
 			$('.tut_step_head').append(border_edit_m);
 			$('.tut_step').append(img_adder);
 			$('.tut_step_content').append(img_editor);
+			// todo: combine into one string
 			$('.rquick_index').append('<div class="add_box">Lizard Sex</div>');
 			$('.rquick_index').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
+			$('.rquick_index').append('<div><input type="color" class="color_maker"><p style="color: white; padding: 3px; font-size: 19px;"></p></div>');
 
 			$('.nav_tutorial').append(ctg_btns);
 			$('.folder_name').append(folder_btns);
@@ -1597,7 +1603,10 @@ function ctg_name_apply(etgt, evee)
 
 
 
-
+function color_maker_helper()
+{
+	$('.color_maker').siblings('p').text($('.color_maker').val());
+}
 
 
 
