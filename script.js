@@ -73,8 +73,8 @@ document.addEventListener('click', event => {
 
 
 	// wrapper
-    const wrapper = event.target.closest('.mkbold_text');
-    if (wrapper) { wraptext() }
+    const wrapper = event.target.closest('.frmtbtns');
+    if (wrapper) { wraptext(wrapper) }
 
 	// saver
     const saveshit = event.target.closest('.cum_on_a_lizard');
@@ -542,10 +542,19 @@ function activate_edit_mode(evee)
 						<div class="article_movebot"><div class="mv_triangle"></div></div>
 					</div>
 					<div class="delete_box">Del</div>
-					<div class="mkbold_text">B</div>
+					<div class="format_buttons">
+						<div wrapopts="bold" class="frmtbtns">B</div>
+						<div wrapopts="italic" class="frmtbtns">I</div>
+						<div wrapopts="underline" class="frmtbtns">U</div>
+						<div wrapopts="strikeThrough" class="frmtbtns">str</div>
+						<div wrapopts="forecolor" class="frmtbtns">C</div>
+					</div>
 				</div>
 
 			`;
+			// todo: catch the moment when user clicks that button and then simply replace <b> with whatever
+			// or repurpose <font>... font[color="whatever"]{ padding: 2px } 
+			// (color accepts any value)
 			var img_adder = 
 			`
 				<div class="image_adder_btn">Add Image</div>
@@ -855,12 +864,14 @@ function toggle_page_preview()
 	*/
 
 	$('.at_border_edit_box, .image_adder_btn, .image_editor, .add_box, .cum_on_a_lizard, .section_name').toggleClass('e_hidden');
+	// todo: this now coud be toggled
 	if (window.preview_mode == false){
 		window.preview_mode = true
-		eval_to_colors()
+
+		// eval_to_colors()
 	}else if(window.preview_mode == true){
 		window.preview_mode = false
-		eval_to_code()
+		// eval_to_code()
 	}
 }
 
@@ -977,13 +988,29 @@ function catalogue_manager(etgt, evee)
 
 
 
-function wraptext()
+function wraptext(etgt)
 {
+	/*
 	if ($(window.getSelection().anchorNode).closest('.single_lizrd_looking_for_sex').length > 0)
 	{
 		surroundSelection('<st bold strike color="#64DAFF">', '</st>')
 	}
-	
+	*/
+	var opts = null
+	if ($(etgt)[0].hasAttribute('wrapdata')){
+		var opts = $(etgt).attr('wrapdata');
+	}
+	// special needs
+	if ($(etgt).attr('wrapopts') == 'forecolor'){
+		var opts = $('.color_maker').val();
+	}
+
+
+
+	// strikeThrough
+	console.log(opts)
+	console.log($(etgt).attr('wrapopts'))
+	document.execCommand($(etgt).attr('wrapopts'), false, opts);
 }
 
 
@@ -1139,7 +1166,7 @@ function pgloader(pgx)
 				`
 					<div class="tut_step">
 						<div class="tut_step_head">
-							<p class="tut_step_head_text"></p>
+							<div class="tut_step_head_text"></div>
 						</div>
 					</div>
 				`;
@@ -1635,7 +1662,22 @@ function color_maker_helper()
 }
 
 
-
+function fuckbr(etgt, evee)
+{
+	// if (evee.keyCode == 13)
+	// {
+		return
+		console.log('fuckb')
+		$(etgt).find('div').each(function(){
+			if($(this).text() == '')
+			{
+				$(this).css('padding', '10px 0px 10px 0px');
+			}else{
+				$(this).css('padding', '');
+			}
+	    });
+	// }
+}
 
 
 

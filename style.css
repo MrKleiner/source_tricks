@@ -13,7 +13,7 @@ html
   
   padding: 0px;
   margin: 0px;
-  display: block;
+  /*display: block;*/
 }
 
 div
@@ -200,6 +200,9 @@ img
 	/*color: white;*/
 	color: rgb(240, 240, 240);
 	border-top: 5px solid #64DAFF;
+	white-space: pre-wrap;
+	/*display: inline-block;*/
+	min-height: 30px;
 }
 
 .tut_step > div:not(:first-child)
@@ -547,9 +550,51 @@ img
 st
 {
 	display: inline;
+	font-weight: 700;
 }
 
-st[bold]
+stb
+{
+	display: inline;
+	font-weight: 700;
+}
+
+.tut_step_head_text b
+{
+	all: unset;
+	font-weight: 700;
+}
+
+.tut_step_head_text i
+{
+	all: unset;
+	font-style: italic;
+}
+
+.tut_step_head_text u
+{
+	all: unset;
+	text-decoration: underline;
+}
+
+.tut_step_head_text strike
+{
+	all: unset;
+	text-decoration: line-through;
+}
+
+.tut_step_head_text font
+{
+	display: inline;
+}
+
+/*.tut_step_head_text div
+{
+	display: flex;
+	min-height: 20px;
+}
+*/
+/*st[bold]
 {
 	font-weight: 700;
 }
@@ -562,7 +607,7 @@ st[italic]
 st[strike]
 {
 	text-decoration: line-through;
-}
+}*/
 
 .tut_name_text, .fname_text
 {
@@ -912,16 +957,33 @@ some fancy shit
 
 
 
+/*
+.tut_step_head_text
+{
+	display: inline-block;
+}
+*/
 
 
 
 
 
+.format_buttons
+{
+	display: flex;
+}
 
+.frmtbtns
+{
+	user-select: none;
+	color: black;
+	background: gray;
+	width: 20px;
+	margin-right: 3px;
+	border-radius: 3px;
+}
 
-
-
-
-
-
-
+.frmtbtns:active
+{
+	outline: 2px solid white;
+}
