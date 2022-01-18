@@ -1662,26 +1662,6 @@ function color_maker_helper()
 }
 
 
-function fuckbr(etgt, evee)
-{
-	// if (evee.keyCode == 13)
-	// {
-		return
-		console.log('fuckb')
-		$(etgt).find('div').each(function(){
-			if($(this).text() == '')
-			{
-				$(this).css('padding', '10px 0px 10px 0px');
-			}else{
-				$(this).css('padding', '');
-			}
-	    });
-	// }
-}
-
-
-
-
 
 /*
 function cvready()
