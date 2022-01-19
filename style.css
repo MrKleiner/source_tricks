@@ -594,7 +594,7 @@ stb
 	min-height: 20px;
 }
 */
-/*st[bold]
+st[bold]
 {
 	font-weight: 700;
 }
@@ -607,7 +607,7 @@ st[italic]
 st[strike]
 {
 	text-decoration: line-through;
-}*/
+}
 
 .tut_name_text, .fname_text
 {
@@ -986,4 +986,15 @@ some fancy shit
 .frmtbtns:active
 {
 	outline: 2px solid white;
+}
+
+.textlink_input
+{
+	width: 100%;
+	background: white;
+	margin: 10px 0px 10px 0px;
+}
+.textlink_input:active
+{
+	outline: 0px solid white !important;
 }

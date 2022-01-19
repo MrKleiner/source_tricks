@@ -548,6 +548,8 @@ function activate_edit_mode(evee)
 						<div wrapopts="underline" class="frmtbtns">U</div>
 						<div wrapopts="strikeThrough" class="frmtbtns">str</div>
 						<div wrapopts="forecolor" class="frmtbtns">C</div>
+						<div wrapopts="createlink" class="frmtbtns">L</div>
+						<div wrapopts="removeformat" class="frmtbtns">RM</div>
 					</div>
 				</div>
 
@@ -627,6 +629,7 @@ function activate_edit_mode(evee)
 			$('.rquick_index').append('<div class="add_box">Lizard Sex</div>');
 			$('.rquick_index').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
+			$('.rquick_index').append('<input type="text" class="frmtbtns textlink_input">');
 			$('.rquick_index').append('<div class="imgeditjs"><input type="color" class="color_maker"><p style="color: white; padding: 3px; font-size: 19px;"></p></div>');
 
 			$('.nav_tutorial').append(ctg_btns);
@@ -639,7 +642,7 @@ function activate_edit_mode(evee)
 
 			
 			
-			// readd chapter, if any
+			// read chapter, if any
 		    $('.tut_step').each(function(){
 		    	if(this.hasAttribute('id')){
 		    		// todo: make this look better
@@ -648,6 +651,9 @@ function activate_edit_mode(evee)
 		    		$(this).find('.tut_step_head').after('<input class="section_name" type="text">');
 		    	}
 		    });
+
+		    // some width adjusements
+		    $('.at_border_edit_box').css('margin-right', '-' + ($('.at_border_edit_box').outerWidth(true) + 10).toString() + 'px')
 			
 
 			// if an image has width style - show it
@@ -1003,6 +1009,16 @@ function wraptext(etgt)
 	// special needs
 	if ($(etgt).attr('wrapopts') == 'forecolor'){
 		var opts = $('.color_maker').val();
+	}
+	// oof, special needs again
+	// at this point... create an action dictionary for every possible input...
+	if ($(etgt).attr('wrapopts') == 'createlink'){
+		var opts = $('.textlink_input').val();
+	}
+	// but like... who cares...
+	if ($(etgt).attr('wrapopts') == 'removeformat'){
+		// removeformat
+		document.execCommand('unlink', false, null);
 	}
 
 
