@@ -626,8 +626,8 @@ function activate_edit_mode(evee)
 			$('.tut_step').append(img_adder);
 			$('.tut_step_content').append(img_editor);
 			// todo: combine into one string
-			$('.rquick_index').append('<div class="add_box">Lizard Sex</div>');
-			$('.rquick_index').append('<div class="cum_on_a_lizard e_hidden">Cum on a sexy lizard</div>');
+			$('.rquick_index').append('<div class="add_box">Add block</div>');
+			$('.rquick_index').append('<div class="cum_on_a_lizard e_hidden">Save page</div>');
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
 			$('.rquick_index').append('<input type="text" class="frmtbtns textlink_input">');
 			$('.rquick_index').append('<div class="imgeditjs"><input type="color" class="color_maker"><p style="color: white; padding: 3px; font-size: 19px;"></p></div>');
@@ -1156,7 +1156,7 @@ function pgloader(pgx)
 		{
 			$('.tut_step').remove();
 			$('.rquick_index').empty();
-			$('.arcl_header_p').text('Does not exist. Go fuck a lizard');
+			$('.arcl_header_p').text('Error: DE-GFAL. (page does not exist)');
 			window.current_zid = ref_index
 			$('.nav_tutorial .tut_name_text').removeAttr('style');
 			$('.nav_tutorial[asset_idx="' + ref_index + '"] .tut_name_text').css('border-left', '2px solid #63b6d7');
