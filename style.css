@@ -140,6 +140,7 @@ img
 .arcl_header
 {
   display: flex;
+  flex-direction: column;
   /*position: relative;*/
   /*width: 100%;*/
   background: rgba(8, 8, 9, 0.13);
@@ -998,4 +999,28 @@ some fancy shit
 .textlink_input:active
 {
 	outline: 0px solid white !important;
+}
+
+
+
+.arcl_h_border_editor
+{
+	display: flex;
+	position: absolute;
+	transform: translateX(105%);
+	
+	align-self: flex-end;
+	flex-direction: column;
+}
+
+.arcl_h_border_editor_reset
+{
+	user-select: none;
+	color: black;
+	background: gray;
+}
+
+.arcl_h_border_editor_reset:active
+{
+	outline: 2px solid white;
 }

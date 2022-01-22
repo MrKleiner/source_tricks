@@ -91,6 +91,11 @@ document.addEventListener('click', event => {
     const breasts = event.target.closest('.imgzoom');
     if (breasts) { imgmin() }
 
+
+	// reset article header border color to default
+    const resethb = event.target.closest('.arcl_h_border_editor_reset');
+    if (resethb) { $('.article_head').css('border-color', '#FF00A8') }
+
 });
 
 document.addEventListener('change', event => {
@@ -120,6 +125,10 @@ document.addEventListener('change', event => {
     // helper color picker
     const cmaker = event.target.closest('.color_maker');
     if (cmaker) { color_maker_helper() }
+
+    // Header bat border picker
+    const adhd = event.target.closest('.arcl_h_border_editor_inp');
+    if (adhd) { $('.article_head').css('border-color', $(adhd).val()) }
 
 
 
@@ -626,6 +635,15 @@ function activate_edit_mode(evee)
 				</div>
 			`;
 
+			var arcl_h_border_editor = 
+			`
+				<div class="arcl_h_border_editor">
+					<input class="arcl_h_border_editor_inp" type="color">
+					<div class="arcl_h_border_editor_reset">Reset</div>
+				</div>
+
+			`;
+
 
 			$('.tut_step_head').append(border_edit_m);
 			$('.tut_step').append(img_adder);
@@ -636,7 +654,7 @@ function activate_edit_mode(evee)
 			$('.rquick_index').append('<div class="preview_page">Preview</div>');
 			$('.rquick_index').append('<input type="text" class="frmtbtns textlink_input">');
 			$('.rquick_index').append('<div class="imgeditjs"><input type="color" class="color_maker"><p style="color: white; padding: 3px; font-size: 19px;"></p></div>');
-
+			$('.arcl_header').append(arcl_h_border_editor);
 			$('.nav_tutorial').append(ctg_btns);
 			$('.folder_name').append(folder_btns);
 
@@ -694,7 +712,7 @@ function activate_edit_mode(evee)
 		if (window.blender_edit_mode == true)
 		{
 			// todo: add a special class to all the editor elements for faster delete
-			$('.ctg_button, .preview_page, .imgeditjs, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
+			$('.ctg_button, .arcl_h_border_editor, .preview_page, .imgeditjs, .frmtbtns, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
 			$('.nav-side').removeAttr('style');
 			if (window.preview_mode == false)
 			{
@@ -1684,7 +1702,6 @@ function color_maker_helper()
 {
 	$('.color_maker').siblings('p').text($('.color_maker').val());
 }
-
 
 
 /*
