@@ -225,7 +225,10 @@ https://i.imgur.com/0bWuUB4.png
 */
 
 
-
+function eval_ebox_margin()
+{
+	$('.at_border_edit_box').css('margin-right', '-' + ($('.at_border_edit_box').outerWidth(true) + 10).toString() + 'px');
+}
 
 
 
@@ -653,7 +656,7 @@ function activate_edit_mode(evee)
 		    });
 
 		    // some width adjusements
-		    $('.at_border_edit_box').css('margin-right', '-' + ($('.at_border_edit_box').outerWidth(true) + 10).toString() + 'px')
+		    eval_ebox_margin()
 			
 
 			// if an image has width style - show it
@@ -846,6 +849,7 @@ function add_bbox(etgt)
 	`;
 
 	$('.article_content').append(bbox);
+	eval_ebox_margin()
 
 }
 
@@ -1142,6 +1146,8 @@ function img_preview_set_url(etgt)
 	}
 
 }
+
+
 
 
 
