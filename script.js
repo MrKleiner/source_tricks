@@ -227,6 +227,8 @@ https://i.imgur.com/0bWuUB4.png
 
 function eval_ebox_margin()
 {
+	// todo: remove this function from everywhere
+	return
 	$('.at_border_edit_box').css('margin-right', '-' + ($('.at_border_edit_box').outerWidth(true) + 10).toString() + 'px');
 }
 

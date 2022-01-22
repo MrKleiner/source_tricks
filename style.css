@@ -336,7 +336,8 @@ img
 	flex-direction: column;
 	align-self: flex-end;
 	position: absolute;
-	margin-right: -120px;
+	/*margin-right: -120px;*/
+	transform: translateX(105%);
 	color: white;
 }
 
