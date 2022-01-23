@@ -59,16 +59,3 @@
         </div>
     </div>
 </div>
-<div id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text">Addons</div>
-    </div>
-    <div class="folder_content">
-        <div class="nav_tutorial" asset_idx="d5e5e1501d75a992a7d87cb8ff7302e7">
-            <div class="tut_name_text">How to SourceIO</div>
-        </div>
-    </div>
-</div>
