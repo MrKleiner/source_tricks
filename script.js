@@ -248,7 +248,19 @@ function eval_ebox_margin()
 // imortant todo: https://stackoverflow.com/questions/60581285/execcommand-is-now-obsolete-whats-the-alternative
 
 
+// important todo:
+// new editor:
 
+/*
+var ses = window.getSelection()
+var nas = ses.getRangeAt(0)
+nas.insertNode($('<a style="color:orange;">START</a>')[0])
+nas.setStart(nas.endContainer, nas.endOffset)
+nas.insertNode($('<a style="color:orange;">END</a>')[0])
+// Extract html from the most parent node
+// replace placeholders (START, END) with <> </>
+// dont forget to generate super long random string instead of START and END
+*/
 
 
 
