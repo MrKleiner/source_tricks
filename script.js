@@ -192,7 +192,8 @@ document.addEventListener('paste', event => {
 					// set file back to whatever
 					// todo: this whole file thing is very poorly made now (it was organised when there was no paste whatsoever)
 					// what if... a global image bank with abstract structure?
-					// like a subfolder in the root or something
+					// like a subfolder in the root or something where you upload all the images manually
+					// kind like VDC works
 					// anyway, it now also has to account for url downloads from imgur or whatever
 
 					var filez = new File([blob],'pasted'+liz3_rndwave(8, 'flac', ''),{type: blob.type });
@@ -246,7 +247,7 @@ function eval_ebox_margin()
 
 
 // imortant todo: https://stackoverflow.com/questions/60581285/execcommand-is-now-obsolete-whats-the-alternative
-
+// important todo: https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence
 
 // important todo:
 // new editor:
@@ -1562,6 +1563,8 @@ function article_compiler_py()
 					var mkimgname = $(this).find('.c_image_input').attr('gn_name')
 				}else{
 					// it just seems cool to do it the total hax way (md5 hash n shit)
+					console.log('current_contenter:')
+					console.log(this)
 					var mkimgname = CryptoJS.MD5(liz3_rndwave(256, 'flac', '')).toString() + '.' + $(this).find('.c_image_input')[0].files[0].type.split('/').at(-1);
 					// save generated name
 					$(this).find('.c_image_input').attr('gn_name', mkimgname);
