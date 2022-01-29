@@ -1418,6 +1418,8 @@ function article_compiler()
 				{
 					var mkimgname = $(this).find('.c_image_input').attr('gn_name')
 				}else{
+					console.log('current_contenter:')
+                    console.log(this)
 					var mkimgname = CryptoJS.MD5(liz3_rndwave(256, 'flac', '')).toString() + '.' + $(this).find('.c_image_input')[0].files[0].type.split('/').at(-1);
 					// save generated name
 					$(this).find('.c_image_input').attr('gn_name', mkimgname);
