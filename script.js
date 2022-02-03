@@ -265,6 +265,20 @@ nas.insertNode($('<a style="color:orange;">END</a>')[0])
 
 
 
+// important todo:
+
+// make quickindex items connected with the corresponding bix with some sort of additional id ??
+/*
+var observer = new IntersectionObserver(function(entries) {
+	if(entries[0].isIntersecting === true)
+		console.log('Element is fully visible in screen');
+}, { threshold: [1] });
+
+observer.observe(document.querySelector("#main-container"));
+
+
+*/
+
 
 
 
