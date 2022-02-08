@@ -579,10 +579,23 @@ stb
 	text-decoration: underline;
 }
 
+.tut_step_head_text a:visited
+{
+	color: purple;
+	/* burglar alarm */
+}
+
 .tut_step_head_text a
 {
 	color: #AAFFFF;
 }
+
+.tut_step_head_text a:active
+{
+	color: red;
+}
+
+
 
 .tut_step_head_text strike
 {
