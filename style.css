@@ -97,6 +97,7 @@ img
 	flex-direction: column;
 	width: 100%;
 	min-height: 551px;
+	max-height: 1350px;
 	background: rgba(9, 9, 17, 0.22);
 	border-top: 10px solid white;
 	padding: 10px 10px 10px 15px;
