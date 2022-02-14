@@ -91,3 +91,16 @@
         </div>
     </div>
 </div>
+<div id_folder_name="nil" class="nav_folder">
+    <div class="folder_name">
+        <div class="folder_triangle">
+            <div class="folder_triangle_ico"></div>
+        </div>
+        <div class="fname_text">FAQ</div>
+    </div>
+    <div class="folder_content">
+        <div class="nav_tutorial" asset_idx="003d5d59babf434e4cb00870a57c8eb1">
+            <div class="tut_name_text">Vertex count</div>
+        </div>
+    </div>
+</div>
