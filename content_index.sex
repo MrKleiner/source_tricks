@@ -104,3 +104,16 @@
         </div>
     </div>
 </div>
+<div id_folder_name="nil" class="nav_folder">
+    <div class="folder_name">
+        <div class="folder_triangle">
+            <div class="folder_triangle_ico"></div>
+        </div>
+        <div class="fname_text">Other</div>
+    </div>
+    <div class="folder_content">
+        <div class="nav_tutorial" asset_idx="64209384a59680ff02132353980984e1">
+            <div class="tut_name_text">VDC Scrollbars</div>
+        </div>
+    </div>
+</div>
