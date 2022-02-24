@@ -78,8 +78,8 @@
         </div>
     </div>
 </div>
-<!--
-<div id_folder_name="nil" class="nav_folder">
+
+<div style="display: none" id_folder_name="nil" class="nav_folder">
     <div class="folder_name">
         <div class="folder_triangle">
             <div class="folder_triangle_ico"></div>
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-<div id_folder_name="nil" class="nav_folder">
+<div style="display: none" id_folder_name="nil" class="nav_folder">
     <div class="folder_name">
         <div class="folder_triangle">
             <div class="folder_triangle_ico"></div>
@@ -106,7 +106,7 @@
         </div>
     </div>
 </div>
--->
+
 <div id_folder_name="nil" class="nav_folder">
     <div class="folder_name">
         <div class="folder_triangle">
