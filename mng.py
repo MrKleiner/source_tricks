@@ -118,7 +118,8 @@ if (theroot / 'path_to_python.cum').is_file():
 
     # create cmd starter
 	cmdf = open(theroot / 'starter.cmd', 'w')
-	cmdf.write('cd /d ' + str(theroot) + '\n' + 'explorer "http://localhost:8000/"' + '\n' + balls + ' ' + str(theroot / 'simple_http_serv.py'))
+	# cmdf.write('cd /d ' + str(theroot) + '\n' + 'explorer "http://localhost:8000/"' + '\n' + balls + ' ' + str(theroot / 'simple_http_serv.py'))
+	cmdf.write('cd /d ' + str(theroot) + '\n' + 'explorer "http://localhost:8000/"' + '\n' + balls + ' ' + '-m http.server --cgi')
 	cmdf.close()
 
 	# create manager

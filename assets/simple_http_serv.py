@@ -8,6 +8,7 @@ mypid = os.getpid()
 
 def receive_signal(signum, stack):
     print('Received signal: ', signum)
+    print('stack: ', stack)
     global some_global_var_that_my_request_controller_will_set
     some_global_var_that_my_request_controller_will_set = False
     
@@ -30,3 +31,6 @@ while keep_running():
     
     
 os.kill(mypid, signal.SIGTERM)
+
+
+
