@@ -293,6 +293,7 @@ img
 
 .rquick_index
 {
+	user-select: none;
 	display: flex;
 	min-width: 200px;
 	/*height: 100px;*/
@@ -892,6 +893,7 @@ some fancy shit
 
 .rqindex_item
 {
+	user-select: none;
 	all: unset;
 	color: white;
 	font-family: 'Roboto', serif;
