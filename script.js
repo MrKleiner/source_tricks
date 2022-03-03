@@ -572,6 +572,7 @@ function activate_edit_mode(evee)
 			`
 				<div class="at_border_edit_box">
 					<label class="enable_border_checkbox"><input checked type="checkbox" class="at_border_top_ena_ch">Enable border</label>
+					<label class="ded"><input type="checkbox" class="block_iscode">Code</label>
 					<input class="top_border_color_inp" type="color">
 					<div class="suggest_border_colors">
 						<div bgcol="#64DAFF" style="background-color: #64DAFF" class="border_color_suggestion"></div>
@@ -700,6 +701,10 @@ function activate_edit_mode(evee)
 		    	}else{
 		    		$(this).find('.tut_step_head').after('<input class="section_name" type="text">');
 		    	}
+		    	// set border
+		    	if ($(this).hasClass('box_is_code')){
+		    		$(this).find('.block_iscode')[0].checked = true
+		    	}
 		    });
 
 		    // some width adjusements
@@ -733,18 +738,22 @@ function activate_edit_mode(evee)
 		    });
 		    
 		    window.preview_mode = false
+		    page_code_eval(false)
 		    toggle_page_preview()
 		    $('.page_content').css('min-width', 100 + 1360 + $('.rquick_index').outerWidth(true));
 		}
 		if (window.blender_edit_mode == true)
 		{
+			page_code_eval(true)
 			// todo: add a special class to all the editor elements for faster delete
 			$('.ctg_button, .arcl_h_border_editor, .preview_page, .imgeditjs, .frmtbtns, .add_box, .cum_on_a_lizard, .at_border_edit_box, .image_editor, .image_adder_btn, .section_name').remove();
 			$('.nav-side').removeAttr('style');
 			if (window.preview_mode == false)
 			{
 				toggle_page_preview()
+				page_code_eval(true)
 			}
+
 			window.blender_edit_mode = false
 		}else{
 			window.blender_edit_mode = true
@@ -1195,6 +1204,65 @@ function img_preview_set_url(etgt)
 }
 
 
+function page_code_eval(sw)
+{
+	if (sw == true)
+	{
+
+		// comments
+		$('.box_to_code .tut_step_head_text div').each(function() {
+			
+			// console.log($(this).text().trim(), $(this).text().trim().startsWith('#'), $(this))
+			if ($(this).text().trim().startsWith('#')){
+				// console.log('WHHHHHHAAAAAAAAAAAAAAAT', $(this).text().trim(), $(this).text().trim().startsWith('#'), $(this))
+				$(this).addClass('code_comment');
+			}
+		});
+
+
+		// code format
+		$('.box_to_code .tut_step_head_text div').each(function() {
+
+			// '' quotes
+			this.innerHTML = this.innerHTML.replace(
+			           /\'([^\']+)\'/g, 
+			           `<co class="code_qtext">'$1'</co>`);
+
+			
+			/*
+			// "" quotes
+			this.innerHTML = this.innerHTML.replace(
+			           /\"([^\"]+)\"/g, 
+			           `<co class="code_comment">"$1"</co>`);
+			*/
+
+		});
+
+		// numbers
+		$('.box_to_code .tut_step_head_text div').each(function() {
+			this.innerHTML = this.innerHTML.replace(
+			           /(\d+)/g, 
+			           `<co class="code_num">$1</co>`);
+		});
+
+		$('.box_to_code').addClass('box_is_code');
+	}
+
+	// undo
+	if (sw == false)
+	{
+		// unwrap co
+		// $('co #text, .code_comment #text').unwrap();
+		$('co').each(function() {
+			$(this).replaceWith($(this).text());
+		});
+
+		$('.code_comment').removeClass('code_comment');
+
+		// finally, delete parent style
+		$('.box_is_code').removeClass('box_is_code');
+	}
+}
 
 
 
@@ -1281,11 +1349,19 @@ function pgloader(pgx)
 					$(emptybox).append(econ);
 				}
 
+				// if it's code - add class and do python parse
+				if (cpage_src['boxes'][zbox]['iscode'] == true){
+					$(emptybox).addClass('box_to_code');
+				}
+
 				// append box to page
 				$('.article_content').append(emptybox);
 
 			}
+			// code eval
+			page_code_eval(true)
 			$('.page_content').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
+
 		}
 
 	    // Construct URLSearchParams object instance from current URL querystring.
@@ -1406,13 +1482,19 @@ function article_compiler()
     		'contents': [],
     		'border_w': $(this).find('.tut_step_head_text').css('border-width'),
     		'border_c': $(this).find('.tut_step_head_text').css('border-color'),
-    		'chapter': ''
+    		'chapter': '',
+    		'iscode': false
     	}
 
     	// chapter, if any
     	if ($(this).find('.section_name').val().trim() != '')
     	{
     		madebox['chapter'] = $(this).find('.section_name').val().trim();
+    	}
+
+    	// if code
+    	if ($(this).find('.block_iscode')[0].checked){
+    		madebox['iscode'] = true
     	}
 
 
@@ -1555,6 +1637,11 @@ function article_compiler_py()
     	if ($(this).find('.section_name').val().trim() != '')
     	{
     		madebox['chapter'] = $(this).find('.section_name').val().trim();
+    	}
+
+    	// if code
+    	if ($(this).find('.block_iscode')[0].checked){
+    		madebox['iscode'] = true
     	}
 
 

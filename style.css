@@ -1046,3 +1046,32 @@ some fancy shit
 {
 	outline: 2px solid white;
 }
+
+
+.box_is_code .tut_step_head_text
+{
+	color: black;
+	padding: 1em;
+    border-left: 6px solid #666666 !important;
+    background-color: #D8D7D6;
+    line-height: 1.1em;
+    font-size: 100%;
+    font-family: monospace,sans-serif;
+}
+
+
+
+co.code_num{
+	/* color: #19177C; */
+	color: #2a27bb;
+}
+
+co.code_qtext, co.code_qtext * {
+    color: #BA2121;
+}
+
+.code_comment, .code_comment *{
+	color: #408080 !important;
+    font-style: italic;
+}
+
