@@ -1245,6 +1245,18 @@ function page_code_eval(sw)
 			           `<co class="code_num">$1</co>`);
 		});
 
+		// COMMENT THIS OUT IF RANDOM WORDS START GETTING HIGHLIGHTED
+
+		// special words
+		$('.box_to_code .tut_step_head_text div').each(function() {
+			var wr_array = ['True', 'False', 'None']
+			for (ar of wr_array){
+				if ($(this).text().includes(ar)){
+					$(this).html($(this).html().replace(ar, '<co class="statements">' + ar + '</co>'))
+				}
+			}
+		});
+
 		$('.box_to_code').addClass('box_is_code');
 	}
 
