@@ -1059,16 +1059,21 @@ some fancy shit
     font-family: monospace,sans-serif;
 }
 
-
+co.statements{
+	color: #00488a;
+}
 
 co.code_num{
 	/* color: #19177C; */
 	color: #2a27bb;
+	
 }
 
 co.code_qtext, co.code_qtext * {
     color: #BA2121;
+	/* #008000 !!!!!!!!!!!!!!!!!!!!!!!!! */
 }
+
 
 .code_comment, .code_comment *{
 	color: #408080 !important;
