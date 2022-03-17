@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+/*body{
+	
+    display: flex;
+    background: #16141c;
+    flex-direction: column;
+}
+
+img {
+    width: auto;
+    height: 500px;
+    object-fit: contain;
+    margin: 10px;
+}*/
+
+*
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+body
+{
+	display: flex;
+	background: #16141c;
+	flex-direction: row;
+	min-width: 1250px;
+	justify-content: space-between;
+	padding-bottom: 100px;
+}
+
+
+#pic_boxes
+{
+	display: flex;
+	width: 45%;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 35px;
+}
+
+.pics_box
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/*width: 50%;*/
+	/*height: 400px;*/
+	color: white;
+	margin-top: 70px;
+	border-top: 2px solid #44b0ff;
+/*background: rgb(68,176,255);*/
+	/*background: linear-gradient(180deg, rgba(68,176,255,0.2) 0%, rgba(255,255,255,0) 55px);*/
+	background: linear-gradient(180deg, rgba(61,149,247,0.2) 0%, rgba(255,255,255,0) 55px);
+}
+
+.pic_pair:first-child
+{
+	margin-top: 25px;
+}
+
+.pics_box img
+{
+	object-fit: contain;
+	/*height: 500px;*/
+	max-height: 650px;
+	width: 100%;
+}
+
+.pic_text
+{
+	font-family: 'Open Sans', sans-serif;
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	text-align: center;
+	color: rgb(215, 215, 215);
+	padding: 5px;
+	/*background-color: rgba(0, 0, 0, 0.1)*/
+}
+
+.pic_pair
+{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 30px;
+}
+
+#section_about
+{
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	position: fixed;
+	color: white;
+	right: 0px;
+	margin-top: 15px;
+}
+
+#text_about
+{
+	width: 300px;
+	/*height: 400px;*/
+	background: #28272e;
+	color: white;
+	padding: 20px;
+	border-radius: 20px;
+	font-family: 'Open Sans', sans-serif;
+
+	-webkit-box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
+	-moz-box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
+	box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
+}
+
+#about_soft
+{
+	width: 300px;
+	/*height: 400px;*/
+	background: #28272e;
+	color: white;
+	/*padding: 20px 0px 20px 35px;*/
+	border-radius: 20px;
+	font-family: 'Open Sans', sans-serif;
+	/*margin-top: 75px;*/
+	margin-top: 70px;
+
+	-webkit-box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
+	-moz-box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
+	box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
+}
+
+#about_text_inner
+{
+	padding: 20px 0px 20px 35px;
+}
+
+#iknow_head
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px;
+	margin-top: 10px;
+	font-size: 25px;
+	font-weight: 600;
+}
+
+#logo_img
+{
+	width: 128px;
+	height: 128px;
+	border-radius: 9999px;
+	/*align-self: center;*/
+	margin: 0px 0px 20px 100px;
+	/*margin-left: 100px;*/
+}
+
+#alltitle
+{
+	/*display: flex;*/
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 42px;
+	color: white;
+	text-align: center;
+	padding: 5px;
+	margin-top: 20px;
+}
+
+#contacts
+{
+/*	position: absolute;
+	width: 30px;
+	height: 100px;
+	background-color: blue;
+	left: -30px;*/
+
+	/*width: 100px;*/
+	/*height: 40px;*/
+
+	/*background-color: blue;*/
+	margin-top: 20px;
+	margin-left: 20px;
+	display: flex;
+}
+
+#my_yt
+{
+	display: flex;
+	width: 40px;
+	height: 40px;
+}
+
+#my_yt svg
+{
+	height: 100%;
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#my_tg
+{
+	display: flex;
+	width: 40px;
+	height: 40px;
+	/*background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png');*/
+	/*background-repeat: no-repeat;*/
+	/*background-size: contain;*/
+	margin-left: 5px;
+
+}
+
+#my_tg img
+{
+	padding: 5px;
+	object-fit: contain;
+	object-position: center;
+}
+
+
+#my_gmail
+{
+	display: flex;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+#my_gmail img
+{
+	padding: 6px;
+	object-fit: contain;
+	object-position: center;
+}
+
+#mail_shown
+{
+	all: unset;
+	width: 100%;
+	/*height: 40px;*/
+	align-self: center;
+	font-family: 'Open Sans', sans-serif;
+	text-align: center;
+	color: white;
+	padding: 40px;
+	font-size: 50px;
+	font-weight: 600;
+	cursor: text;
+}
+
+
+.nodisplay
+{
+	display: none !important;
+}
+
+#previews
+{
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.85);
+	z-index: 9999;
+	justify-content: center;
+}
