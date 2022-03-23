@@ -46,9 +46,9 @@ function pload(te)
 		if (urlParams.get('p').split('')[0] == '1')
 		{
 			$('#logo_img')[0].src = window.pcontent['about']['alt_logo'];
-		}else{
-			$('#logo_img')[0].src = 'https://cdn.discordapp.com/attachments/598184638367924283/953874658309058580/8636c7f7fc6014082644c641e319825d.png';
 		}
+	}else{
+			$('#logo_img')[0].src = 'https://cdn.discordapp.com/attachments/598184638367924283/953874658309058580/8636c7f7fc6014082644c641e319825d.png';
 	}
 
 
