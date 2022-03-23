@@ -19,6 +19,11 @@ img {
 	margin: 0px;
 }
 
+/*html
+{
+	min-width: 1250px;
+}
+*/
 body
 {
 	display: flex;
@@ -91,11 +96,19 @@ body
 {
 	display: flex;
 	flex-direction: column;
-	width: 30%;
+	width: 45%;
+	height: 100%;
 	position: fixed;
 	color: white;
 	right: 0px;
 	margin-top: 15px;
+	min-width: 565px;
+}
+
+#midsection
+{
+	display: flex;
+	flex-direction: row;
 }
 
 #text_about
@@ -123,7 +136,10 @@ body
 	border-radius: 20px;
 	font-family: 'Open Sans', sans-serif;
 	/*margin-top: 75px;*/
-	margin-top: 70px;
+	/*margin-top: 70px;*/
+	margin-left: 50px;
+	margin-right: 20px;
+	min-width: 263px;
 
 	-webkit-box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
 	-moz-box-shadow: 8px 8px 0px 0px rgba(135, 255, 191, 0.6);
@@ -152,7 +168,7 @@ body
 	height: 128px;
 	border-radius: 9999px;
 	/*align-self: center;*/
-	margin: 0px 0px 20px 100px;
+	margin: 0px 0px 20px 50px;
 	/*margin-left: 100px;*/
 }
 

@@ -39,6 +39,17 @@ function pload(te)
 	var spcontent = CryptoJS.AES.decrypt(te, urlParams.get('kt')).toString(CryptoJS.enc.Utf8);
 	window.pcontent = JSON.parse(spcontent);
 	console.log(window.pcontent);
+	// 
+	console.log(urlParams.get('p'))
+	if (urlParams.get('p') != null)
+	{
+		if (urlParams.get('p').split('')[0] == '1')
+		{
+			$('#logo_img')[0].src = window.pcontent['about']['alt_logo'];
+		}else{
+			$('#logo_img')[0].src = 'https://cdn.discordapp.com/attachments/598184638367924283/953874658309058580/8636c7f7fc6014082644c641e319825d.png';
+		}
+	}
 
 
 	// static (actually comes last)
