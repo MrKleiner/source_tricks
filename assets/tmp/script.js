@@ -29,6 +29,10 @@ document.addEventListener('click', event => {
     const helper = event.target.closest('#mail_shown');
     if (pringles) { close_preview(pringles, helper) }
 
+	// image previews
+    const zurich = event.target.closest('.box_pic');
+    if (zurich) { do_img_preview(zurich) }
+
 });
 
 
@@ -78,7 +82,13 @@ function pload(te)
 }
 
 
-
+function pcontent_renc()
+{
+	// JSON.stringify()
+	var urlParams = new URLSearchParams(window.location.search);
+	var spcontent = CryptoJS.AES.encrypt(JSON.stringify(window.content), urlParams.get('kt')).toString()
+	console.log({'pootis': spcontent});
+}
 
 
 function showgmail()
@@ -89,14 +99,21 @@ function showgmail()
 	$('#mail_shown').select();
 }
 
+function do_img_preview(im)
+{
+	$('#previews').empty();
+	$('body')[0].style.overflow = 'hidden';
+	$('#previews').append('<img src="' + $(im)[0].src + '" id="img_full">');
+	$('#previews').removeClass('nodisplay');
+}
 
 function close_preview(nen, poot)
 {
 	console.log(nen, poot)
+	$('body').removeAttr('style');
 	if (poot == null)
 	{
-		$('#mail_shown').remove();
+		$('#previews').empty();
 		$('#previews').addClass('nodisplay');
 	}
-
 }

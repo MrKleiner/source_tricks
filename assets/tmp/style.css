@@ -68,7 +68,8 @@ body
 {
 	object-fit: contain;
 	/*height: 500px;*/
-	max-height: 650px;
+	/*max-height: 650px;*/
+	max-height: 72vh;
 	width: 100%;
 }
 
@@ -244,11 +245,13 @@ body
 	height: 40px;
 	cursor: pointer;
 	margin-left: 5px;
+	justify-content: space-evenly;
 }
 
 #my_gmail img
 {
-	padding: 6px;
+	/*padding: 6px;*/
+	width: 90%;
 	object-fit: contain;
 	object-position: center;
 }
@@ -285,4 +288,12 @@ body
 	background-color: rgba(0, 0, 0, 0.85);
 	z-index: 9999;
 	justify-content: center;
+}
+
+#img_full
+{
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: center;
 }
