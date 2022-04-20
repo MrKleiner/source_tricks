@@ -115,6 +115,9 @@
         <div class="nav_tutorial" asset_idx="64209384a59680ff02132353980984e1">
             <div class="tut_name_text">VDC Scrollbars</div>
         </div>
+        <div class="nav_tutorial" asset_idx="1a4850dc847fd2794d180ad706731e38">
+            <div class="tut_name_text">Installing Strawberry Perl</div>
+        </div>
     </div>
 </div>
 <div id_folder_name="nil" class="nav_folder">
