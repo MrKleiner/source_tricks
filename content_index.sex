@@ -12,6 +12,9 @@
         <div class="nav_tutorial" asset_idx="0ca13ec97224bfe27af4813097a3c1bd">
             <div class="tut_name_text">Issues in building Cubemaps</div>
         </div>
+        <div class="nav_tutorial" asset_idx="7b973b27e2f84fc031186094503778fa">
+            <div class="tut_name_text">Parallax Corrected Cubemaps</div>
+        </div>
     </div>
 </div>
 <div id_folder_name="nil" class="nav_folder">
