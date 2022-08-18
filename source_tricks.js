@@ -1,6 +1,7 @@
 window.blender_edit_mode = false;
 window.preview_mode = false;
 window.imgqu = [];
+window.current_id = null;
 
 document.addEventListener('click', event => {
 	// console.log('click_registered');
@@ -430,7 +431,7 @@ function ctg_name_actuator(etgt, evee)
 	}else{
 		if ($(etgt).hasClass('tut_name_text') && !$(etgt)[0].hasAttribute('contenteditable') && !window.blender_edit_mode)
 		{
-			pgloader($(etgt).closest('.nav_tutorial').attr('asset_idx'))
+			article_loader($(etgt).closest('.nav_tutorial').attr('asset_idx'), true)
 		}
 	}
 }
@@ -646,6 +647,7 @@ async function satisfy_image_queue()
 		im['to'].append(imgbox);
 
 	}
+	window.imgqu = [];
 	console.groupEnd();
 
 }
@@ -656,20 +658,27 @@ async function satisfy_image_queue()
 async function article_loader(a_id=null, full=false)
 {
 	console.time('Full Article Load');
+	window.imgqu = [];
 	// deal with ids
 	if (a_id == null || a_id == undefined || a_id == ''){return null}
 	if (full == true){
 		a_id = lizard.delnthchar(a_id);
 	}
 
+	// set current active id
+	window.current_id = a_id;
+
 	// first - load the text part
-	var atext = await get_article_text(a_id)
+	var atext = await get_article_text(a_id);
 
 	// empty the space
 	$('.article_content').empty();
 
 	// set title
 	$('.arcl_header_p').text(atext['atitle']);
+
+	// empty rquick index
+	$('.rquick_index').empty();
 
 
 
@@ -679,6 +688,13 @@ async function article_loader(a_id=null, full=false)
 	// --------------------------------
 	console.time('Spawn Text, Queue Images');
 	for (var tbox of atext['boxes']){
+		// id mismatch = switched articles mid load. Abort
+		if (a_id != window.current_id){
+			console.log('id mismatch:', 'working for', a_id, 'current', window.current_id);
+			return null
+		};
+
+
 		// raw box html
 		var emptybox = $(`
 			<div class="tut_step">
@@ -696,6 +712,13 @@ async function article_loader(a_id=null, full=false)
 			'border-color': tbox['border_c'],
 			'border-width': tbox['border_w']
 		});
+
+		// quick index, if any
+		if (tbox['chapter'] != ''){
+			// if there's a chapter - set id for the box
+			$(emptybox).attr('id', tbox['chapter']);
+			$('.rquick_index').append('<a href="#' + tbox['chapter'] + '" class="rqindex_item">' + tbox['chapter'] + '</a>');
+		}
 
 		// queue images
 		for (var q_img of tbox['contents']){
@@ -724,7 +747,11 @@ async function article_loader(a_id=null, full=false)
 
 
 
+	// --------------------------------
+	//       	 Finalize
+	// --------------------------------
 
+	// $('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
 
 	console.timeEnd('Full Article Load');
 }
