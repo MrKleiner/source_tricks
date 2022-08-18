@@ -1080,3 +1080,46 @@ co.code_qtext, co.code_qtext * {
     font-style: italic;
 }
 
+
+
+
+#broken
+{
+	display: flex;
+	align-items: center;
+	align-content: center;
+	/*flex-grow: 1;*/
+	flex-direction: column;
+	height: 689px;
+	/*width: 838px;*/
+	position: relative;
+	/*text-align: center;*/
+}
+
+#imsorry
+{
+	color: white;
+	font-family: 'Roboto', serif;
+	font-weight: 600;
+	font-size: 50px;
+	padding: 10px;
+	text-align: center;
+}
+
+#broken img
+{
+	object-fit: contain;
+	object-position: center;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+#mein_sex
+{
+	min-width: unset !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	align-content: center !important;
+}
