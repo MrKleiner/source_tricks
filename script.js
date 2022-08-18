@@ -555,20 +555,7 @@ function img_toggler(etgt)
 
 function activate_edit_mode(evee)
 {
-	document.body.innerHTML = 
-	`
-		<div id="broken">
-			<div id="imsorry">I broke everything! Wait till I rewrite 3k lines of code!</div>
-			<img src="https://cdn.discordapp.com/attachments/679185357325205514/1007063507944083466/IMG_6913.png">
-		</div>
-	`;
-	document.body.id = 'mein_sex';
-	document.body.setAttribute('style', null);
-
-	return
-
-
-	if (evee.altKey)
+	if (evee.altKey && evee.shiftKey)
 	{
 		if (window.blender_edit_mode == false)
 		{
@@ -773,6 +760,18 @@ function activate_edit_mode(evee)
 		}
 
 		
+	}else{
+		document.body.innerHTML = 
+		`
+			<div id="broken">
+				<div id="imsorry">I broke everything! Wait till I rewrite 3k lines of code!</div>
+				<img src="https://cdn.discordapp.com/attachments/679185357325205514/1007063507944083466/IMG_6913.png">
+			</div>
+		`;
+		document.body.id = 'mein_sex';
+		document.body.setAttribute('style', null);
+
+		return
 	}
 }
 
