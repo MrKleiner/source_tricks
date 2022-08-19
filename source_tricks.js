@@ -3,6 +3,21 @@ window.preview_mode = false;
 window.imgqu = [];
 window.current_id = null;
 
+// important todo
+
+//
+// The fucking chrome shit. Why the fuck does it restore scroll pos AFTER .scrollIntoView ????
+//
+
+// window.addEventListener('unload', function(e){
+//    document.body.style.display = 'none';
+// });
+
+if ('scrollRestoration' in window.history) {
+    history.scrollRestoration = 'manual';
+}
+
+
 document.addEventListener('click', event => {
 	// console.log('click_registered');
 
@@ -452,7 +467,8 @@ function ctg_name_actuator(etgt, evee)
 	}else{
 		if ($(etgt).hasClass('tut_name_text') && !$(etgt)[0].hasAttribute('contenteditable') && !window.blender_edit_mode)
 		{
-			article_loader($(etgt).closest('.nav_tutorial').attr('asset_idx'), true)
+			// also, set force to true
+			article_loader($(etgt).closest('.nav_tutorial').attr('asset_idx'), true, true)
 		}
 	}
 }
@@ -572,6 +588,11 @@ function activate_edit_mode(evee)
 		document.body.setAttribute('style', null);
 
 		return
+	}
+
+	// activate edit mode
+	if (evee.shiftKey){
+
 	}
 
 }
@@ -694,7 +715,7 @@ async function satisfy_image_queue()
 }
 
 
-async function scroll_to_section(sid=null, dohlight=false)
+function scroll_to_section(sid=null, dohlight=false)
 {
 	// only proceed if ID is not empty
 	if (sid != '' && sid != null){
@@ -703,7 +724,17 @@ async function scroll_to_section(sid=null, dohlight=false)
 		if (sel_chapter != null){
 
 			// scroll it into view
-			sel_chapter.scrollIntoView();
+
+			// a little margin should be fine
+			sel_chapter.style.scrollMargin = '30px';
+			sel_chapter.scrollIntoView(true);
+
+			// sadly, a little delay is needed			
+			jsleep(500)
+			.then(function() {
+				sel_chapter.style.scrollMargin = null;
+			});
+
 
 			// and then highlight it if asked
 			if (dohlight === true){
@@ -711,16 +742,16 @@ async function scroll_to_section(sid=null, dohlight=false)
 
 				// Method 1 - then
 
-				// jsleep(500)
-				// .then(function(response) {
-				// 	sel_chapter.classList.add('nohlight');
-				// 	sel_chapter.classList.remove('hlight');
-				// });
+				jsleep(500)
+				.then(function(response) {
+					sel_chapter.classList.add('nohlight');
+					sel_chapter.classList.remove('hlight');
+				});
 
 				// Method 2 - await
-				await jsleep(600);
-				sel_chapter.classList.add('nohlight');
-				sel_chapter.classList.remove('hlight');
+				// await jsleep(600);
+				// sel_chapter.classList.add('nohlight');
+				// sel_chapter.classList.remove('hlight');
 			}
 
 		}else{
@@ -734,7 +765,7 @@ async function scroll_to_section(sid=null, dohlight=false)
 
 
 // set full to true if full id is being passed
-async function article_loader(a_id=null, full=false)
+async function article_loader(a_id=null, full=false, force=false)
 {
 	console.time('Full Article Load');
 	window.imgqu = [];
@@ -757,18 +788,20 @@ async function article_loader(a_id=null, full=false)
 
 	// if not found (404) do nothing
 	if (atext == 'invalid_url'){
+		// if force is true and article does not exist on server - clear space and dispay error message
+		if (force == true){
+			$('.arcl_header_p').text('Error: DE-GFAL. (page does not exist)');
+			$('.article_content, .rquick_index').empty();
+		}
 		console.log('Requested article could not be found on server');
 		return
 	}
 
-	// empty the space
-	$('.article_content').empty();
+	// empty the space and quick index from the right
+	$('.article_content, .rquick_index').empty();
 
 	// set title
 	$('.arcl_header_p').text(atext['atitle']);
-
-	// empty rquick index
-	$('.rquick_index').empty();
 
 
 
@@ -827,9 +860,22 @@ async function article_loader(a_id=null, full=false)
 
 		// append box to the page
 		$('.article_content').append(emptybox);
+
+		// highlight code, if needed
+		// only works after the element was appended to the page
+		if (tbox['iscode'] == true){
+			// do a little trick to get rid of html elements
+			let boxtext = emptybox.find('.tut_step_head_text')[0];
+			boxtext.textContent = boxtext.innerText;
+
+			boxtext.classList.add('language-python');
+			// todo: this has to be a class
+			boxtext.style.fontFamily = 'consola';
+			hljs.highlightElement(boxtext);
+		}
+
 	}
 	console.timeEnd('Spawned Text, Queued Images');
-
 
 
 
