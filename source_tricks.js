@@ -5,17 +5,13 @@ window.current_id = null;
 
 // important todo
 
-//
-// The fucking chrome shit. Why the fuck does it restore scroll pos AFTER .scrollIntoView ????
-//
-
-// window.addEventListener('unload', function(e){
-//    document.body.style.display = 'none';
-// });
-
-if ('scrollRestoration' in window.history) {
-    history.scrollRestoration = 'manual';
+// this is needed, because sometimes the browser is trying to restore the scroll position AFTER scrollintoview()
+if (window.location.hash != ''){
+	if ('scrollRestoration' in window.history) {
+	    history.scrollRestoration = 'manual';
+	}
 }
+
 
 
 document.addEventListener('click', event => {
@@ -735,7 +731,6 @@ function scroll_to_section(sid=null, dohlight=false)
 				sel_chapter.style.scrollMargin = null;
 			});
 
-
 			// and then highlight it if asked
 			if (dohlight === true){
 				sel_chapter.classList.add('hlight');
@@ -757,7 +752,7 @@ function scroll_to_section(sid=null, dohlight=false)
 		}else{
 			// if requested chapter could not be found - replace hashtag
 			console.log('Cannot find chapter', `"${sid}"`, 'on the page. Removing it from the url')
-			location.hash = '';
+			window.location.hash = '';
 			// history.replaceState("", "", location.pathname);
 		}
 	}
