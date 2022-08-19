@@ -376,7 +376,7 @@ img
 
 .at_border_edit_box label
 {
-	display: flex;
+	/*display: flex;*/
 	user-select: none;
 }
 
@@ -1153,5 +1153,150 @@ co.code_qtext, co.code_qtext * {
 	display: flex !important;
 	flex-direction: column !important;
 	align-items: center !important;
-	align-content: center !important;
+	justify-content: center !important;
+}
+
+
+
+
+/*new editor*/
+
+#word_editor
+{
+	display: flex;
+	position: fixed;
+	/*width: 100%;*/
+	align-self: center;
+	width: 60%;
+	margin-top: 10px;
+	flex-direction: row;
+}
+
+#word_btns
+{
+	display: flex;
+	/*flex-direction: column;*/
+	flex-wrap: wrap;
+	/*width: 40%;*/
+	width: 90%;
+	/*flex-grow: 1;*/
+	border-left: 5px solid white;
+	margin-left: 20px;
+	background: #222222f2;
+}
+
+.word_btn
+{
+	display: flex;
+	padding: 5px;
+	background: black;
+	color: white;
+	width: 150px;
+	align-items: center;
+	justify-content: center;
+	margin: 5px;
+	border-radius: 5px;
+	font-size: 15px;
+	font-family: 'Roboto';
+	font-weight: 400;
+	user-select: none;
+}
+
+.word_btn:hover
+{
+	background: gray;
+}
+
+.word_btn:active
+{
+	outline: 2px solid lime;
+}
+
+/*			'position': 'fixed',
+			'z-index': 65535,
+			'height': '100px',
+			'display': 'flex',
+			'align-items': 'center',
+			'width': '100%',
+			'background': ''*/
+
+#exit_edit
+{
+	display: flex;
+	/*flex-shrink: 0;*/
+	width: 50px;
+	height: 50px;
+	/*aspect-ratio: 1/1;*/
+	background-image: url('assets/exit.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	align-self: center;
+}
+
+#exit_edit:hover
+{
+	background-image: url('assets/lambda_less_tr.png'), url('assets/exit.png');
+}
+
+#exit_edit:active
+{
+	background-image: url('assets/lambda_w_bg.png');
+}
+
+#word_inputs
+{
+	display: flex;
+	padding-left: 10px;
+	flex-direction: column;
+	background: #222222f2;
+	justify-content: space-around;
+}
+
+#word_text_input
+{
+	all: unset;
+	background: black;
+	outline: 1px solid rgba(255, 255, 255, 0.1);
+	color: white;
+	font-family: 'Roboto';
+	font-size: 15px;
+	padding: 2px;
+	padding-left: 4px;
+	width: 13vw;
+}
+
+#article_save_btn
+{
+	width: 90px;
+	/*height: 100%;*/
+	object-fit: contain;
+	object-position: center;
+	/*align-self: center;*/
+	padding-left: 20px;
+	padding-right: 20px;
+	background: #222222f2;
+}
+
+.box_edit_cbox_field
+{
+	background: #222;
+	padding: 3px;
+	font-family: 'Roboto';
+	font-weight: 400;
+	font-size: 17px;
+	display: flex;
+	align-items: center;
+}
+
+.box_edit_cbox_field:hover
+{
+	background: rgb(50, 50, 50);
+}
+
+.box_edit_cbox_field input
+{
+	margin-right: 7px;
+	width: 18px;
+	height: 18px;
 }

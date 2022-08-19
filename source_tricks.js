@@ -104,52 +104,35 @@ document.addEventListener('click', event => {
 	const breasts = event.target.closest('.imgzoom');
 	if (breasts) { imgmin() }
 
+	// exit edit mode
+	const exitedit = event.target.closest('#exit_edit');
+	if (exitedit) { exit_edit_mode() }
 
-	// reset article header border color to default
-	const resethb = event.target.closest('.arcl_h_border_editor_reset');
-	if (resethb) { $('.article_head').css('border-color', '#FF00A8') }
+	// exit edit mode
+	const dostyle = event.target.closest('.word_btn');
+	if (dostyle) { exec_command(dostyle) }
+
+
 
 });
 
 document.addEventListener('change', event => {
-	console.log('change_registered');
-  
-	// border top colour
-	const btopcol = event.target.closest('.top_border_color_inp');
-	if (btopcol) { set_border_top_col(btopcol, false) }
-
-	// image preview
-	const imgprev = event.target.closest('.c_image_input');
-	if (imgprev) { img_preview(imgprev) }
+	// console.log('change_registered');
 
 	// set size of the image
 	const imgprev_size = event.target.closest('.c_image_size');
 	if (imgprev_size) { img_preview_set_size(imgprev_size) }
 
-
-	// image url
-	const imgprev_url = event.target.closest('.c_image_url');
-	if (imgprev_url) { img_preview_set_url(imgprev_url) }
-
-	// image use url
-	// const imgprev_useurl = event.target.closest('.imguseurl');
-	// if (imgprev_useurl) { img_preview_use_url(imgprev_useurl) }
-
-	// helper color picker
-	const cmaker = event.target.closest('.color_maker');
-	if (cmaker) { color_maker_helper() }
-
-	// Header bat border picker
-	const adhd = event.target.closest('.arcl_h_border_editor_inp');
-	if (adhd) { $('.article_head').css('border-color', $(adhd).val()) }
-
-
-
+	// box edit buttons
+	// important todo: why the fuck does it trigger the click event TWICE ???????
+	const boxedit_local = event.target.closest('label.box_edit_cbox_field input');
+	if (boxedit_local) { box_edit_local_btns(boxedit_local.closest('label.box_edit_cbox_field').getAttribute('bxedit_action'), boxedit_local.closest('.tut_step')) }
+	// if (fuckoff) { console.log('OH NO') }
 });
 
 
 document.addEventListener('focusout', event => {
-	console.log('focusout_registered');
+	// console.log('focusout_registered');
 	// focusout
 	// border top colour
 	const ctgnames = event.target.closest('.fname_text');
@@ -191,118 +174,6 @@ async function jsleep(amt=500) {
 	});
 
 }
-
-
-
-
-
-function img_toggler(etgt)
-{
-	// $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
-	$(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
-	$(etgt).closest('.tut_step').find('.image_adder_btn').toggleClass('e_unclickable');
-}
-
-
-function box_mover(etgt, side)
-{
-	let soolja_box = $(etgt).closest('.tut_step')
-
-	console.log('where is ' + side)
-	
-	if (side == 't')
-	{
-		console.log('exec t');
-		soolja_box.insertBefore(soolja_box.prev()); 
-	}
-	
-	if (side == 'b')
-	{
-		console.log('exec b');
-		soolja_box.insertAfter(soolja_box.next());  
-	}
-
-}
-
-
-function img_preview(etgt)
-{
-
-	var image_slot = $(etgt).closest('.tut_step_content').find('img');
-	console.log(image_slot)
-	var reader = new FileReader();
-	reader.readAsArrayBuffer(etgt.files[0], 'UTF-8');
-	reader.onload = function (evt) {
-		// var boobs = new Blob([new Uint8Array(reader.result)], {type: $('#lizards_pussy')[0].files[0] });
-		var boobs = new Blob([reader.result], {type: etgt.files[0].type });
-		
-		var urlCreator = window.URL || window.webkitURL;
-		var imageUrl = urlCreator.createObjectURL(boobs);
-		
-		$(image_slot)[0].src = imageUrl
-		console.log(reader.result.length)
-
-
-		var today = new Date();
-		guidgen = CryptoJS.SHA256(today.getTime().toString() + liz3_rndwave(512, 'flac', '')).toString();
-		$(etgt).attr('uuid', guidgen)
-		window[guidgen] = reader.result
-
-		// console.log(window[etgt])
-
-		$(etgt).closest('.tut_step_content').find('.imguseurl').prop('checked', true);
-
-	}
-
-}
-
-
-
-function img_preview_set_size(etgt)
-{
-	$(etgt).closest('.tut_step_content').find('img').css('width', $(etgt).val());
-
-}
-
-function img_preview_delete(etgt)
-{
-
-	$(etgt).closest('.tut_step_content').remove();
-}
-
-function img_preview_add(etgt)
-{
-	// tut_step_content
-	$(etgt).before('<div class="tut_step_content"><img class="tut_img" src="">' + window.img_editor + '</div>')
-}
-
-function add_bbox(etgt)
-{
-	var bbox = 
-	`
-		<div class="tut_step">
-			<div class="tut_step_head">
-				<p contenteditable class="single_lizrd_looking_for_sex tut_step_head_text">cum</p>
-				` + window.border_edit_m + `
-			</div>
-			<input class="section_name" type="text">
-			<div class="image_adder_btn">Add Image</div>
-		</div>
-	`;
-
-	$('.article_content').append(bbox);
-	eval_ebox_margin()
-
-}
-
-function delete_bbox(etgt, evee)
-{
-	if(evee.altKey)
-	{
-		$(etgt).closest('.tut_step').remove();
-	}
-}
-
 
 
 
@@ -475,6 +346,20 @@ function ctg_name_actuator(etgt, evee)
 
 
 
+function img_toggler(etgt)
+{
+	// $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
+	$(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
+	$(etgt).closest('.tut_step').find('.image_adder_btn').toggleClass('e_unclickable');
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -568,9 +453,16 @@ $(document).ready(function(){
 //                        Edit mode
 // ============================================================
 // ============================================================
+function ehtml(s)
+{
+	var shit = document.createElement('div');
+	shit.innerHTML = s
+	return shit.children[0]
+}
 
 function activate_edit_mode(evee)
 {
+
 	if (evee.altKey)
 	{
 		document.body.innerHTML = 
@@ -588,13 +480,250 @@ function activate_edit_mode(evee)
 
 	// activate edit mode
 	if (evee.shiftKey){
+		// precache an icon
+		window.exit_icon_cache = cache_image('assets/lambda_w_bg.png');
 
+		// ----------------------------------------
+		//   spawn word-like editor on the page
+		// ----------------------------------------
+
+		// hide title
+		$('.top-navbar').css('display', 'none');
+
+		// shift page content
+		$('.page_content').css('margin-top', '100px');
+
+		// create word editor
+		var wordbtns = ehtml(`
+			<div class="epreview_hide" id="word_editor">
+				<div id="exit_edit"></div>
+				<div id="word_btns"></div>
+				<div id="word_inputs">
+					<input type="color" id="word_color_input">
+					<input type="text" id="word_text_input">
+				</div>
+				<img id="article_save_btn" src="assets/btnlol.apng">
+			</div>
+		`);
+
+		// a dictionary of what each button does and its visual appearence
+		var btnlist = [
+			{
+				'vis': 'Background',
+				'sys': 'backColor',
+				'add': 'colour'
+			},
+			{
+				'vis': 'Bold',
+				'sys': 'bold',
+				'add': 'none'
+			},
+			{
+				'vis': 'Make a Link',
+				'sys': 'createLink',
+				'add': 'text'
+			},
+			{
+				'vis': 'Colour',
+				'sys': 'foreColor',
+				'add': 'colour'
+			},
+			{
+				'vis': 'Ordered List',
+				'sys': 'insertOrderedList',
+				'add': 'none'
+			},
+			{
+				'vis': 'Unordered List',
+				'sys': 'insertUnorderedList',
+				'add': 'none'
+			},
+			{
+				'vis': 'Italic',
+				'sys': 'italic',
+				'add': 'none'
+			},
+			{
+				'vis': 'Underline',
+				'sys': 'underline',
+				'add': 'none'
+			},
+			{
+				'vis': 'Remove Format',
+				'sys': 'unlink',
+				'add': 'none'
+			}
+		]
+		// populate the Word editor box
+		for (let bt of btnlist){
+			// todo: transfer this to ${}
+			var rawbtn = ehtml(`<div class="word_btn">` + bt['vis'] + `</div>`);
+			// rawbtn.setAttribute('vis', bt['vis']);
+			rawbtn.setAttribute('sys', bt['sys']);
+			rawbtn.setAttribute('add', bt['add']);
+			wordbtns.querySelector('#word_btns').append(rawbtn);
+		};
+		// append result to the page
+		document.body.append(wordbtns);
+
+		// make stuff editable
+		$('.arcl_header_p, .tut_step_head_text').attr('contenteditable', true);
+
+		// append buttons like code, enable/disable border, etc
+		for (let box of document.querySelectorAll('.tut_step_head')){
+			box.append(ehtml(`
+				<div class="at_border_edit_box epreview_hide">
+
+					<label bxedit_action="toggle_border" class="box_edit_cbox_field" id="box_edit_enable_border"><input checked type="checkbox" class="box_edit_enable_border">Enable border</label>
+
+					<label bxedit_action="mark_code" class="box_edit_cbox_field" id="box_edit_iscode">
+						<input type="checkbox" class="box_edit_iscode">
+						Is Code
+					</label>
+
+					<label bxedit_action="mark_vdc_code" class="box_edit_cbox_field" id="box_edit_isvdccode">
+						<input type="checkbox" class="box_edit_isvdccode">
+						VDC Code
+					</label>
+
+					<div class="iliketomoveit">
+						<div class="article_movetop"><div class="mv_triangle"></div></div>
+						<div class="article_movebot"><div class="mv_triangle"></div></div>
+					</div>
+					<div class="delete_box">Del</div>
+				</div>
+			`));
+		}
+	}
+
+}
+
+function exec_command(c)
+{
+	if (c.getAttribute('add') == 'colour'){
+		document.execCommand(c.getAttribute('sys'), false, document.querySelector('#word_color_input').value.replace('#', ''));
+	}
+	if (c.getAttribute('add') == 'text'){
+		document.execCommand(c.getAttribute('sys'), false, document.querySelector('#word_text_input').value);
+	}
+	if (c.getAttribute('add') == 'none'){
+		document.execCommand(c.getAttribute('sys'), false, null);
+	}
+	// back to BDSM
+	if (c.getAttribute('sys') == 'unlink'){
+		document.execCommand('removeFormat', false, null);
+	}
+	
+}
+
+
+function exit_edit_mode()
+{
+	// unhide title
+	$('.top-navbar, .page_content').removeAttr('style');
+
+	// delete editor
+	$('#word_editor').remove();
+}
+
+
+function box_edit_local_btns(action, box)
+{
+	// enable/disable border
+	if (action == 'toggle_border'){
+		// important todo: it seems that this is being triggered BEFORE the checkbox setting its state
+		let easyswitch = $(box).find('input.box_edit_enable_border')[0].checked ? '5px' : '0px';
+		$(box).find('.tut_step_head_text').css('border-width', easyswitch);
+		$(box).attr('border_enabled', $(box).find('input.box_edit_enable_border')[0].checked);
+	}
+
+	// mark as python code
+	if (action == 'mark_code'){
+		$(box).attr('iscode', true);
+	}
+
+	// mark as vdc code
+	if (action == 'mark_vdc_code'){
+		$(box).attr('isvdccode', true);
+	}
+}
+
+
+
+
+
+
+
+
+
+function box_mover(etgt, side)
+{
+	let soolja_box = $(etgt).closest('.tut_step')
+
+	console.log('where is ' + side)
+	
+	if (side == 't')
+	{
+		console.log('exec t');
+		soolja_box.insertBefore(soolja_box.prev()); 
+	}
+	
+	if (side == 'b')
+	{
+		console.log('exec b');
+		soolja_box.insertAfter(soolja_box.next());  
 	}
 
 }
 
 
 
+
+
+function img_preview_set_size(etgt)
+{
+	$(etgt).closest('.tut_step_content').find('img').css('width', $(etgt).val());
+
+}
+
+function img_preview_delete(etgt)
+{
+
+	$(etgt).closest('.tut_step_content').remove();
+}
+
+function img_preview_add(etgt)
+{
+	// tut_step_content
+	$(etgt).before('<div class="tut_step_content"><img class="tut_img" src="">' + window.img_editor + '</div>')
+}
+
+function add_bbox(etgt)
+{
+	var bbox = 
+	`
+		<div class="tut_step">
+			<div class="tut_step_head">
+				<p contenteditable class="single_lizrd_looking_for_sex tut_step_head_text">cum</p>
+				` + window.border_edit_m + `
+			</div>
+			<input class="section_name" type="text">
+			<div class="image_adder_btn">Add Image</div>
+		</div>
+	`;
+
+	$('.article_content').append(bbox);
+	eval_ebox_margin()
+
+}
+
+function delete_bbox(etgt, evee)
+{
+	if(evee.altKey)
+	{
+		$(etgt).closest('.tut_step').remove();
+	}
+}
 
 
 
@@ -736,7 +865,6 @@ function scroll_to_section(sid=null, dohlight=false)
 				sel_chapter.classList.add('hlight');
 
 				// Method 1 - then
-
 				jsleep(500)
 				.then(function(response) {
 					sel_chapter.classList.add('nohlight');
@@ -762,6 +890,7 @@ function scroll_to_section(sid=null, dohlight=false)
 // set full to true if full id is being passed
 async function article_loader(a_id=null, full=false, force=false)
 {
+	
 	console.time('Full Article Load');
 	window.imgqu = [];
 	// deal with ids
@@ -870,7 +999,9 @@ async function article_loader(a_id=null, full=false, force=false)
 		}
 
 	}
+	activate_edit_mode({shiftKey: true})
 	console.timeEnd('Spawned Text, Queued Images');
+
 
 
 
