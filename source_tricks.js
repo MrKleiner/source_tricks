@@ -484,58 +484,58 @@ function ctg_name_actuator(etgt, evee)
 $(document).ready(function(){
 	console.log('Document Ready');
 
-	function ihatethen(dt)
+	function article_identifier(dt)
 	{
+		console.timeEnd('Loaded index');
 		$('.nav_stuff_box').append(dt);
 		// load shit if it was linked to
 		var urlParams = new URLSearchParams(window.location.search);
 		var load_loc = urlParams.get('lt');
-		// if not null (exists) - load the tut
+		// if not null (exists) - search for the tut
 		if (load_loc != null)
 		{
+			console.log('URL contains an article id', load_loc);
 			// we dont want huge fucking urls. We use every 4th character of an id
 			// and hope that there are no collisions...
 
-			// can't have shit in js...
+			// go through every entry in the website index
+			// basically, this index thing is also used internally to locate articles
 			$('.nav_tutorial').each(function(){
-				// check every id
+
 				// downscale it first and then compare to the query
 				var string = $(this).attr('asset_idx');
-				var saltedString = lizard.delnthchar(string, 4, true)
-				if (load_loc == saltedString)
+				var downscaled = lizard.delnthchar(string, 4, true)
+				// if we found a match - try loading the article
+				if (load_loc == downscaled)
 				{
-					// async !!!!
-					// pgloader(string)
+					console.log('Found match inside index');
+					console.timeEnd('Indexing Done');
+					console.groupEnd('Indexing');
+					
 					article_loader(string)
 				}
-
 			});
 		}
-		// cvready()
-		// set min width thingies
-		// todo: this is duplicated in page loader
-		$('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
-		// $('.folder_name').prepend('<div class="folder_triangle"><div class="folder_triangle_ico"></div></div>');
 	}
-
-
-	fetch("content_index.sex", {
-		"headers": {
-			"accept": "*/*",
-			"cache-control": "no-cache",
-			"pragma": "no-cache"
+	console.time('Indexing Done');
+	console.groupCollapsed('Indexing');
+	console.log('Fetch index');
+	console.time('Loaded index');
+	fetch('content_index.sex', {
+		'headers': {
+			'accept': '*/*',
+			'cache-control': 'no-cache',
+			'pragma': 'no-cache'
 		},
-		"referrerPolicy": "strict-origin-when-cross-origin",
-		"body": null,
-		"method": "GET",
-		"mode": "cors",
-		"credentials": "omit"
+		'referrerPolicy': 'strict-origin-when-cross-origin',
+		'body': null,
+		'method': 'GET',
+		'mode': 'cors',
+		'credentials': 'omit'
 	})
 	.then(response => response.text())
-	// .then(data => $('.nav_stuff_box').append(data));
-	.then(data => ihatethen(data));
-	// YEA, one more fucking .then will do the shit, but I dont wanna
-	// cuz like... one more fucking .then and THEN I'm gonna fucking kill myself
+	.then(data => article_identifier(data));
+
 
 /*    xmlDoc = $.parseXML(tml);
 	// fuckjq = $(xmlDoc)
@@ -544,13 +544,6 @@ $(document).ready(function(){
 	console.log(xmlDoc);
 	
 	var pootis = $(xmlDoc).find('inputs[title="28_08_2021_beach_title.xaml"]').end().find('text[name="top_pair"]').text();*/
-
-
-
-
-
-
-
 
 });
 
@@ -758,6 +751,12 @@ async function article_loader(a_id=null, full=false)
 
 	// first - load the text part
 	var atext = await get_article_text(a_id);
+
+	// if not found (404) do nothing
+	if (atext == 'invalid_url'){
+		console.log('Requested article could not be found on server');
+		return
+	}
 
 	// empty the space
 	$('.article_content').empty();
