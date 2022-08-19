@@ -164,6 +164,27 @@ document.addEventListener('keypress', event => {
 
 
 
+
+
+
+
+
+
+
+async function jsleep(amt=500) {
+
+	return new Promise(function(resolve, reject){
+	    setTimeout(function () {
+			resolve(true)
+	    }, amt);
+	});
+
+}
+
+
+
+
+
 function img_toggler(etgt)
 {
 	// $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
@@ -537,6 +558,26 @@ $(document).ready(function(){
 
 
 
+// ============================================================
+// ============================================================
+//                        Edit mode
+// ============================================================
+// ============================================================
+
+function activate_edit_mode()
+{
+	document.body.innerHTML = 
+	`
+		<div id="broken">
+			<div id="imsorry">I broke everything! Wait till I rewrite 3k lines of code!</div>
+			<img src="https://cdn.discordapp.com/attachments/679185357325205514/1007063507944083466/IMG_6913.png">
+		</div>
+	`;
+	document.body.id = 'mein_sex';
+	document.body.setAttribute('style', null);
+
+	return
+}
 
 
 
@@ -653,6 +694,44 @@ async function satisfy_image_queue()
 }
 
 
+async function scroll_to_section(sid=null, dohlight=false)
+{
+	// only proceed if ID is not empty
+	if (sid != '' && sid != null){
+		// check it chapter exists on the page
+		var sel_chapter = document.getElementById(sid);
+		if (sel_chapter != null){
+
+			// scroll it into view
+			sel_chapter.scrollIntoView();
+
+			// and then highlight it if asked
+			if (dohlight === true){
+				sel_chapter.classList.add('hlight');
+
+				// Method 1 - then
+
+				// jsleep(500)
+				// .then(function(response) {
+				// 	sel_chapter.classList.add('nohlight');
+				// 	sel_chapter.classList.remove('hlight');
+				// });
+
+				// Method 2 - await
+				await jsleep(500);
+				sel_chapter.classList.add('nohlight');
+				sel_chapter.classList.remove('hlight');
+			}
+
+		}else{
+			// if requested chapter could not be found - replace hashtag
+			console.log('Cannot find chapter', `"${sid}"`, 'on the page. Removing it from the url')
+			location.hash = '';
+			// history.replaceState("", "", location.pathname);
+		}
+	}
+}
+
 
 // set full to true if full id is being passed
 async function article_loader(a_id=null, full=false)
@@ -667,6 +746,11 @@ async function article_loader(a_id=null, full=false)
 
 	// set current active id
 	window.current_id = a_id;
+
+	// set id to the URL
+	var queryParams = new URLSearchParams(window.location.search);
+	queryParams.set('lt', lizard.delnthchar(window.current_id, 4, true));
+	history.replaceState(null, null, '?'+queryParams.toString() + window.location.hash);
 
 	// first - load the text part
 	var atext = await get_article_text(a_id);
@@ -688,6 +772,9 @@ async function article_loader(a_id=null, full=false)
 	// --------------------------------
 	console.time('Spawn Text, Queue Images');
 	for (var tbox of atext['boxes']){
+		// TESTING
+		// await jsleep(1000);
+
 		// id mismatch = switched articles mid load. Abort
 		if (a_id != window.current_id){
 			console.log('id mismatch:', 'working for', a_id, 'current', window.current_id);
@@ -722,6 +809,9 @@ async function article_loader(a_id=null, full=false)
 
 		// queue images
 		for (var q_img of tbox['contents']){
+			// just to be safe: Break here too if ID mismatch
+			if (a_id != window.current_id){return null};
+
 			window.imgqu.push({
 				'to': emptybox,
 				'content': q_img
@@ -751,7 +841,14 @@ async function article_loader(a_id=null, full=false)
 	//       	 Finalize
 	// --------------------------------
 
-	// $('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
+	// Set body width accounting the quick index width
+	$('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
+
+	// scroll into view
+	var scroll_id = decodeURI(window.location.hash).replace('#', '');
+	scroll_to_section(scroll_id, true)
+
+	
 
 	console.timeEnd('Full Article Load');
 }

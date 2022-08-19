@@ -694,13 +694,14 @@ st[strike]
 .hlight
 {
 	outline: 5px solid;
-	outline-color: rgba(255, 0, 0, 1);
+	/*outline-color: rgba(255, 0, 0, 1);*/
+	outline-color: #00ff58;
 	transition: 0s;
 }
 
 .nohlight
 {
-	outline: 5px solid;
+	outline: 5px solid !important;
 	outline-color: transparent !important;
 	transition: .9s;
 }
