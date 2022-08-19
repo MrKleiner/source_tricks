@@ -699,10 +699,10 @@ st[strike]
 
 .imgzoom img
 {
-	width: auto;
 	object-fit: contain;
 	object-position: center;
 	height: 100%;
+	width: 100%;
 }
 
 /*.tut_step
