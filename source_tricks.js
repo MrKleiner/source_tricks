@@ -666,7 +666,6 @@ async function satisfy_image_queue()
 {
 	console.groupCollapsed('Image Queue Process');
 	for (var im of window.imgqu){
-		// create box for the image
 		var imgbox = $(`<div class="tut_step_content"></div>`);
 		
 		// wait for image to load
@@ -680,7 +679,11 @@ async function satisfy_image_queue()
 		// append image to the box
 		imgbox.append(theimg);
 		// create minimize button. The reference element in the image queue is a jQuery object
-		im['to'].find('.tut_step_head').append('<button class="tut_img_button"></button>')
+		// only if it doesnt exist already
+		if (im['to'].find('.tut_img_button').length <= 0){
+			im['to'].find('.tut_step_head').append('<button class="tut_img_button"></button>');
+		}
+		
 		// append result to the page
 		im['to'].append(imgbox);
 
