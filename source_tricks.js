@@ -564,19 +564,23 @@ $(document).ready(function(){
 // ============================================================
 // ============================================================
 
-function activate_edit_mode()
+function activate_edit_mode(evee)
 {
-	document.body.innerHTML = 
-	`
-		<div id="broken">
-			<div id="imsorry">I broke everything! Wait till I rewrite 3k lines of code!</div>
-			<img src="https://cdn.discordapp.com/attachments/679185357325205514/1007063507944083466/IMG_6913.png">
-		</div>
-	`;
-	document.body.id = 'mein_sex';
-	document.body.setAttribute('style', null);
+	if (evee.altKey)
+	{
+		document.body.innerHTML = 
+		`
+			<div id="broken">
+				<div id="imsorry">I broke everything! Wait till I rewrite 3k lines of code!</div>
+				<img src="https://cdn.discordapp.com/attachments/679185357325205514/1007063507944083466/IMG_6913.png">
+			</div>
+		`;
+		document.body.id = 'mein_sex';
+		document.body.setAttribute('style', null);
 
-	return
+		return
+	}
+
 }
 
 
@@ -630,7 +634,7 @@ async function get_article_text(fullid=null)
 			'credentials': 'omit'
 		})
 		.then(function(response) {
-			console.log(response.status);
+			// console.log(response.status);
 			if (response.status == 404){
 				resolve('invalid_url')
 				return
@@ -718,7 +722,7 @@ async function scroll_to_section(sid=null, dohlight=false)
 				// });
 
 				// Method 2 - await
-				await jsleep(500);
+				await jsleep(600);
 				sel_chapter.classList.add('nohlight');
 				sel_chapter.classList.remove('hlight');
 			}
@@ -770,14 +774,15 @@ async function article_loader(a_id=null, full=false)
 	// --------------------------------
 	//       create text boxes
 	// --------------------------------
-	console.time('Spawn Text, Queue Images');
+	console.log('Start Spawning Text and Queueing images');
+	console.time('Spawned Text, Queued Images');
 	for (var tbox of atext['boxes']){
 		// TESTING
 		// await jsleep(1000);
 
 		// id mismatch = switched articles mid load. Abort
 		if (a_id != window.current_id){
-			console.log('id mismatch:', 'working for', a_id, 'current', window.current_id);
+			console.log('id mismatch:', 'working for', a_id, 'but current is', window.current_id);
 			return null
 		};
 
@@ -821,7 +826,7 @@ async function article_loader(a_id=null, full=false)
 		// append box to the page
 		$('.article_content').append(emptybox);
 	}
-	console.timeEnd('Spawn Text, Queue Images');
+	console.timeEnd('Spawned Text, Queued Images');
 
 
 
@@ -830,9 +835,10 @@ async function article_loader(a_id=null, full=false)
 	// --------------------------------
 	//       Spawn images (media)
 	// --------------------------------
-	console.time('Satisfy Image Queue');
+	console.time('Satisfied Image Queue');
 	await satisfy_image_queue()
-	console.timeEnd('Satisfy Image Queue');
+	console.timeEnd('Satisfied Image Queue');
+
 
 
 
@@ -848,7 +854,6 @@ async function article_loader(a_id=null, full=false)
 	var scroll_id = decodeURI(window.location.hash).replace('#', '');
 	scroll_to_section(scroll_id, true)
 
-	
 
 	console.timeEnd('Full Article Load');
 }
