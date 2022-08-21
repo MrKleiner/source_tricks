@@ -1292,6 +1292,12 @@ co.code_qtext, co.code_qtext * {
 	width: 13vw;
 }
 
+.word_editor_saveload
+{
+	display: flex;
+	background: #222222f2;
+}
+
 #article_save_btn
 {
 	width: 90px;
@@ -1299,9 +1305,14 @@ co.code_qtext, co.code_qtext * {
 	object-fit: contain;
 	object-position: center;
 	/*align-self: center;*/
-	padding-left: 20px;
-	padding-right: 20px;
-	background: #222222f2;
+	margin-left: 20px;
+	margin-right: 20px;
+
+	background-image: url('assets/btnidle.png');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	
 }
 
 #article_preview_btn
@@ -1309,9 +1320,9 @@ co.code_qtext, co.code_qtext * {
 	width: 90px;
 	object-fit: contain;
 	object-position: center;
-	padding-left: 20px;
-	padding-right: 20px;
-	background: #222222f2;
+	margin-left: 20px;
+	margin-right: 20px;
+	/*background: #222222f2;*/
 }
 
 .box_edit_cbox_field
@@ -1342,7 +1353,8 @@ co.code_qtext, co.code_qtext * {
 {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 2px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 
@@ -1538,4 +1550,22 @@ co.code_qtext, co.code_qtext * {
 .edit_img_size
 {
 	all: unset;
+	background: black;
+	outline: 1px solid rgba(255, 255, 255, 0.1);
+	color: white;
+	font-family: 'Roboto';
+	font-size: 15px;
+	padding: 2px;
+	padding-left: 4px;
+	/*width: 13vw;*/
+	width: 50px;
+	margin: 0px 15px 0px 10px;
+	-moz-appearance: textfield;
+}
+
+.edit_img_size::-webkit-inner-spin-button, 
+.edit_img_size::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
 }

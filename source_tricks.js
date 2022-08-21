@@ -41,8 +41,6 @@ document.addEventListener('click', event => {
 
 
 
-
-
 	//
 	// box mover
 	//
@@ -107,6 +105,10 @@ document.addEventListener('click', event => {
 	const toggleprev = event.target.closest('#article_preview_btn');
 	if (toggleprev) { edit_toggle_page_preview() }
 
+	// Article save
+	const articlesave = event.target.closest('#article_save_btn');
+	if (articlesave) { article_saver() }
+
 
 
 });
@@ -124,6 +126,10 @@ document.addEventListener('change', event => {
 	// generate image preview
 	const imgprev = event.target.closest('.edit_img_ctrl_link, .edit_img_ctrl_file, .edit_img_ctrl_type input');
 	if (imgprev) { edit_img_dopreview(imgprev.closest('.edit_img_ctrl')) }
+
+	// apply image size
+	const imgsize = event.target.closest('.edit_img_size');
+	if (imgsize) { editimg_apply_size(imgsize, event) }
 	
 });
 
@@ -179,13 +185,7 @@ document.addEventListener('keyup', event => {
 
 
 
-// keypress does not register Backspace
 document.addEventListener('wheel', event => {
-
-	// better input UX
-	// unfocus inputs and lock contenteditables
-	const imgsize = event.target.closest('.ux_input');
-	if (imgsize) { input_ux(inputux, event) }
 
 });
 
@@ -238,6 +238,7 @@ function input_ux(tgt, evee)
 {
 	if (evee.keyCode == 13 || evee.keyCode == 27){
 		// tgt.contentEditable = false;
+		// tgt.value = tgt.value
 		tgt.blur();
 	}
 }
@@ -440,7 +441,7 @@ function imgeditorbtns()
 	let radiogroup = lizard.rndwave(11);
 	var imgeditor_ctrls = lizard.ehtml(`
 		<div class="edit_img_ctrl epreview_hide">
-			<input class="edit_img_ctrl_link" type="text">
+			<input class="edit_img_ctrl_link ux_input" type="text">
 			<div class="edit_img_file_and_switch">
 
 				<input class="edit_img_ctrl_file" type="file">
@@ -457,7 +458,7 @@ function imgeditorbtns()
 					</label>
 				</div>
 
-				<input type="number" class="edit_img_size">
+				<input min="0" step="10" type="number" class="edit_img_size ux_input">
 
 				<div img_action="del" class="edit_img_ctrl_del imgedit_btn">Delete</div>
 
@@ -520,8 +521,10 @@ function activate_edit_mode(evee)
 					<input type="color" id="word_color_input">
 					<input class="ux_input" type="text" id="word_text_input">
 				</div>
-				<img draggable="false" id="article_save_btn" src="assets/btnlol.apng">
-				<img draggable="false" id="article_preview_btn" src="assets/lever_off.png">
+				<div class="word_editor_saveload">
+					<img draggable="false" id="article_save_btn" src="assets/btnidle.png">
+					<img draggable="false" id="article_preview_btn" src="assets/lever_off.png">
+				</div>
 			</div>
 		`);
 
@@ -643,12 +646,14 @@ function activate_edit_mode(evee)
 		}
 
 		// append image controls
-		for (let imgc of document.querySelectorAll('.imgcont_media_unit')){
+		for (var imgc of document.querySelectorAll('.imgcont_media_unit')){
 			// autofill image src
-			let editor_btns = $(imgeditorbtns());
+			var editor_btns = $(imgeditorbtns());
+			// show image size
+			editor_btns.find('.edit_img_size').val($(imgc).find('img')[0].style.width.replace('px', ''));
 			editor_btns.find('.edit_img_ctrl_link').val($(imgc).find('img').attr('src'));
 			// append result to the page
-			$(imgc).append(editor_btns);
+			$(imgc).prepend(editor_btns);
 		}
 
 
@@ -726,8 +731,8 @@ function edit_imgedit_btns_manager(el, evee)
 	// create element
 	if (el.getAttribute('img_action') == 'add'){
 		// wrap controls into a media unit container
-		let wrapped = lizard.ehtml('<div class="imgcont_media_unit"></div>');
-		wrapped.append(imgeditorbtns());
+		var wrapped = lizard.ehtml('<div class="imgcont_media_unit"><img></div>');
+		wrapped.prepend(imgeditorbtns());
 		// append result to the page
 		el.closest('.tut_step').querySelector('.tut_step_content').append(wrapped);
 	}
@@ -992,7 +997,18 @@ function edit_toggle_page_preview()
 }
 
 
+function editimg_apply_size(tgt, evee)
+{
+	// if blank - fit
+	if (str(tgt.value.trim()) == '' || str(tgt.value.trim()) == '0'){
+		$(tgt).closest('.imgcont_media_unit').find('img')[0].style.width = null
+		tgt.value = '';
+	}else{
+		$(tgt).closest('.imgcont_media_unit').find('img')[0].style.width = str(tgt.value) + 'px';
+		// evee.preventDefault()
+	}
 
+}
 
 
 
@@ -1179,7 +1195,9 @@ async function cache_image(url)
 	        };
 
 	        img.onerror = () => {
-	            resolve(false);
+	            // todo: error handling
+	            img.src = '';
+	            resolve(img);
 	        };
 	    }
 	});
@@ -1457,16 +1475,97 @@ async function article_loader(a_id=null, force=false)
 
 
 
+
+
+
+
+
+
+
+
 // ============================================================
 // ============================================================
 //                        Article Saver
 // ============================================================
 // ============================================================
 
+async function send_article_text(txt, arcl_id)
+{
+	return new Promise(function(resolve, reject){
+		fetch('htbin/manager.py?do=save_text&article_id=' + arcl_id, {
+		    'headers': {
+		        'accept': '*/*',
+		        'cache-control': 'no-cache',
+		        'pragma': 'no-cache'
+		    },
+		    'body': txt,
+		    'method': 'POST',
+		    'mode': 'cors',
+		    'credentials': 'omit'
+		})
+		.then(function(response) {
+		    // console.log(response.status);
+		    response.json().then(function(data) {
+		    	resolve(data)
+		    });
+		});
+	});
+}
+
+
+async function send_article_image(imgb, imagename, arcl_id)
+{
+	return new Promise(function(resolve, reject){
+
+		var prms = new URLSearchParams({
+			do: 'save_img',
+			article_id: arcl_id,
+			media_id: imagename
+		})
+
+		fetch('htbin/manager.py?' + prms.toString(), {
+		    'headers': {
+		        'accept': '*/*',
+		        'cache-control': 'no-cache',
+		        'pragma': 'no-cache'
+		    },
+		    'body': imgb,
+		    'method': 'POST',
+		    'mode': 'cors',
+		    'credentials': 'omit'
+		})
+		.then(function(response) {
+		    // console.log(response.status);
+		    response.json().then(function(data) {
+		    	resolve(data)
+		    });
+		});
+	});
+}
+
+
+async function read_as_bytes(file)
+{
+	return new Promise(function(resolve, reject){
+		var reader = new FileReader();
+	    reader.readAsArrayBuffer(file, 'UTF-8');
+	    reader.onload = function (evt) {
+	    	// convert read result to blob
+			var boobs = new Blob([reader.result], {type: file.type});
+			resolve(boobs)
+		};
+	});
+}
+
+
 async function article_saver()
 {
 	console.group('Article Save');
 	console.time('Full Save');
+
+	// giga sexy das knopf
+	document.querySelector('#article_save_btn').src = '';
+	document.querySelector('#article_save_btn').src = 'assets/btn40.apng';
 
 	// basic info
 	var article = {
@@ -1477,18 +1576,62 @@ async function article_saver()
 
 	console.log('Basic info', article);
 
+	console.log('Compiling Article Text...')
+	console.time('Done Compiling Article Text in')
+	// process boxes one by one
+	window.imgsave_queue = [];
 	for (var box of document.querySelectorAll('.tut_step')){
 		console.log('Processing box', box);
+		// write down general info about the box
 		var mkbox = {
-			'border': getComputedStyle($(box).find('.tut_step_head_text')).borderBlock,
+			'border': getComputedStyle($(box).find('.tut_step_head_text')[0]).borderBlock,
 			'chapter': $(box).find('.boxedit_chapter').val().trim(),
 			'text': $(box).find('.tut_step_head_text')[0].innerHTML,
 			'contents': []
 		}
 		console.log('Wrote down basic info and text', mkbox);
 
+		// process media one by one
+		// even though this is 100% reliable now - process images AFTER the text
+		for (var boxm of box.querySelectorAll('.imgcont_media_unit')){
+			var img_unit = {
+				'imgsize': $(boxm).find('.edit_img_size').val(),
+			}
+
+			// if it's a link - do not queue the save
+			// if it's a file - queue file save for later
+			if ($(boxm).find('.edit_img_ctrl_islink input')[0].checked == true){
+				img_unit['imgurl'] = $(boxm).find('.edit_img_ctrl_link ').val()
+			}else{
+				// this is kind of a "promise"
+				// "I swear that this is the final url and that it will not change later"
+				var f_input = $(boxm).find('.edit_img_ctrl_file')[0];
+				img_unit['imgurl'] = `content/${window.current_id}/data/${f_input.files[0].name}`;
+				// queue processing
+				// todo: queue files right away
+				window.imgsave_queue.push(f_input);
+			}
+			mkbox['contents'].push(img_unit)
+		}
+		article['boxes'].push(mkbox)
+	}
+
+	// save file
+	await send_article_text(JSON.stringify(article), window.current_id)
+	console.timeEnd('Done Compiling Article Text in')
+
+
+	console.log('Processing All Images...')
+	console.time('Processed All Images in')
+	for (var pr_img of window.imgsave_queue){
+
+		var raw_img = await read_as_bytes(pr_img.files[0])
+		var test = await send_article_image(raw_img, lizard.base64EncArr(lizard.strToUTF8Arr(pr_img.files[0].name)), window.current_id)
+		console.log('img save', test);
 
 	}
+	console.timeEnd('Processed All Images in')
+
 
 	console.timeEnd('Full Save');
 	console.groupEnd('Article Save');
