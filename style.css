@@ -232,6 +232,9 @@ img
 	/*color: white;*/
 	color: rgb(240, 240, 240);
 	border-top: 5px solid #64DAFF;
+	border-right: 0px !important;
+	border-left: 0px !important;
+	border-bottom: 0px !important;
 	white-space: pre-wrap;
 	/*display: inline-block;*/
 	min-height: 30px;
@@ -800,12 +803,34 @@ some fancy shit
 .tut_name_text
 {
 	padding: 3px 3px 3px 3px;
+}
+
+.tut_name_text_edit
+{
 	flex-grow: 1;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 10px;
+	white-space: nowrap;
 }
 
 .nav_folder
 {
 	margin-top: 4px;
+}
+
+.fname_text
+{
+
+}
+
+.fname_text_edit
+{
+	flex-grow: 1;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 10px;
+	white-space: nowrap;
 }
 
 .folder_name .ctg_button, .nav_tutorial .ctg_button
@@ -1169,6 +1194,7 @@ co.code_qtext, co.code_qtext * {
 	align-self: center;
 	width: 60%;
 	margin-top: 10px;
+	margin-left: 120px;
 	flex-direction: row;
 }
 
@@ -1278,6 +1304,16 @@ co.code_qtext, co.code_qtext * {
 	background: #222222f2;
 }
 
+#article_preview_btn
+{
+	width: 90px;
+	object-fit: contain;
+	object-position: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	background: #222222f2;
+}
+
 .box_edit_cbox_field
 {
 	background: #222;
@@ -1299,4 +1335,207 @@ co.code_qtext, co.code_qtext * {
 	margin-right: 7px;
 	width: 18px;
 	height: 18px;
+}
+
+
+.edit_img_ctrl
+{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2px;
+}
+
+
+.edit_img_ctrl_link
+{
+	all: unset;
+	background: black;
+	outline: 1px solid rgba(255, 255, 255, 0.1);
+	color: white;
+	font-family: 'Roboto';
+	font-size: 15px;
+	padding: 2px;
+	padding-left: 4px;
+	/*width: 13vw;*/
+	width: 50%;
+}
+
+.edit_img_ctrl_file
+{
+	background: rgba(0, 0, 0, 0.3);
+	padding: 5px;
+	width: 200px;
+	color: white;
+	border-radius: 5px;
+}
+
+.edit_img_ctrl_type
+{
+	display: flex;
+	flex-direction: row;
+	margin-left: 15px;
+}
+
+
+
+.edit_img_ctrl_type label
+{
+	background: #222;
+	padding: 3px;
+	font-family: 'Roboto';
+	font-weight: 400;
+	font-size: 17px;
+	display: flex;
+	align-items: center;
+	color: white;
+	user-select: none;
+	
+	width: 60px;
+}
+
+.edit_img_ctrl_type label:last-of-type
+{
+	border-radius: 0px 5px 5px 0px;
+}
+.edit_img_ctrl_type label:first-of-type
+{
+	border-radius: 5px 0px 0px 5px;
+}
+
+
+
+.edit_img_ctrl_type label:hover
+{
+	background: rgb(50, 50, 50);
+}
+
+.edit_img_ctrl_type input
+{
+	margin-right: 7px;
+	width: 18px;
+	height: 18px;
+}
+
+.imgedit_btn
+{
+	margin-left: 20px;
+	color: white;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Roboto';
+	font-size: 15px;
+	width: fit-content;
+	background: black;
+	padding: 3px;
+	border-radius: 5px;
+}
+
+.imgedit_btn:active
+{
+	outline: 2px solid white;
+}
+
+
+.boxedit_btns
+{
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+}
+
+.box_edit_btns_other
+{
+	display: flex;
+	flex-direction: column;
+	margin-left: 5px;
+}
+
+.boxedit_btn
+{
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	background: black;
+	border-radius: 5px;
+	padding: 3px;
+	font-family: 'Roboto';
+	font-size: 13px;
+	user-select: none;
+	width: 100%;
+}
+
+
+.boxedit_btn:active
+{
+	outline: 2px solid white;
+}
+
+
+
+.edit_img_file_and_switch
+{
+	margin-top: 5px;
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+
+.boxedit_chapter
+{
+	all: unset;
+	position: absolute;
+	transform: translateY(-140%);
+
+	background: rgba(0, 0, 0, 0.1);
+	/*outline: 1px solid rgba(255, 255, 255, 0.1);*/
+	color: rgb(190, 190, 190);
+	font-family: 'Roboto';
+	font-size: 17px;
+	padding: 2px;
+	width: 350px;
+	/*width: 50%;*/
+}
+
+.boxedit_chapter:hover, .boxedit_chapter:focus
+{
+	background: rgba(0, 0, 0, 0.25);
+}
+
+.pg_preview_hide
+{
+	display: none !important;
+}
+
+.freeze_editor
+{
+	/*position: absolute !important;*/
+}
+
+.hljs
+{
+	font-family: consola;
+	tab-size: 4;
+}
+
+.tut_step[isvdccode] .tut_step_head_text
+{
+	color: black;
+	padding: 1em;
+    border-left: 6px solid #666666 !important;
+    background-color: #D8D7D6;
+    line-height: 1.1em;
+    font-size: 100%;
+    font-family: monospace,sans-serif;
+}
+
+
+.edit_img_size
+{
+	all: unset;
 }

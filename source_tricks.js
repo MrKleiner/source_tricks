@@ -2,6 +2,8 @@ window.blender_edit_mode = false;
 window.preview_mode = false;
 window.imgqu = [];
 window.current_id = null;
+window.edit_preview_mode = false;
+window.boxes_code_storage = [];
 
 // important todo
 
@@ -17,57 +19,48 @@ if (window.location.hash != ''){
 document.addEventListener('click', event => {
 	// console.log('click_registered');
 
+
+
+	//
+	// general
+	//
+
 	// holster-unholster
 	const img_minimize = event.target.closest('.tut_img_button');
 	if (img_minimize) { img_toggler(img_minimize) }
 
-	// magic hat switch
-	const hattrick = event.target.closest('.navbar-icon');
-	if (hattrick) { activate_edit_mode(event) }
+	// enlarge an image
+	const pingas = event.target.closest('.tut_step_content img');
+	if (pingas) { imgmax(pingas) }
 
-	// enable border
-	const enableborder = event.target.closest('.enable_border_checkbox');
-	if (enableborder) { enable_border_top(enableborder) }
-
-	// enable border
-	const border_suggest = event.target.closest('.border_color_suggestion');
-	if (border_suggest) { set_border_top_col(border_suggest, true) }
+	// exit enlarged mode
+	const breasts = event.target.closest('.imgzoom');
+	if (breasts) { imgmin() }
 
 
 
+
+
+
+
+	//
 	// box mover
+	//
+
+	// top
 	const boxmovert = event.target.closest('.article_movetop');
 	if (boxmovert) { box_mover(boxmovert, 't') }
-
-	// box mover
+	// bottom
 	const boxmoverb = event.target.closest('.article_movebot');
 	if (boxmoverb) { box_mover(boxmoverb, 'b') }
 
 
 
-	// delete preview image
-	const imgdel = event.target.closest('.image_deleter');
-	if (imgdel) { img_preview_delete(imgdel) }
-
-	// add preview image
-	const imgadd = event.target.closest('.image_adder_btn');
-	if (imgadd) { img_preview_add(imgadd) }
 
 
-
-	// add box
-	const boxadd = event.target.closest('.add_box');
-	if (boxadd) { add_bbox(boxadd) }
-
-	// delete box
-	const boxdel = event.target.closest('.delete_box');
-	if (boxdel) { delete_bbox(boxdel, event) }
-
-
-	// preview page
-	const pagepreview = event.target.closest('.preview_page');
-	if (pagepreview) { toggle_page_preview() }
-
+	//
+	// Catalogue
+	//
 
 	// toggle folder content
 	const ftoggler = event.target.closest('.fname_text');
@@ -85,32 +78,34 @@ document.addEventListener('click', event => {
 
 
 
-	// wrapper
-	const wrapper = event.target.closest('.frmtbtns');
-	if (wrapper) { wraptext(wrapper) }
-
-	// saver
-	const saveshit = event.target.closest('.cum_on_a_lizard');
-	// if (saveshit) { article_compiler() }
-	if (saveshit) { article_compiler_py() }
 
 
 
-	// penis enlargement
-	const pingas = event.target.closest('.tut_step_content img');
-	if (pingas) { imgmax(pingas) }
 
-	// breast enlargement (I hate it when girls do this)
-	const breasts = event.target.closest('.imgzoom');
-	if (breasts) { imgmin() }
+
+	//
+	// Edit mode
+	//
+
+	// magic hat switch
+	const hattrick = event.target.closest('.navbar-icon');
+	if (hattrick) { activate_edit_mode(event) }
 
 	// exit edit mode
 	const exitedit = event.target.closest('#exit_edit');
 	if (exitedit) { exit_edit_mode() }
 
-	// exit edit mode
+	// apply text styling
 	const dostyle = event.target.closest('.word_btn');
 	if (dostyle) { exec_command(dostyle) }
+
+	// image editor manager
+	const imgman = event.target.closest('.edit_img_ctrl_del, .boxedit_btn');
+	if (imgman) { edit_imgedit_btns_manager(imgman, event) }
+
+	// Article preview
+	const toggleprev = event.target.closest('#article_preview_btn');
+	if (toggleprev) { edit_toggle_page_preview() }
 
 
 
@@ -119,36 +114,83 @@ document.addEventListener('click', event => {
 document.addEventListener('change', event => {
 	// console.log('change_registered');
 
-	// set size of the image
-	const imgprev_size = event.target.closest('.c_image_size');
-	if (imgprev_size) { img_preview_set_size(imgprev_size) }
 
 	// box edit buttons
 	// important todo: why the fuck does it trigger the click event TWICE ???????
 	const boxedit_local = event.target.closest('label.box_edit_cbox_field input');
 	if (boxedit_local) { box_edit_local_btns(boxedit_local.closest('label.box_edit_cbox_field').getAttribute('bxedit_action'), boxedit_local.closest('.tut_step')) }
 	// if (fuckoff) { console.log('OH NO') }
+
+	// generate image preview
+	const imgprev = event.target.closest('.edit_img_ctrl_link, .edit_img_ctrl_file, .edit_img_ctrl_type input');
+	if (imgprev) { edit_img_dopreview(imgprev.closest('.edit_img_ctrl')) }
+	
 });
 
 
 document.addEventListener('focusout', event => {
 	// console.log('focusout_registered');
-	// focusout
-	// border top colour
-	const ctgnames = event.target.closest('.fname_text');
-	const ctgnames_t = event.target.closest('.tut_name_text');
-	if (ctgnames || ctgnames_t) { ctg_name_bitlocker(ctgnames || ctgnames_t) }
-	// $('.fname_text, .tut_name_text').attr('contenteditable', true);
+
+	// lock name editing of a catalogue entry
+	const ctgnames = event.target.closest('.fname_text, .tut_name_text');
+	if (ctgnames) { ctg_name_bitlocker(ctgnames) }
+
+});
+
+document.addEventListener('focusout', event => {
+	// console.log('focusout_registered');
+
+	// lock name editing of a catalogue entry
+	const ctgnames = event.target.closest('.fname_text, .tut_name_text');
+	if (ctgnames) { ctg_name_bitlocker(ctgnames) }
+
 });
 
 
 document.addEventListener('keypress', event => {
-	console.log('kp')
-	const fname_apply = event.target.closest('.fname_text');
-	const tutname_apply = event.target.closest('.tut_name_text');
-	if (fname_apply || tutname_apply) { ctg_name_apply(fname_apply || tutname_apply, event) }
+	// console.log('kp')
+
+	const name_apply = event.target.closest('.fname_text, .tut_name_text');
+	if (name_apply) { ctg_name_apply(name_apply, event) }
+
+	// better input UX
+	// unfocus inputs and lock contenteditables
+	const inputux = event.target.closest('.ux_input');
+	if (inputux) { input_ux(inputux, event) }
 
 });
+
+
+// keypress does not register Backspace
+document.addEventListener('keyup', event => {
+	
+	// eval chapters
+	const boxedit_chapter = event.target.closest('.boxedit_chapter');
+	// if (boxedit_chapter && event.keyCode == 8) { eval_chapters() }
+	if (boxedit_chapter) { eval_chapters() }
+
+	// better input UX
+	// unfocus inputs and lock contenteditables
+	const inputux = event.target.closest('.ux_input');
+	if (inputux) { input_ux(inputux, event) }
+
+});
+
+
+
+
+// keypress does not register Backspace
+document.addEventListener('wheel', event => {
+
+	// better input UX
+	// unfocus inputs and lock contenteditables
+	const imgsize = event.target.closest('.ux_input');
+	if (imgsize) { input_ux(inputux, event) }
+
+});
+
+
+
 
 
 
@@ -191,6 +233,29 @@ function imgmin()
 	$('.imgzoom img').removeAttr('style');
 	document.querySelector('body').style.overflow = 'visible'
 }
+
+function input_ux(tgt, evee)
+{
+	if (evee.keyCode == 13 || evee.keyCode == 27){
+		// tgt.contentEditable = false;
+		tgt.blur();
+	}
+}
+
+function img_toggler(etgt)
+{
+	// $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
+	$(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
+	$(etgt).closest('.tut_step').find('.image_adder_btn').toggleClass('e_unclickable');
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -265,49 +330,44 @@ function catalogue_manager(etgt, evee)
 		$('.nav_folder, .nav_tutorial').removeClass('folder_mv_hlight');
 	}
 
-	if($(etgt).attr('fman_act') == 'del_fld' && evee.altKey)
-	{
+	if($(etgt).attr('fman_act') == 'del_fld' && evee.altKey){
 		$(etgt).closest('.nav_folder').remove();
 	}
-	if($(etgt).attr('fman_act') == 'del_tut' && evee.altKey)
-	{
+	if($(etgt).attr('fman_act') == 'del_tut' && evee.altKey){
 		$(etgt).closest('.nav_tutorial').remove();
 	}
 
-	if($(etgt).attr('fman_act') == 'rootnewdir')
-	{
+	if($(etgt).attr('fman_act') == 'rootnewdir'){
 		$('.nav_stuff_box').append(window.folder_htm);
 	}
 
-	if($(etgt).attr('fman_act') == 'add_fld')
-	{
-
+	if($(etgt).attr('fman_act') == 'add_fld'){
 		$(etgt).closest('.folder_name').siblings('.folder_content').append(window.folder_htm);
 	}
 
 	if($(etgt).attr('fman_act') == 'add_tut')
 	{
 		var today = new Date();
-		var rndname = CryptoJS.MD5(today.getTime().toString() + liz3_rndwave(128, 'flac', '')).toString();
+		var rndname = CryptoJS.MD5(today.getTime().toString() + lizard.rndwave(256, 'flac', '')).toString();
 		console.log(rndname)
 		// console.log(CryptoJS.MD5('shit').toString());
-		$(etgt).closest('.folder_name').siblings('.folder_content').append($('<div class="nav_tutorial"><div class="tut_name_text">How to lizard sex</div>' + window.ctg_btns + '</div>').attr('asset_idx', rndname));
+		$(etgt).closest('.folder_name').siblings('.folder_content').append($(`
+			<div asset_idx="${rndname}" class="nav_tutorial">
+				<div class="tut_name_text tut_name_text_edit">How to ard sex</div>
+				${window.ctg_tut_controls}
+			</div>
+		`));
 	}
 
-	// <div fman_act="shuf" class="ctg_button shuffle_ctg_item">
-	//  <div class="shuffle_ctg_item_top"><div class="btnsico"></div></div>
-	//  <div class="shuffle_ctg_item_bot"><div class="btnsico"></div></div>
-	// </div>
+	// move up or down
 	if($(etgt).attr('fman_act') == 'shuf')
 	{
 		var chooser = $(etgt).closest('.nav_tutorial')[0] || $(etgt).closest('.nav_folder')[0]
-		if(evee.target.closest('.shuffle_ctg_item_top'))
-		{
+		if(evee.target.closest('.shuffle_ctg_item_top')){
 			$(chooser).insertBefore($(chooser).prev())
 		}
 
-		if(evee.target.closest('.shuffle_ctg_item_bot'))
-		{
+		if(evee.target.closest('.shuffle_ctg_item_bot')){
 			$(chooser).insertAfter($(chooser).next())
 		}
 	}
@@ -324,11 +384,11 @@ function ctg_name_bitlocker(etgt)
 	$(etgt).css('user-select', '');
 }
 
-// enable folder name editing
+// this is responsible for folder/tut name editing
+// therefore, the tut loading trigger is also here
 function ctg_name_actuator(etgt, evee)
 {
-	if(evee.altKey)
-	{
+	if(evee.altKey){
 		$(etgt).attr('contenteditable', true).focus();
 		$(etgt).css('user-select', 'text');
 	}else{
@@ -346,12 +406,6 @@ function ctg_name_actuator(etgt, evee)
 
 
 
-function img_toggler(etgt)
-{
-	// $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
-	$(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
-	$(etgt).closest('.tut_step').find('.image_adder_btn').toggleClass('e_unclickable');
-}
 
 
 
@@ -370,79 +424,6 @@ function img_toggler(etgt)
 
 
 
-
-
-// ============================================================
-// ============================================================
-//                           Page load
-// ============================================================
-// ============================================================
-
-$(document).ready(function(){
-	console.log('Document Ready');
-
-	function article_identifier(dt)
-	{
-		console.timeEnd('Loaded index');
-		$('.nav_stuff_box').append(dt);
-		// load shit if it was linked to
-		var urlParams = new URLSearchParams(window.location.search);
-		var load_loc = urlParams.get('lt');
-		// if not null (exists) - search for the tut
-		if (load_loc != null)
-		{
-			console.log('URL contains an article id', load_loc);
-			// we dont want huge fucking urls. We use every 4th character of an id
-			// and hope that there are no collisions...
-
-			// go through every entry in the website index
-			// basically, this index thing is also used internally to locate articles
-			$('.nav_tutorial').each(function(){
-
-				// downscale it first and then compare to the query
-				var string = $(this).attr('asset_idx');
-				var downscaled = lizard.delnthchar(string, 4, true)
-				// if we found a match - try loading the article
-				if (load_loc == downscaled)
-				{
-					console.log('Found match inside index');
-					console.timeEnd('Indexing Done');
-					console.groupEnd('Indexing');
-					
-					article_loader(string)
-				}
-			});
-		}
-	}
-	console.time('Indexing Done');
-	console.groupCollapsed('Indexing');
-	console.log('Fetch index');
-	console.time('Loaded index');
-	fetch('content_index.sex', {
-		'headers': {
-			'accept': '*/*',
-			'cache-control': 'no-cache',
-			'pragma': 'no-cache'
-		},
-		'referrerPolicy': 'strict-origin-when-cross-origin',
-		'body': null,
-		'method': 'GET',
-		'mode': 'cors',
-		'credentials': 'omit'
-	})
-	.then(response => response.text())
-	.then(data => article_identifier(data));
-
-
-/*    xmlDoc = $.parseXML(tml);
-	// fuckjq = $(xmlDoc)
-	// console.log(fuckjq)
-	window.fuckvmix = xmlDoc;
-	console.log(xmlDoc);
-	
-	var pootis = $(xmlDoc).find('inputs[title="28_08_2021_beach_title.xaml"]').end().find('text[name="top_pair"]').text();*/
-
-});
 
 
 
@@ -453,16 +434,44 @@ $(document).ready(function(){
 //                        Edit mode
 // ============================================================
 // ============================================================
-function ehtml(s)
+
+function imgeditorbtns()
 {
-	var shit = document.createElement('div');
-	shit.innerHTML = s
-	return shit.children[0]
+	let radiogroup = lizard.rndwave(11);
+	var imgeditor_ctrls = lizard.ehtml(`
+		<div class="edit_img_ctrl epreview_hide">
+			<input class="edit_img_ctrl_link" type="text">
+			<div class="edit_img_file_and_switch">
+
+				<input class="edit_img_ctrl_file" type="file">
+
+				<div class="edit_img_ctrl_type">
+					<label checked class="edit_img_ctrl_islink">
+						<input checked name="${radiogroup}" type="radio">
+						Link
+					</label>
+
+					<label checked class="edit_img_ctrl_isfile">
+						<input name="${radiogroup}" type="radio">
+						File
+					</label>
+				</div>
+
+				<input type="number" class="edit_img_size">
+
+				<div img_action="del" class="edit_img_ctrl_del imgedit_btn">Delete</div>
+
+
+			</div>
+		</div>
+	`);
+	return imgeditor_ctrls
 }
+
 
 function activate_edit_mode(evee)
 {
-
+	// display error message
 	if (evee.altKey)
 	{
 		document.body.innerHTML = 
@@ -483,9 +492,15 @@ function activate_edit_mode(evee)
 		// precache an icon
 		window.exit_icon_cache = cache_image('assets/lambda_w_bg.png');
 
+		// window.boxes_code_storage = [];
+
+
+
 		// ----------------------------------------
 		//   spawn word-like editor on the page
 		// ----------------------------------------
+
+		// important todo: toggle "editmode" attribute on body and style with css
 
 		// hide title
 		$('.top-navbar').css('display', 'none');
@@ -493,16 +508,20 @@ function activate_edit_mode(evee)
 		// shift page content
 		$('.page_content').css('margin-top', '100px');
 
+		// make quick index smaller
+		$('.rquick_index').css('max-width', '250px');
+
 		// create word editor
-		var wordbtns = ehtml(`
-			<div class="epreview_hide" id="word_editor">
+		var wordbtns = lizard.ehtml(`
+			<div class="epreview_hides" id="word_editor">
 				<div id="exit_edit"></div>
 				<div id="word_btns"></div>
 				<div id="word_inputs">
 					<input type="color" id="word_color_input">
-					<input type="text" id="word_text_input">
+					<input class="ux_input" type="text" id="word_text_input">
 				</div>
-				<img id="article_save_btn" src="assets/btnlol.apng">
+				<img draggable="false" id="article_save_btn" src="assets/btnlol.apng">
+				<img draggable="false" id="article_preview_btn" src="assets/lever_off.png">
 			</div>
 		`);
 
@@ -554,49 +573,257 @@ function activate_edit_mode(evee)
 				'add': 'none'
 			}
 		]
+
 		// populate the Word editor box
 		for (let bt of btnlist){
 			// todo: transfer this to ${}
-			var rawbtn = ehtml(`<div class="word_btn">` + bt['vis'] + `</div>`);
+			var rawbtn = lizard.ehtml(`<div class="word_btn">` + bt['vis'] + `</div>`);
 			// rawbtn.setAttribute('vis', bt['vis']);
 			rawbtn.setAttribute('sys', bt['sys']);
 			rawbtn.setAttribute('add', bt['add']);
 			wordbtns.querySelector('#word_btns').append(rawbtn);
-		};
+		}
 		// append result to the page
 		document.body.append(wordbtns);
 
-		// make stuff editable
+
+
+
+		// ----------------------------------------
+		//   Make stuff editable (contenteditable)
+		// ----------------------------------------
 		$('.arcl_header_p, .tut_step_head_text').attr('contenteditable', true);
 
-		// append buttons like code, enable/disable border, etc
+
+
+
+		// ----------------------------------------
+		//      Append controls to the boxes
+		// ----------------------------------------
 		for (let box of document.querySelectorAll('.tut_step_head')){
-			box.append(ehtml(`
+			box.append(lizard.ehtml(`
 				<div class="at_border_edit_box epreview_hide">
 
-					<label bxedit_action="toggle_border" class="box_edit_cbox_field" id="box_edit_enable_border"><input checked type="checkbox" class="box_edit_enable_border">Enable border</label>
+					<label bxedit_action="toggle_border" class="box_edit_cbox_field" id="box_edit_enable_border">
+						<input checked type="checkbox" class="box_edit_enable_border">
+						Enable border
+					</label>
 
-					<label bxedit_action="mark_code" class="box_edit_cbox_field" id="box_edit_iscode">
-						<input type="checkbox" class="box_edit_iscode">
+					<label bxedit_action="mark_code" class="box_edit_cbox_field">
+						<input ${box.closest('.tut_step').getAttribute('iscode') ? 'checked' : ''} type="checkbox" class="box_edit_iscode">
 						Is Code
 					</label>
 
-					<label bxedit_action="mark_vdc_code" class="box_edit_cbox_field" id="box_edit_isvdccode">
+					<label bxedit_action="mark_vdc_code" class="box_edit_cbox_field">
 						<input type="checkbox" class="box_edit_isvdccode">
 						VDC Code
 					</label>
 
-					<div class="iliketomoveit">
-						<div class="article_movetop"><div class="mv_triangle"></div></div>
-						<div class="article_movebot"><div class="mv_triangle"></div></div>
+					<div class="boxedit_btns">
+						
+						<div class="iliketomoveit">
+							<div class="article_movetop"><div class="mv_triangle"></div></div>
+							<div class="article_movebot"><div class="mv_triangle"></div></div>
+						</div>
+
+						<div class="box_edit_btns_other">
+							<div img_action="add" class="add_img boxedit_btn">Add Image</div>
+							<div class="delete_box boxedit_btn">Kill</div>
+						</div>
+
 					</div>
-					<div class="delete_box">Del</div>
 				</div>
 			`));
+
+			// append chapter input
+			var setchapter = box.closest('.tut_step').getAttribute('id');
+			box.append(lizard.ehtml(`
+				<input value="${setchapter ? setchapter : ''}" type="text" class="boxedit_chapter epreview_hide ux_input">
+			`));
 		}
+
+		// append image controls
+		for (let imgc of document.querySelectorAll('.imgcont_media_unit')){
+			// autofill image src
+			let editor_btns = $(imgeditorbtns());
+			editor_btns.find('.edit_img_ctrl_link').val($(imgc).find('img').attr('src'));
+			// append result to the page
+			$(imgc).append(editor_btns);
+		}
+
+
+
+
+		// ----------------------------------------
+		//       Spawn catalogue controls
+		// ----------------------------------------
+
+		// also, make the catalogue wider
+		$('.nav-side').css('width', '400px');
+		$('.tut_name_text').addClass('tut_name_text_edit');
+		$('.fname_text').addClass('fname_text_edit');
+
+		// cancel item move
+		$('.nav-side').append('<div fman_act="cancel" class="ctg_button ctg_cancel_operation epreview_hide">Cancel</div>')
+		// Paste to root / Add new dir to root
+		$('.nav_stuff_box').append(`
+			<div fman_act="rootpaste" class="e_hidden ctg_button ctg_rootpaste epreview_hide">Paste To Root</div>
+			<div fman_act="rootnewdir" class="ctg_button add_new_dir_to_root epreview_hide">Add New Dir To Root</div>
+		`)
+
+		// These have to be inside window, because it's possible to add new folders and tuts
+
+		// folder controls
+		window.ctg_tut_controls = `
+			<div fman_act="shuf" class="ctg_button shuffle_ctg_item">
+				<div class="shuffle_ctg_item_top"><div class="btnsico"></div></div>
+				<div class="shuffle_ctg_item_bot"><div class="btnsico"></div></div>
+			</div>
+			<div fman_act="mv_tut" class="ctg_button move_ctg_item"><div class="btnsico"></div></div>
+			<div fman_act="del_tut" class="ctg_button del_ctg_item"><div class="btnsico"></div></div>
+		`;
+		$('.nav_tutorial').append(window.ctg_tut_controls);
+
+		// tutorial controls
+		window.ctg_folder_controls = `
+			<div fman_act="shuf" class="ctg_button shuffle_ctg_item">
+				<div class="shuffle_ctg_item_top"><div class="btnsico"></div></div>
+				<div class="shuffle_ctg_item_bot"><div class="btnsico"></div></div>
+			</div>
+			<div fman_act="add_tut" class="ctg_button add_ctg_tut"><div class="btnsico"></div></div>
+			<div fman_act="add_fld" class="ctg_button add_ctg_folder"><div class="btnsico"></div></div>
+			<div fman_act="mv_fld" class="ctg_button move_ctg_item"><div class="btnsico"></div></div>
+			<div fman_act="del_fld" class="ctg_button del_ctg_item"><div class="btnsico"></div></div>
+			<div fman_act="paste_elem" class="ctg_button paste_btn e_hidden">Here</div>
+		`;
+		$('.folder_name').append(window.ctg_folder_controls);
+
+
+
+
+
+		// ----------------------------------------
+		//       		Restore Code
+		// ----------------------------------------
+		// restore text of the code blocks
+		for (var restore of window.boxes_code_storage){
+			restore['box'].innerHTML = restore['content'];
+			restore['box'].classList.remove('hljs');
+			restore['box'].contentEditable = true;
+		}
+
+	}
+}
+
+// takes element as an input
+function edit_imgedit_btns_manager(el, evee)
+{
+	// delete element
+	if (el.getAttribute('img_action') == 'del' && evee.altKey){
+		el.closest('.imgcont_media_unit').remove();
 	}
 
+	// create element
+	if (el.getAttribute('img_action') == 'add'){
+		// wrap controls into a media unit container
+		let wrapped = lizard.ehtml('<div class="imgcont_media_unit"></div>');
+		wrapped.append(imgeditorbtns());
+		// append result to the page
+		el.closest('.tut_step').querySelector('.tut_step_content').append(wrapped);
+	}
 }
+
+
+
+
+// show an image preview of the edited item
+// takes image editor root as an input
+function edit_img_dopreview(loc)
+{
+	console.groupCollapsed('Build Image Preview');
+	console.log('Building Preview For', loc);
+
+	var media_unit = $(loc).closest('.imgcont_media_unit');
+
+
+	//
+	// no matter whether it's a link or file - the image element itself should always exist
+	//
+
+	// todo: this section can be better
+	
+	// reference to the image element
+	var imgelem = null;
+	// if the element doesnt exist - create one
+	// else - select the image element
+	if (media_unit.find('img').length <= 0){
+		console.log('No image element exist, create one');
+		// create the element itself
+		var mkimg = $('<img>');
+		// store reference
+		imgelem = mkimg;
+		// append to unit
+		media_unit.prepend(mkimg);
+		console.log('Created Image element', imgelem);
+	}else{
+		imgelem = media_unit.find('img');
+	};
+
+
+	// if it's specified that it's a link
+	if ($(loc).find('.edit_img_ctrl_islink input')[0].checked === true){
+		console.log('Image is Linked');
+		imgelem[0].src = $(loc).find('.edit_img_ctrl_link').val();
+		// just in case
+		console.groupEnd('Build Image Preview');
+		return
+	};
+
+	// if it's specified that it's a file
+	if ($(loc).find('.edit_img_ctrl_isfile input')[0].checked === true){
+		console.log('Image is a File');
+		console.time('Done reading image');
+	    // read as array buffer to convert it to blob and set as img src
+	    var reader = new FileReader();
+	    // reader takes the file object
+	    // .files property of the file input stores an array of selected files
+	    let fl_input = $(loc).find('.edit_img_ctrl_file')[0];
+
+	    // account for a following circumstance:
+	    // check that it's a file
+	    // dont select any files
+	    // edit the url input which triggers preview rebuild
+
+	    // if this happens - dont do anything
+	    if (fl_input.files.length <= 0){
+	    	console.log('Image is a File, but no files selected');
+	    	console.timeEnd('Done reading image');
+			console.groupEnd('Build Image Preview');
+	    	return
+	    }
+
+	    reader.readAsArrayBuffer(fl_input.files[0], 'UTF-8');
+	    reader.onload = function (evt) {
+	    	// convert read result to blob
+			var boobs = new Blob([reader.result], {type: fl_input.files[0].type });
+
+			// convert blob to URL for img src
+			var urlCreator = window.URL || window.webkitURL;
+			var imageUrl = urlCreator.createObjectURL(boobs);
+
+			// set src
+			imgelem[0].src = imageUrl;
+			console.timeEnd('Done reading image');
+			console.groupEnd('Build Image Preview');
+		};
+	}
+
+	// console.groupEnd('Build Image Preview');
+}
+
+
+
+
 
 function exec_command(c)
 {
@@ -624,6 +851,17 @@ function exit_edit_mode()
 
 	// delete editor
 	$('#word_editor').remove();
+
+	// delete catalogue controls
+	$('.nav_stuff_box .ctg_button').remove();
+
+	// reload article
+	article_loader(window.current_id, true)
+
+	// revert catalogue width
+	$('.nav-side').css('width', '300px');
+	$('.tut_name_text').removeClass('tut_name_text_edit');
+	$('.fname_text').removeClass('fname_text_edit');
 }
 
 
@@ -639,91 +877,230 @@ function box_edit_local_btns(action, box)
 
 	// mark as python code
 	if (action == 'mark_code'){
-		$(box).attr('iscode', true);
+		box.toggleAttribute('iscode');
+		box.removeAttribute('isvdccode');
+		$(box).find('.box_edit_isvdccode')[0].checked = false;
 	}
 
 	// mark as vdc code
 	if (action == 'mark_vdc_code'){
-		$(box).attr('isvdccode', true);
-	}
-}
-
-
-
-
-
-
-
-
-
-function box_mover(etgt, side)
-{
-	let soolja_box = $(etgt).closest('.tut_step')
-
-	console.log('where is ' + side)
-	
-	if (side == 't')
-	{
-		console.log('exec t');
-		soolja_box.insertBefore(soolja_box.prev()); 
-	}
-	
-	if (side == 'b')
-	{
-		console.log('exec b');
-		soolja_box.insertAfter(soolja_box.next());  
+		box.toggleAttribute('isvdccode');
+		box.removeAttribute('iscode');
+		$(box).find('.box_edit_iscode')[0].checked = false;
 	}
 
-}
-
-
-
-
-
-function img_preview_set_size(etgt)
-{
-	$(etgt).closest('.tut_step_content').find('img').css('width', $(etgt).val());
-
-}
-
-function img_preview_delete(etgt)
-{
-
-	$(etgt).closest('.tut_step_content').remove();
-}
-
-function img_preview_add(etgt)
-{
-	// tut_step_content
-	$(etgt).before('<div class="tut_step_content"><img class="tut_img" src="">' + window.img_editor + '</div>')
-}
-
-function add_bbox(etgt)
-{
-	var bbox = 
-	`
-		<div class="tut_step">
-			<div class="tut_step_head">
-				<p contenteditable class="single_lizrd_looking_for_sex tut_step_head_text">cum</p>
-				` + window.border_edit_m + `
-			</div>
-			<input class="section_name" type="text">
-			<div class="image_adder_btn">Add Image</div>
-		</div>
-	`;
-
-	$('.article_content').append(bbox);
-	eval_ebox_margin()
-
-}
-
-function delete_bbox(etgt, evee)
-{
-	if(evee.altKey)
-	{
+	// delete the entire box
+	if (action == 'kill' && evee.altKey){
 		$(etgt).closest('.tut_step').remove();
 	}
+
 }
+
+
+// move tutorial box up or down
+function box_mover(etgt, side)
+{
+	var soolja_box = $(etgt).closest('.tut_step');
+	
+	// top
+	if (side == 't'){
+		soolja_box.insertBefore(soolja_box.prev()); 
+	}
+		
+	// bottom
+	if (side == 'b'){
+		soolja_box.insertAfter(soolja_box.next());  
+	}
+}
+
+
+
+function eval_chapters()
+{
+	var quickindex = document.querySelector('.rquick_index');
+
+	// clean the index
+	quickindex.innerHTML = '';
+
+	// populate
+	for (var ch of document.querySelectorAll('.boxedit_chapter')){
+		// if chapter input is not empty - append it to the chapter index
+		var chvalue =  ch.value.trim();
+		if (chvalue != ''){
+			quickindex.append(lizard.ehtml(`
+				<a href="#` + chvalue + `" class="rqindex_item">` + chvalue + `</a>
+			`))
+
+			// set id attribute
+			ch.closest('.tut_step').id = chvalue;
+
+			// todo
+			// ch.value = ch.value.replace(/\s\s+/g, ' ');
+		}
+	}
+}
+
+
+function edit_toggle_page_preview()
+{
+	console.groupCollapsed('Preview Shit')
+	console.time('Preview')
+
+	console.time('First steps');
+	// first, the easiest: Hide shit, set the icon and set preview mode
+	$('.nav-side').css('width', window.preview_mode ? '400px' : '300px');
+
+	$('.epreview_hide').toggleClass('pg_preview_hide');
+	$('#word_editor').toggleClass('freeze_editor');
+	$('#article_preview_btn')[0].src = window.preview_mode ? 'assets/lever_off.png' : 'assets/lever_onn.png';
+	console.timeEnd('First steps');
+
+	// now, evaluate code
+	// todo: smarter solution
+	console.time('Loop');
+	// if preview is not active, then it means that a transtition to the preview mode is happening
+	// store original text tied to a certain box and then evaluate code 
+	if (window.preview_mode == false){
+		window.boxes_code_storage = [];
+		for (var evcode of document.querySelectorAll('.tut_step[iscode] .tut_step_head_text')){
+			window.boxes_code_storage.push({
+				'box': evcode,
+				'content': evcode.innerHTML
+			})
+			evcode.classList.add('language-python');
+			evcode.textContent = evcode.innerText;
+			// lock it from editing. It's pointless
+			evcode.contentEditable = false;
+			hljs.highlightElement(evcode);
+
+		}
+	}else{
+		// else restore text
+		for (var restore of window.boxes_code_storage){
+			restore['box'].innerHTML = restore['content'];
+			restore['box'].classList.remove('hljs');
+			// unlock editing
+			restore['box'].contentEditable = true;
+		}
+	}
+	console.timeEnd('Loop');
+
+	console.timeEnd('Preview')
+	console.groupEnd('Preview Shit')
+
+	window.preview_mode = !window.preview_mode;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================
+// ============================================================
+//                           Page load
+// ============================================================
+// ============================================================
+
+$(document).ready(function(){
+	console.log('Document Ready');
+
+	function article_identifier(dt)
+	{
+		console.timeEnd('Loaded index');
+		$('.nav_stuff_box').append(dt);
+		// load shit if it was linked to
+		var urlParams = new URLSearchParams(window.location.search);
+		var load_loc = urlParams.get('lt');
+		// if not null (exists) - search for the tut
+		if (load_loc != null)
+		{
+			console.log('URL contains an article id', load_loc);
+			// we dont want huge fucking urls. We use every 4th character of an id
+			// and hope that there are no collisions...
+
+			// go through every entry in the website index
+			// basically, this index thing is also used internally to locate articles
+			for (var nvtut of document.querySelectorAll('.nav_tutorial')){
+				// downscale it first and then compare to the query
+				var string = $(nvtut).attr('asset_idx');
+				var downscaled = lizard.delnthchar(string, 4, true);
+				// if we found a match - try loading the article
+				if (load_loc == downscaled)
+				{
+					console.log('Found match inside index');
+					console.timeEnd('Indexing Done');
+					console.groupEnd('Indexing');
+					article_loader(string)
+					return
+				}
+			}
+			console.log('No match for', load_loc, 'was found inside index');
+		}
+
+		console.timeEnd('Indexing Done');
+		console.groupEnd('Indexing');
+	}
+
+	console.time('Indexing Done');
+	console.groupCollapsed('Indexing');
+	console.log('Fetch index');
+	console.time('Loaded index');
+	fetch('content_index.sex', {
+		'headers': {
+			'accept': '*/*',
+			'cache-control': 'no-cache',
+			'pragma': 'no-cache'
+		},
+		'referrerPolicy': 'strict-origin-when-cross-origin',
+		'body': null,
+		'method': 'GET',
+		'mode': 'cors',
+		'credentials': 'omit'
+	})
+	.then(response => response.text())
+	.then(data => article_identifier(data));
+
+
+/*    xmlDoc = $.parseXML(tml);
+	// fuckjq = $(xmlDoc)
+	// console.log(fuckjq)
+	window.fuckvmix = xmlDoc;
+	console.log(xmlDoc);
+	
+	var pootis = $(xmlDoc).find('inputs[title="28_08_2021_beach_title.xaml"]').end().find('text[name="top_pair"]').text();*/
+
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -812,7 +1189,7 @@ async function satisfy_image_queue()
 {
 	console.groupCollapsed('Image Queue Process');
 	for (var im of window.imgqu){
-		var imgbox = $(`<div class="tut_step_content"></div>`);
+		var imgbox = im['to'].find('.tut_step_content');
 		
 		// wait for image to load
 		console.time('Loaded Img');
@@ -822,8 +1199,12 @@ async function satisfy_image_queue()
 		// apply style
 		$(theimg).css('width', im['content']['imgsize'] + 'px');
 
+		// wrap image into a container
+		var imgcont = $('<div class="imgcont_media_unit"></div>');
+		imgcont.append(theimg);
+
 		// append image to the box
-		imgbox.append(theimg);
+		imgbox.append(imgcont);
 		// create minimize button. The reference element in the image queue is a jQuery object
 		// only if it doesnt exist already
 		if (im['to'].find('.tut_img_button').length <= 0){
@@ -888,19 +1269,23 @@ function scroll_to_section(sid=null, dohlight=false)
 
 
 // set full to true if full id is being passed
-async function article_loader(a_id=null, full=false, force=false)
+// takes full id
+async function article_loader(a_id=null, force=false)
 {
 	
 	console.time('Full Article Load');
 	window.imgqu = [];
 	// deal with ids
 	if (a_id == null || a_id == undefined || a_id == ''){return null}
-	if (full == true){
-		a_id = lizard.delnthchar(a_id);
-	}
+	// if (full == false){
+	// 	a_id = lizard.delnthchar(a_id);
+	// }
 
-	// set current active id
+	// set current page id
 	window.current_id = a_id;
+
+	// reset code-related stuff
+	window.boxes_code_storage = [];
 
 	// set id to the URL
 	var queryParams = new URLSearchParams(window.location.search);
@@ -952,6 +1337,7 @@ async function article_loader(a_id=null, full=false, force=false)
 				<div class="tut_step_head">
 					<div class="tut_step_head_text"></div>
 				</div>
+				<div class="tut_step_content"></div>
 			</div>
 		`);
 
@@ -990,16 +1376,26 @@ async function article_loader(a_id=null, full=false, force=false)
 		if (tbox['iscode'] == true){
 			// do a little trick to get rid of html elements
 			let boxtext = emptybox.find('.tut_step_head_text')[0];
+			// but before that - write down original text
+			window.boxes_code_storage.push({
+				'box': boxtext,
+				'content': boxtext.innerHTML
+			})
+
+			// execute the trick
 			boxtext.textContent = boxtext.innerText;
 
+			// specify highlight language
 			boxtext.classList.add('language-python');
-			// todo: this has to be a class
-			boxtext.style.fontFamily = 'consola';
+
+			// mark as code
+			boxtext.closest('.tut_step').setAttribute('iscode', true)
+
+			// execute highlight
 			hljs.highlightElement(boxtext);
 		}
 
 	}
-	activate_edit_mode({shiftKey: true})
 	console.timeEnd('Spawned Text, Queued Images');
 
 
@@ -1028,6 +1424,7 @@ async function article_loader(a_id=null, full=false, force=false)
 	var scroll_id = decodeURI(window.location.hash).replace('#', '');
 	scroll_to_section(scroll_id, true)
 
+	activate_edit_mode({shiftKey: true})
 
 	console.timeEnd('Full Article Load');
 }
@@ -1036,3 +1433,63 @@ async function article_loader(a_id=null, full=false, force=false)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================
+// ============================================================
+//                        Article Saver
+// ============================================================
+// ============================================================
+
+async function article_saver()
+{
+	console.group('Article Save');
+	console.time('Full Save');
+
+	// basic info
+	var article = {
+		'atitle': $('.arcl_header_p').text(),
+		'boxes': [],
+		'selfid': window.current_id
+	}
+
+	console.log('Basic info', article);
+
+	for (var box of document.querySelectorAll('.tut_step')){
+		console.log('Processing box', box);
+		var mkbox = {
+			'border': getComputedStyle($(box).find('.tut_step_head_text')).borderBlock,
+			'chapter': $(box).find('.boxedit_chapter').val().trim(),
+			'text': $(box).find('.tut_step_head_text')[0].innerHTML,
+			'contents': []
+		}
+		console.log('Wrote down basic info and text', mkbox);
+
+
+	}
+
+	console.timeEnd('Full Save');
+	console.groupEnd('Article Save');
+}
