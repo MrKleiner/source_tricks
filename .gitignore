@@ -1,3 +1,6 @@
 ﻿starter.cmd
 htbin/*.py
 __pycache__
+htbin/pybin
+install/dist
+install/build

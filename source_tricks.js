@@ -1608,7 +1608,7 @@ async function article_saver()
 	var savebtn = document.querySelector('#article_save_btn')
 	savebtn.style.pointerEvents = 'none';
 	savebtn.src = '';
-	savebtn.src = 'assets/btn40.apng';
+	savebtn.src = 'assets/btn_faster.apng';
 	savebtn.style.backgroundImage = `url('assets/btnidle.png'), url('assets/indicator_red.png')`;
 
 	// vis feedback
@@ -1633,8 +1633,8 @@ async function article_saver()
 
 	console.log('Compiling Article Text...');
 	console.time('Done Compiling Article Text in')
-	// process boxes one by one
 	window.imgsave_queue = [];
+	// process boxes one by one
 	for (var box of document.querySelectorAll('.tut_step')){
 		console.log('Processing box', box); fbi.console_log('Processing a box...', {'margin-top': '15px'})
 		// write down general info about the box
@@ -1650,7 +1650,7 @@ async function article_saver()
 		console.log('Wrote down basic info and text', mkbox); fbi.console_log('Cached basic info and text of a box')
 
 		// process media one by one
-		// even though this is 100% reliable now - process images AFTER the text
+		// even though this is 100% reliable now - process images AFTER the article text
 		for (var boxm of box.querySelectorAll('.imgcont_media_unit')){
 			fbi.console_log('Cache media unit of a box', {'padding-left': '15px'})
 			var img_unit = {
