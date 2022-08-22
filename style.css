@@ -1200,6 +1200,7 @@ co.code_qtext, co.code_qtext * {
 
 #word_btns
 {
+	position: relative;
 	display: flex;
 	/*flex-direction: column;*/
 	flex-wrap: wrap;
@@ -1308,7 +1309,7 @@ co.code_qtext, co.code_qtext * {
 	margin-left: 20px;
 	margin-right: 20px;
 
-	background-image: url('assets/btnidle.png');
+	background-image: url('assets/indicator_green.png'), url('assets/btnidle.png');
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -1569,3 +1570,35 @@ co.code_qtext, co.code_qtext * {
     -moz-appearance: none;
     appearance: none; 
 }
+
+#save_feedback
+{
+	position: absolute;
+	background: #222;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	color: white;
+	width: 100%;
+	height: 100%;
+	font-family: 'consola';
+	font-size: 15px;
+}
+
+#save_feedback_feed
+{
+	padding: 10px;
+}
+
+.fback_item_code
+{
+	background: none !important;
+	white-space: pre;
+}
+
+.fback_item_code *
+{
+	white-space: break-spaces;
+}
+
+

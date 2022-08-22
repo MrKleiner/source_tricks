@@ -354,7 +354,7 @@ function catalogue_manager(etgt, evee)
 		// console.log(CryptoJS.MD5('shit').toString());
 		$(etgt).closest('.folder_name').siblings('.folder_content').append($(`
 			<div asset_idx="${rndname}" class="nav_tutorial">
-				<div class="tut_name_text tut_name_text_edit">How to ard sex</div>
+				<div class="tut_name_text tut_name_text_edit">How to lizard sex</div>
 				${window.ctg_tut_controls}
 			</div>
 		`));
@@ -491,7 +491,17 @@ function activate_edit_mode(evee)
 	// activate edit mode
 	if (evee.shiftKey){
 		// precache an icon
-		window.exit_icon_cache = cache_image('assets/lambda_w_bg.png');
+		window.icon_cache = [];
+		// orange lambda background
+		window.icon_cache.push(cache_image('assets/lambda_w_bg.png'));
+		// red indicator
+		window.icon_cache.push(cache_image('assets/indicator_red.png'));
+		// lever down
+		window.icon_cache.push(cache_image('assets/lever_off.png'));
+
+
+
+
 
 		// window.boxes_code_storage = [];
 
@@ -607,8 +617,8 @@ function activate_edit_mode(evee)
 			box.append(lizard.ehtml(`
 				<div class="at_border_edit_box epreview_hide">
 
-					<label bxedit_action="toggle_border" class="box_edit_cbox_field" id="box_edit_enable_border">
-						<input checked type="checkbox" class="box_edit_enable_border">
+					<label bxedit_action="toggle_border" class="box_edit_cbox_field" class="box_edit_enable_border">
+						<input ${box.closest('.tut_step').getAttribute('border_enabled') ? 'checked' : ''} type="checkbox" class="box_edit_enable_border">
 						Enable border
 					</label>
 
@@ -618,7 +628,7 @@ function activate_edit_mode(evee)
 					</label>
 
 					<label bxedit_action="mark_vdc_code" class="box_edit_cbox_field">
-						<input type="checkbox" class="box_edit_isvdccode">
+						<input ${box.closest('.tut_step').getAttribute('isvdccode') ? 'checked' : ''} type="checkbox" class="box_edit_isvdccode">
 						VDC Code
 					</label>
 
@@ -637,6 +647,7 @@ function activate_edit_mode(evee)
 					</div>
 				</div>
 			`));
+			// editor_btns.find('.box_edit_enable_border')[0].checked = $(imgc).closest('.tut_step').attr('border_enabled') == 'true';
 
 			// append chapter input
 			var setchapter = box.closest('.tut_step').getAttribute('id');
@@ -1362,11 +1373,24 @@ async function article_loader(a_id=null, force=false)
 		// set text
 		emptybox.find('.tut_step_head_text').html(tbox['text']);
 
-		// set border style
+		// todo: legacy fallback...
 		emptybox.find('.tut_step_head_text').css({
-			'border-color': tbox['border_c'],
-			'border-width': tbox['border_w']
+			'border-color': tbox['border_c'] || null,
+			'border-width': tbox['border_w'] || null
 		});
+
+		// set border style
+		emptybox.find('.tut_step_head_text')[0].style.borderBlock = tbox['border']
+
+		// set whether border is there or not
+		// todo: this can be acvieved with css
+		// tbox['hasborder'] ? emptybox[0].setAttribute('border_enabled', true) : null
+		tbox['hasborder'] ? $(emptybox).attr('border_enabled', true) : null
+
+		// mark as code
+		tbox['iscode'] ? $(emptybox).attr('iscode', true) : null
+		// mark as vdc code
+		tbox['isvdccode'] ? $(emptybox).attr('isvdccode', true) : null
 
 		// quick index, if any
 		if (tbox['chapter'] != ''){
@@ -1566,7 +1590,19 @@ async function article_saver()
 	// giga sexy das knopf
 	document.querySelector('#article_save_btn').src = '';
 	document.querySelector('#article_save_btn').src = 'assets/btn40.apng';
+	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/indicator_red.png'), url('assets/btnidle.png')`;
 
+	// vis feedback
+	// a wrapper around the base is needed for padding and height 100% to work properly
+	$('#save_feedback').remove()
+	$('#word_btns').append(`
+		<div id="save_feedback">
+			<div id="save_feedback_feed"></div>
+		</div>
+	`);
+
+	fbi.console_log('Saving Article...')
+	fbi.console_log('Cached basic info:')
 	// basic info
 	var article = {
 		'atitle': $('.arcl_header_p').text(),
@@ -1574,26 +1610,30 @@ async function article_saver()
 		'selfid': window.current_id
 	}
 
-	console.log('Basic info', article);
+	console.log('Basic info', article); fbi.console_log(article)
 
-	console.log('Compiling Article Text...')
+	console.log('Compiling Article Text...');
 	console.time('Done Compiling Article Text in')
 	// process boxes one by one
 	window.imgsave_queue = [];
 	for (var box of document.querySelectorAll('.tut_step')){
-		console.log('Processing box', box);
+		console.log('Processing box', box); fbi.console_log('Processing a box...', {'margin-top': '15px'})
 		// write down general info about the box
 		var mkbox = {
 			'border': getComputedStyle($(box).find('.tut_step_head_text')[0]).borderBlock,
+			'hasborder': $(box).find('.box_edit_enable_border')[0].checked,
 			'chapter': $(box).find('.boxedit_chapter').val().trim(),
 			'text': $(box).find('.tut_step_head_text')[0].innerHTML,
+			'iscode': box.hasAttribute('iscode'),
+			'isvdccode': box.hasAttribute('isvdccode'),
 			'contents': []
 		}
-		console.log('Wrote down basic info and text', mkbox);
+		console.log('Wrote down basic info and text', mkbox); fbi.console_log('Cached basic info and text of a box')
 
 		// process media one by one
 		// even though this is 100% reliable now - process images AFTER the text
 		for (var boxm of box.querySelectorAll('.imgcont_media_unit')){
+			fbi.console_log('Cache media unit of a box', {'padding-left': '15px'})
 			var img_unit = {
 				'imgsize': $(boxm).find('.edit_img_size').val(),
 			}
@@ -1601,8 +1641,11 @@ async function article_saver()
 			// if it's a link - do not queue the save
 			// if it's a file - queue file save for later
 			if ($(boxm).find('.edit_img_ctrl_islink input')[0].checked == true){
+				fbi.console_log('Media unit is URL', {'padding-left': '15px'})
 				img_unit['imgurl'] = $(boxm).find('.edit_img_ctrl_link ').val()
+				fbi.console_log(`Ripped URL: ${img_unit['imgurl']}`, {'padding-left': '15px'})
 			}else{
+				fbi.console_log('Media unit is a file', {'padding-left': '15px'})
 				// this is kind of a "promise"
 				// "I swear that this is the final url and that it will not change later"
 				var f_input = $(boxm).find('.edit_img_ctrl_file')[0];
@@ -1610,29 +1653,34 @@ async function article_saver()
 				// queue processing
 				// todo: queue files right away
 				window.imgsave_queue.push(f_input);
+				fbi.console_log('Queued media file for processing later', {'padding-left': '15px'})
 			}
 			mkbox['contents'].push(img_unit)
 		}
+		fbi.console_log('Cached a box')
 		article['boxes'].push(mkbox)
 	}
 
 	// save file
+	fbi.console_log('Saving article text to a file...')
 	await send_article_text(JSON.stringify(article), window.current_id)
-	console.timeEnd('Done Compiling Article Text in')
+	console.timeEnd('Done Compiling Article Text in'); fbi.console_log('Done saving article text to a file')
 
 
-	console.log('Processing All Images...')
+	console.log('Processing All Images...'); fbi.console_log('Start processing media')
 	console.time('Processed All Images in')
 	for (var pr_img of window.imgsave_queue){
-
+		fbi.console_log('Reading media as bytes...')
 		var raw_img = await read_as_bytes(pr_img.files[0])
+		fbi.console_log('Saving media to server...')
 		var test = await send_article_image(raw_img, lizard.base64EncArr(lizard.strToUTF8Arr(pr_img.files[0].name)), window.current_id)
-		console.log('img save', test);
+		console.log('img save', test); fbi.console_log(test)
 
 	}
-	console.timeEnd('Processed All Images in')
+	console.timeEnd('Processed All Images in'); fbi.console_log('Processed all media units')
 
-
+	fbi.console_log('Article save complete', {'color': 'lime'})
+	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/indicator_green.png'), url('assets/btnidle.png')`;
 	console.timeEnd('Full Save');
 	console.groupEnd('Article Save');
 }
