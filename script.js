@@ -545,12 +545,6 @@ function liz3_rndwave(length, method, addchars) {
 
 
 
-function img_toggler(etgt)
-{
-    // $(etgt).closest('.tut_step').find('img').toggleClass('e_hidden');
-    $(etgt).closest('.tut_step').find('.tut_step_content').toggleClass('e_hidden');
-    $(etgt).closest('.tut_step').find('.image_adder_btn').toggleClass('e_unclickable');
-}
 
 
 function activate_edit_mode(evee)
@@ -821,25 +815,7 @@ function set_border_top_col(etgt, sug)
 }
 
 
-function box_mover(etgt, side)
-{
-	var soolja_box = $(etgt).closest('.tut_step')
 
-	console.log('where is ' + side)
-	
-	if (side == 't')
-	{
-		console.log('exec t');
-		soolja_box.insertBefore(soolja_box.prev());	
-	}
-	
-	if (side == 'b')
-	{
-		console.log('exec b');
-		soolja_box.insertAfter(soolja_box.next());	
-	}
-
-}
 
 
 
@@ -1175,7 +1151,7 @@ function ctg_name_actuator(etgt, evee)
 }
 
 
-// well, it as such a cute little function before the url loader story...
+// well, it was such a cute little function before the url loader story...
 function img_preview_set_url(etgt)
 {
 	if($(etgt).closest('.image_editor').find('.imgdlurl')[0].checked)
@@ -1819,7 +1795,7 @@ function imgmin()
 {
 	$('.imgzoom').addClass('e_hidden');
 	$('.imgzoom img').removeAttr('style');
-	document.querySelector('body').style.overflow = 'visible'
+	document.querySelector('body').style.overflow = 'visible';
 }
 
 function is_e(el, is)

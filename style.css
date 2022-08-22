@@ -1309,7 +1309,7 @@ co.code_qtext, co.code_qtext * {
 	margin-left: 20px;
 	margin-right: 20px;
 
-	background-image: url('assets/indicator_green.png'), url('assets/btnidle.png');
+	background-image: url('assets/indicator_green.png'), url('assets/indicator_red.png'), url('assets/btnidle.png');
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;

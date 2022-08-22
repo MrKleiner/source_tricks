@@ -91,7 +91,7 @@ document.addEventListener('click', event => {
 
 	// exit edit mode
 	const exitedit = event.target.closest('#exit_edit');
-	if (exitedit) { exit_edit_mode() }
+	if (exitedit) { exit_edit_mode(event) }
 
 	// apply text styling
 	const dostyle = event.target.closest('.word_btn');
@@ -472,6 +472,7 @@ function imgeditorbtns()
 
 function activate_edit_mode(evee)
 {
+	/*
 	// display error message
 	if (evee.altKey)
 	{
@@ -487,9 +488,11 @@ function activate_edit_mode(evee)
 
 		return
 	}
+	*/
+
 
 	// activate edit mode
-	if (evee.shiftKey){
+	if (evee.altKey){
 		// precache an icon
 		window.icon_cache = [];
 		// orange lambda background
@@ -712,6 +715,17 @@ function activate_edit_mode(evee)
 			<div fman_act="del_fld" class="ctg_button del_ctg_item"><div class="btnsico"></div></div>
 			<div fman_act="paste_elem" class="ctg_button paste_btn e_hidden">Here</div>
 		`;
+		// also define new folder html
+		window.folder_htm = 
+		`
+			<div id_folder_name="nil" class="nav_folder">
+				<div class="folder_name">
+					<div class="folder_triangle"><div class="folder_triangle_ico"></div></div>
+					<div contenteditable class="fname_text">Sample Text (MLG)</div>` + window.ctg_folder_controls + `</div>
+				<div class="folder_content">
+				</div>
+			</div>
+		`;
 		$('.folder_name').append(window.ctg_folder_controls);
 
 
@@ -860,24 +874,27 @@ function exec_command(c)
 }
 
 
-function exit_edit_mode()
+function exit_edit_mode(evee)
 {
-	// unhide title
-	$('.top-navbar, .page_content').removeAttr('style');
+	if (evee.altKey){
+		// unhide title
+		$('.top-navbar, .page_content').removeAttr('style');
 
-	// delete editor
-	$('#word_editor').remove();
+		// delete editor
+		$('#word_editor').remove();
 
-	// delete catalogue controls
-	$('.nav_stuff_box .ctg_button').remove();
+		// delete catalogue controls
+		$('.nav_stuff_box .ctg_button').remove();
 
-	// reload article
-	article_loader(window.current_id, true)
+		// reload article
+		article_loader(window.current_id, true)
 
-	// revert catalogue width
-	$('.nav-side').css('width', '300px');
-	$('.tut_name_text').removeClass('tut_name_text_edit');
-	$('.fname_text').removeClass('fname_text_edit');
+		// revert catalogue width
+		$('.nav-side').css('width', '300px');
+		$('.tut_name_text').removeClass('tut_name_text_edit');
+		$('.fname_text').removeClass('fname_text_edit');
+	}
+
 }
 
 
@@ -1466,7 +1483,7 @@ async function article_loader(a_id=null, force=false)
 	var scroll_id = decodeURI(window.location.hash).replace('#', '');
 	scroll_to_section(scroll_id, true)
 
-	activate_edit_mode({shiftKey: true})
+	activate_edit_mode({altKey: true})
 
 	console.timeEnd('Full Article Load');
 }
@@ -1588,9 +1605,11 @@ async function article_saver()
 	console.time('Full Save');
 
 	// giga sexy das knopf
-	document.querySelector('#article_save_btn').src = '';
-	document.querySelector('#article_save_btn').src = 'assets/btn40.apng';
-	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/indicator_red.png'), url('assets/btnidle.png')`;
+	var savebtn = document.querySelector('#article_save_btn')
+	savebtn.style.pointerEvents = 'none';
+	savebtn.src = '';
+	savebtn.src = 'assets/btn40.apng';
+	savebtn.style.backgroundImage = `url('assets/btnidle.png'), url('assets/indicator_red.png')`;
 
 	// vis feedback
 	// a wrapper around the base is needed for padding and height 100% to work properly
@@ -1680,7 +1699,9 @@ async function article_saver()
 	console.timeEnd('Processed All Images in'); fbi.console_log('Processed all media units')
 
 	fbi.console_log('Article save complete', {'color': 'lime'})
-	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/indicator_green.png'), url('assets/btnidle.png')`;
+	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/btnidle.png'), url('assets/indicator_green.png'), url('assets/indicator_red.png')`;
 	console.timeEnd('Full Save');
 	console.groupEnd('Article Save');
+	$('#save_feedback').css('display', 'none');
+	savebtn.style.pointerEvents = null;
 }
