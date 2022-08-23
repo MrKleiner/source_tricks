@@ -1662,3 +1662,8 @@ co.code_qtext, co.code_qtext * {
 {
 	outline: 2px solid #0060df;
 }
+
+.tut_step_head_text ol, .tut_step_head_text ul
+{
+	margin-left: 40px;
+}

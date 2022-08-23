@@ -1408,6 +1408,10 @@ async function article_loader(a_id=null, force=false)
 	// reset code-related stuff
 	window.boxes_code_storage = [];
 
+	// set visual feedback
+	$(`.nav_tutorial .tut_name_text`).css('border-left', '0px solid #63b6d7');
+	$(`.nav_tutorial[asset_idx="${a_id}"] .tut_name_text`).css('border-left', '2px solid #63b6d7');
+
 	// set id to the URL
 	var queryParams = new URLSearchParams(window.location.search);
 	queryParams.set('lt', lizard.delnthchar(window.current_id, 4, true));
@@ -1562,8 +1566,6 @@ async function article_loader(a_id=null, force=false)
 	// scroll into view
 	var scroll_id = decodeURI(window.location.hash).replace('#', '');
 	scroll_to_section(scroll_id, true)
-
-	// activate_edit_mode({altKey: true})
 
 	console.timeEnd('Full Article Load');
 }
@@ -1822,6 +1824,8 @@ async function article_saver()
 
 	// remove shit
 	editable_ctg.find('.ctg_button').remove()
+	// remove styling
+	editable_ctg.find('.nav_tutorial .tut_name_text').css('border-left', '0px solid #63b6d7')
 
 	// execute saving
 	var ctgsave = await save_catalogue(lizard.strToUTF8Arr(html_beautify(editable_ctg.html(), {'max_preserve_newlines': 0, 'indent_char': '\t'})))
