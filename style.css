@@ -1623,6 +1623,10 @@ co.code_qtext, co.code_qtext * {
 {
 	display: flex;
 	background: #222222f2;
+	background-image: url('assets/lambda_w_bg.png'), url('assets/indicator_red.png'), url('assets/indicator_green.png'), url('assets/lever_onn.png'), url('assets/lever_off.png'), url('assets/btn_faster.apng');
+	background-size: 1px;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 #addbox_btn
@@ -1652,4 +1656,9 @@ co.code_qtext, co.code_qtext * {
 #addbox_btn:active
 {
 	outline: 2px solid lime;
+}
+
+[contenteditable]:focus
+{
+	outline: 2px solid #0060df;
 }

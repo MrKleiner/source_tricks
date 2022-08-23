@@ -528,6 +528,8 @@ function activate_edit_mode(evee)
 		window.icon_cache.push(cache_image('assets/indicator_red.png'));
 		// lever down
 		window.icon_cache.push(cache_image('assets/lever_off.png'));
+		// animated button
+		window.icon_cache.push(cache_image('assets/btn_faster.apng'));
 
 
 		// enable edit mode
