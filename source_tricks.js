@@ -2,7 +2,6 @@ window.blender_edit_mode = false;
 window.preview_mode = false;
 window.imgqu = [];
 window.current_id = null;
-window.edit_preview_mode = false;
 window.boxes_code_storage = [];
 window.can_exec_article_save = true;
 

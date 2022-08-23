@@ -5,3 +5,4 @@ htbin/pybin
 install/dist
 install/build
 htbin/python
+launcher.cmd
