@@ -110,6 +110,18 @@ document.addEventListener('click', event => {
 	const articlesave = event.target.closest('#article_save_btn');
 	if (articlesave) { article_saver() }
 
+	// Add box
+	const addbox = event.target.closest('#addbox_btn');
+	if (addbox) { add_bbox() }
+
+	// Kill box
+	const killbox = event.target.closest('.delete_box');
+	if (killbox && event.altKey) { kill_bbox(killbox) }
+
+	// Kill box
+	const setboxborder = event.target.closest('.set_box_border_colour');
+	if (setboxborder) { set_border_colour(setboxborder) }
+
 
 
 });
@@ -519,7 +531,8 @@ function activate_edit_mode(evee)
 		window.icon_cache.push(cache_image('assets/lever_off.png'));
 
 
-
+		// enable edit mode
+		window.blender_edit_mode = true;
 
 
 		// window.boxes_code_storage = [];
@@ -553,6 +566,10 @@ function activate_edit_mode(evee)
 				<div class="word_editor_saveload">
 					<img draggable="false" id="article_save_btn" src="assets/btnidle.png">
 					<img draggable="false" id="article_preview_btn" src="assets/lever_off.png">
+				</div>
+
+				<div id="addbox">
+					<div id="addbox_btn">+</div>
 				</div>
 			</div>
 		`);
@@ -632,44 +649,55 @@ function activate_edit_mode(evee)
 		// ----------------------------------------
 		//      Append controls to the boxes
 		// ----------------------------------------
-		for (let box of document.querySelectorAll('.tut_step_head')){
-			box.append(lizard.ehtml(`
-				<div class="at_border_edit_box epreview_hide">
+		window.box_controls_html = `
+			<div class="at_border_edit_box epreview_hide">
 
-					<label bxedit_action="toggle_border" class="box_edit_cbox_field" class="box_edit_enable_border">
-						<input ${box.closest('.tut_step').getAttribute('border_enabled') ? 'checked' : ''} type="checkbox" class="box_edit_enable_border">
-						Enable border
-					</label>
+				<label bxedit_action="toggle_border" class="box_edit_cbox_field" class="box_edit_enable_border">
+					<input type="checkbox" class="box_edit_enable_border">
+					Enable border
+				</label>
 
-					<label bxedit_action="mark_code" class="box_edit_cbox_field">
-						<input ${box.closest('.tut_step').getAttribute('iscode') ? 'checked' : ''} type="checkbox" class="box_edit_iscode">
-						Is Code
-					</label>
+				<label bxedit_action="mark_code" class="box_edit_cbox_field">
+					<input type="checkbox" class="box_edit_iscode">
+					Is Code
+				</label>
 
-					<label bxedit_action="mark_vdc_code" class="box_edit_cbox_field">
-						<input ${box.closest('.tut_step').getAttribute('isvdccode') ? 'checked' : ''} type="checkbox" class="box_edit_isvdccode">
-						VDC Code
-					</label>
+				<label bxedit_action="mark_vdc_code" class="box_edit_cbox_field">
+					<input type="checkbox" class="box_edit_isvdccode">
+					VDC Code
+				</label>
 
-					<div class="boxedit_btns">
-						
-						<div class="iliketomoveit">
-							<div class="article_movetop"><div class="mv_triangle"></div></div>
-							<div class="article_movebot"><div class="mv_triangle"></div></div>
-						</div>
-
-						<div class="box_edit_btns_other">
-							<div img_action="add" class="add_img boxedit_btn">Add Image</div>
-							<div class="delete_box boxedit_btn">Kill</div>
-						</div>
-
+				<div class="boxedit_btns">
+					
+					<div class="iliketomoveit">
+						<div class="article_movetop"><div class="mv_triangle"></div></div>
+						<div class="article_movebot"><div class="mv_triangle"></div></div>
 					</div>
+
+					<div class="box_edit_btns_other">
+						<img draggable="false" src="assets/img_icon.svg" img_action="add" class="add_img boxedit_btn">
+						<img draggable="false" src="assets/brush.svg" class="set_box_border_colour boxedit_btn">
+						<img draggable="false" src="assets/rubbish.png" class="delete_box boxedit_btn">
+					</div>
+
 				</div>
-			`));
+			</div>
+		`
+		for (let box of document.querySelectorAll('.tut_step_head')){
+
+			var c_tut_step = box.closest('.tut_step')
+
+			var box_controls = lizard.ehtml(window.box_controls_html);
+
+			box_controls.querySelector('[bxedit_action="toggle_border"] input').checked = c_tut_step.getAttribute('border_enabled') ? true : false
+			box_controls.querySelector('[bxedit_action="mark_code"] input').checked = c_tut_step.getAttribute('iscode') ? true : false
+			box_controls.querySelector('[bxedit_action="mark_vdc_code"] input').checked = c_tut_step.getAttribute('isvdccode') ? true : false
+
+			box.append(box_controls);
 			// editor_btns.find('.box_edit_enable_border')[0].checked = $(imgc).closest('.tut_step').attr('border_enabled') == 'true';
 
 			// append chapter input
-			var setchapter = box.closest('.tut_step').getAttribute('id');
+			var setchapter = c_tut_step.getAttribute('id');
 			box.append(lizard.ehtml(`
 				<input value="${setchapter ? setchapter : ''}" type="text" class="boxedit_chapter epreview_hide ux_input">
 			`));
@@ -893,6 +921,9 @@ function exec_command(c)
 function exit_edit_mode(evee)
 {
 	if (evee.altKey){
+		// no longer in edit mode
+		window.blender_edit_mode = false;
+
 		// unhide title
 		$('.top-navbar, .page_content').removeAttr('style');
 
@@ -900,7 +931,7 @@ function exit_edit_mode(evee)
 		$('#word_editor').remove();
 
 		// delete catalogue controls
-		$('.nav_stuff_box .ctg_button').remove();
+		$('.nav-side .ctg_button').remove();
 
 		// reload article
 		article_loader(window.current_id, true)
@@ -1055,10 +1086,37 @@ function editimg_apply_size(tgt, evee)
 }
 
 
+function add_bbox(etgt)
+{
+	var bbox = 
+	`
+		<div class="tut_step" border_enabled="true">
+			<div class="tut_step_head">
+				<div contenteditable class="tut_step_head_text">cum</div>
+				${window.box_controls_html}
+				<input value="" type="text" class="boxedit_chapter epreview_hide ux_input">
+			</div>
+			<div class="tut_step_content"></div>
+		</div>
+	`;
+
+	$('.article_content').append(bbox);
+	// eval_ebox_margin()
+
+}
 
 
 
+function kill_bbox(etgt)
+{
+	etgt.closest('.tut_step').remove();
+}
 
+
+function set_border_colour(etgt)
+{
+	etgt.closest('.tut_step').querySelector('.tut_step_head_text').style.borderColor = document.querySelector('#word_color_input').value
+}
 
 
 
@@ -1504,7 +1562,7 @@ async function article_loader(a_id=null, force=false)
 	var scroll_id = decodeURI(window.location.hash).replace('#', '');
 	scroll_to_section(scroll_id, true)
 
-	activate_edit_mode({altKey: true})
+	// activate_edit_mode({altKey: true})
 
 	console.timeEnd('Full Article Load');
 }
