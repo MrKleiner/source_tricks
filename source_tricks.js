@@ -1599,6 +1599,33 @@ async function read_as_bytes(file)
 }
 
 
+async function save_catalogue(ctgstuff)
+{
+	return new Promise(function(resolve, reject){
+
+		var blob = new Blob([ctgstuff], {type: 'text/plain'});
+
+		fetch('htbin/manager.py?do=save_ctg', {
+		    'headers': {
+		        'accept': '*/*',
+		        'cache-control': 'no-cache',
+		        'pragma': 'no-cache'
+		    },
+		    'body': blob,
+		    'method': 'POST',
+		    'mode': 'cors',
+		    'credentials': 'omit'
+		})
+		.then(function(response) {
+		    // console.log(response.status);
+		    response.json().then(function(data) {
+		    	resolve(data)
+		    });
+		});
+	});
+}
+
+
 async function article_saver()
 {
 	console.group('Article Save');
@@ -1692,16 +1719,41 @@ async function article_saver()
 		fbi.console_log('Reading media as bytes...')
 		var raw_img = await read_as_bytes(pr_img.files[0])
 		fbi.console_log('Saving media to server...')
+
 		var test = await send_article_image(raw_img, lizard.base64EncArr(lizard.strToUTF8Arr(pr_img.files[0].name)), window.current_id)
 		console.log('img save', test); fbi.console_log(test)
 
 	}
-	console.timeEnd('Processed All Images in'); fbi.console_log('Processed all media units')
+	console.timeEnd('Processed All Images in'); fbi.console_log('Processed all media units');
+
+	//
+	// Save catalogue
+	//
+	console.log('Saving catalogue...'); console.time('Saved catalogue'); fbi.console_log('Saving catalogue...')
+	
+	// properly rip HTML
+
+	// basically a copy
+	var editable_ctg = $(document.querySelector('.nav_stuff_box').outerHTML);
+
+	// remove shit
+	editable_ctg.find('.ctg_button').remove()
+
+	// execute saving
+	var ctgsave = await save_catalogue(lizard.strToUTF8Arr(html_beautify(editable_ctg.html(), {'max_preserve_newlines': 0, 'indent_char': '\t'})))
+	console.log(ctgsave); console.timeEnd('Saved catalogue'); fbi.console_log('Done saving catalogue...'); fbi.console_log(ctgsave)
 
 	fbi.console_log('Article save complete', {'color': 'lime'})
+
+	// set cool indicator back to green
 	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/btnidle.png'), url('assets/indicator_green.png'), url('assets/indicator_red.png')`;
-	console.timeEnd('Full Save');
-	console.groupEnd('Article Save');
+	
+	// collapse group and show time
+	console.timeEnd('Full Save'); console.groupEnd('Article Save');
+	
+	// hide console log
 	$('#save_feedback').css('display', 'none');
+
+	// unlock the save button
 	savebtn.style.pointerEvents = null;
 }
