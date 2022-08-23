@@ -4,3 +4,4 @@ __pycache__
 htbin/pybin
 install/dist
 install/build
+htbin/python

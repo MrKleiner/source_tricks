@@ -1682,8 +1682,8 @@ async function article_saver()
 
 	// save file
 	fbi.console_log('Saving article text to a file...')
-	await send_article_text(JSON.stringify(article), window.current_id)
-	console.timeEnd('Done Compiling Article Text in'); fbi.console_log('Done saving article text to a file')
+	var saved_text_to_server = await send_article_text(JSON.stringify(article), window.current_id)
+	console.timeEnd('Done Compiling Article Text in'); console.log(saved_text_to_server); fbi.console_log('Done saving article text to a file'); fbi.console_log(saved_text_to_server); 
 
 
 	console.log('Processing All Images...'); fbi.console_log('Start processing media')
