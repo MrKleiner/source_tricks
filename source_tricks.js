@@ -4,6 +4,7 @@ window.imgqu = [];
 window.current_id = null;
 window.edit_preview_mode = false;
 window.boxes_code_storage = [];
+window.can_exec_article_save = true;
 
 // important todo
 
@@ -163,6 +164,21 @@ document.addEventListener('keypress', event => {
 	// unfocus inputs and lock contenteditables
 	const inputux = event.target.closest('.ux_input');
 	if (inputux) { input_ux(inputux, event) }
+
+	// article saver
+	if (event.ctrlKey && event.keyCode == 83) { 
+		event.preventDefault()
+		article_saver()
+	}
+
+});
+
+document.addEventListener('keydown', event => {
+	// article saver
+	if (event.ctrlKey && event.keyCode == 83) { 
+		event.preventDefault()
+		article_saver()
+	}
 
 });
 
@@ -1395,6 +1411,11 @@ async function article_loader(a_id=null, force=false)
 			'border-color': tbox['border_c'] || null,
 			'border-width': tbox['border_w'] || null
 		});
+		// todo: legacy fallback
+		// (tbox['hasborder'] == undefined) ? ((tbox['border_w'][0] == '5') ? $(emptybox).attr('border_enabled', true) : null) : null
+		try {
+			(tbox['border_w'][0] == '5') ? $(emptybox).attr('border_enabled', true) : null
+		} catch (error) {}
 
 		// set border style
 		emptybox.find('.tut_step_head_text')[0].style.borderBlock = tbox['border']
@@ -1628,6 +1649,10 @@ async function save_catalogue(ctgstuff)
 
 async function article_saver()
 {
+	// since we have a keybind - the save execution should also be locked another way
+	if (window.can_exec_article_save != true){return}
+	window.can_exec_article_save = false;
+
 	console.group('Article Save');
 	console.time('Full Save');
 
@@ -1756,4 +1781,7 @@ async function article_saver()
 
 	// unlock the save button
 	savebtn.style.pointerEvents = null;
+
+	// unlock save function execution
+	window.can_exec_article_save = true;
 }
