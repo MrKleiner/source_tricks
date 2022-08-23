@@ -652,7 +652,7 @@ function activate_edit_mode(evee)
 			<div class="at_border_edit_box epreview_hide">
 
 				<label bxedit_action="toggle_border" class="box_edit_cbox_field" class="box_edit_enable_border">
-					<input type="checkbox" class="box_edit_enable_border">
+					<input checked type="checkbox" class="box_edit_enable_border">
 					Enable border
 				</label>
 
