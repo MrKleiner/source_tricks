@@ -1,241 +1,245 @@
 <div id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text">Mapping</div>
-    </div>
-    <div class="folder_content">
-        <div asset_idx="e24d7b112e3c7e3de7cc27191fc3ea13" class="nav_tutorial">
-            <div class="tut_name_text">Precise brush alignment</div>
-        </div>
-        <div class="nav_tutorial" asset_idx="0ca13ec97224bfe27af4813097a3c1bd">
-            <div class="tut_name_text">Issues in building Cubemaps</div>
-        </div>
-        <div class="nav_tutorial" asset_idx="7b973b27e2f84fc031186094503778fa">
-            <div class="tut_name_text">Parallax Corrected Cubemaps</div>
-        </div>
-    </div>
+	<div class="folder_name">
+		<div class="folder_triangle">
+			<div class="folder_triangle_ico"></div>
+		</div>
+		<div class="fname_text fname_text_edit">Mapping</div>
+	</div>
+	<div class="folder_content">
+		<div asset_idx="e24d7b112e3c7e3de7cc27191fc3ea13" class="nav_tutorial">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Precise brush alignment</div>
+		</div>
+		<div class="nav_tutorial" asset_idx="0ca13ec97224bfe27af4813097a3c1bd">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Issues in building Cubemaps</div>
+		</div>
+		<div class="nav_tutorial" asset_idx="7b973b27e2f84fc031186094503778fa">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Parallax Corrected Cubemaps</div>
+		</div>
+	</div>
 </div>
 <div id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text" style="">WRD's Ultimate Source Guide</div>
-    </div>
-    <div class="folder_content">
-        <div id_folder_name="nil" class="nav_folder">
-            <div class="folder_name">
-                <div class="folder_triangle">
-                    <div class="folder_triangle_ico"></div>
-                </div>
-                <div class="fname_text">Knowledge</div>
-            </div>
-            <div class="folder_content">
-                <div class="nav_tutorial" asset_idx="52d2393cfb69b613b1c2ceabe325e807">
-                    <div class="tut_name_text">What are Meshes?</div>
-                </div>
-                <div class="nav_tutorial" asset_idx="3047069af6f7af2e8627c95ef8d94dab">
-                    <div class="tut_name_text">What are Materials?</div>
-                </div>
-                <div id_folder_name="nil" class="nav_folder">
-                    <div class="folder_name">
-                        <div class="folder_triangle">
-                            <div class="folder_triangle_ico"></div>
-                        </div>
-                        <div class="fname_text" style="">What are shaders?</div>
-                    </div>
-                    <div class="folder_content">
-                        <div class="nav_tutorial" asset_idx="53afff25c1199b8b485d91a907afab1b">
-                            <div class="tut_name_text">What is PBR?</div>
-                        </div>
-                        <div class="nav_tutorial" asset_idx="728af5a729b4c6d26632a429b0def117">
-                            <div class="tut_name_text">PBR M/R</div>
-                        </div>
-                        <div class="nav_tutorial" asset_idx="5fb214a28376a11c8ab41ed86edee347">
-                            <div class="tut_name_text">PBR S/G</div>
-                        </div>
-                        <div class="nav_tutorial" asset_idx="805de950a9df74d5bd29241a1e2b8309">
-                            <div class="tut_name_text">Shaders in Source</div>
-                        </div>
-                    </div>
-                </div>
-                <div id_folder_name="nil" class="nav_folder">
-                    <div class="folder_name">
-                        <div class="folder_triangle">
-                            <div class="folder_triangle_ico"></div>
-                        </div>
-                        <div class="fname_text">Using Blender</div>
-                    </div>
-                    <div class="folder_content">
-                        <div class="nav_tutorial" asset_idx="55aa44a384b255e38f8fa33c05128146">
-                            <div class="tut_name_text">Disclaimer</div>
-                        </div>
-                        <div class="nav_tutorial" asset_idx="f61be3b2bbdea54bb109fd1213895a9a">
-                            <div class="tut_name_text">Introduction to Blender</div>
-                        </div>
-                    </div>
-                </div>
-                <div id_folder_name="nil" class="nav_folder">
-                    <div class="folder_name">
-                        <div class="folder_triangle">
-                            <div class="folder_triangle_ico"></div>
-                        </div>
-                        <div class="fname_text">Porting to Source</div>
-                    </div>
-                    <div class="folder_content">
-                        <div id_folder_name="nil" class="nav_folder">
-                            <div class="folder_name">
-                                <div class="folder_triangle">
-                                    <div class="folder_triangle_ico"></div>
-                                </div>
-                                <div class="fname_text" style="">Materials and Textures</div>
-                            </div>
-                            <div class="folder_content">
-                                <div id_folder_name="nil" class="nav_folder">
-                                    <div class="folder_name">
-                                        <div class="folder_triangle">
-                                            <div class="folder_triangle_ico"></div>
-                                        </div>
-                                        <div class="fname_text" style="">Stuff I expect you to know</div>
-                                    </div>
-                                    <div class="folder_content">
-                                        <div class="nav_tutorial" asset_idx="4b4e3c71e269d55c69f12844218c91c2">
-                                            <div class="tut_name_text">Understanding Bits/Channel</div>
-                                        </div>
-                                        <div class="nav_tutorial" asset_idx="4a5af11cd53410d7fdc4b22915f9c71e">
-                                            <div class="tut_name_text">Wat is sRGB??</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="nav_tutorial" asset_idx="70f07f02f8eed1480d67d7031e9dee50">
-                                    <div class="tut_name_text">Porting with VTFedit</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id_folder_name="nil" class="nav_folder">
-                            <div class="folder_name">
-                                <div class="folder_triangle">
-                                    <div class="folder_triangle_ico"></div>
-                                </div>
-                                <div class="fname_text" style="">Models and Animations</div>
-                            </div>
-                            <div class="folder_content">
-                                <div id_folder_name="nil" class="nav_folder">
-                                    <div class="folder_name">
-                                        <div class="folder_triangle">
-                                            <div class="folder_triangle_ico"></div>
-                                        </div>
-                                        <div class="fname_text" style="">Stuff I expect you to know</div>
-                                    </div>
-                                    <div class="folder_content">
-                                        <div class="nav_tutorial" asset_idx="aab9b72fc048c2bd7b846d939fbab5db">
-                                            <div class="tut_name_text">What and How - QC Files</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id_folder_name="nil" class="nav_folder">
-                            <div class="folder_name">
-                                <div class="folder_triangle">
-                                    <div class="folder_triangle_ico"></div>
-                                </div>
-                                <div class="fname_text" style="">Special Effects</div>
-                            </div>
-                            <div class="folder_content">
-                                <div id_folder_name="nil" class="nav_folder">
-                                    <div class="folder_name">
-                                        <div class="folder_triangle">
-                                            <div class="folder_triangle_ico"></div>
-                                        </div>
-                                        <div class="fname_text" style="">Stuff I expect you to know</div>
-                                    </div>
-                                    <div class="folder_content"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id_folder_name="nil" class="nav_folder">
-                            <div class="folder_name">
-                                <div class="folder_triangle">
-                                    <div class="folder_triangle_ico"></div>
-                                </div>
-                                <div class="fname_text" style="">Sounds</div>
-                            </div>
-                            <div class="folder_content">
-                                <div id_folder_name="nil" class="nav_folder">
-                                    <div class="folder_name">
-                                        <div class="folder_triangle">
-                                            <div class="folder_triangle_ico"></div>
-                                        </div>
-                                        <div class="fname_text">Stuff I expect you to know</div>
-                                    </div>
-                                    <div class="folder_content"></div>
-                                </div>
-                                <div class="nav_tutorial" asset_idx="5a1a5625c8e135635dbc196179a4ad02">
-                                    <div class="tut_name_text">Sound to Source using .wav</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="folder_name">
+		<div class="folder_triangle">
+			<div class="folder_triangle_ico"></div>
+		</div>
+		<div class="fname_text fname_text_edit" style="">WRD's Ultimate Source Guide</div>
+	</div>
+	<div class="folder_content">
+		<div id_folder_name="nil" class="nav_folder">
+			<div class="folder_name">
+				<div class="folder_triangle">
+					<div class="folder_triangle_ico"></div>
+				</div>
+				<div class="fname_text fname_text_edit">Knowledge</div>
+			</div>
+			<div class="folder_content">
+				<div class="nav_tutorial" asset_idx="52d2393cfb69b613b1c2ceabe325e807">
+					<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">What are Meshes?</div>
+				</div>
+				<div class="nav_tutorial" asset_idx="3047069af6f7af2e8627c95ef8d94dab">
+					<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">What are Materials?</div>
+				</div>
+				<div id_folder_name="nil" class="nav_folder">
+					<div class="folder_name">
+						<div class="folder_triangle">
+							<div class="folder_triangle_ico"></div>
+						</div>
+						<div class="fname_text fname_text_edit" style="">What are shaders?</div>
+					</div>
+					<div class="folder_content">
+						<div class="nav_tutorial" asset_idx="53afff25c1199b8b485d91a907afab1b">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">What is PBR?</div>
+						</div>
+						<div class="nav_tutorial" asset_idx="728af5a729b4c6d26632a429b0def117">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">PBR M/R</div>
+						</div>
+						<div class="nav_tutorial" asset_idx="5fb214a28376a11c8ab41ed86edee347">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">PBR S/G</div>
+						</div>
+						<div class="nav_tutorial" asset_idx="805de950a9df74d5bd29241a1e2b8309">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Shaders in Source</div>
+						</div>
+					</div>
+				</div>
+				<div id_folder_name="nil" class="nav_folder">
+					<div class="folder_name">
+						<div class="folder_triangle">
+							<div class="folder_triangle_ico"></div>
+						</div>
+						<div class="fname_text fname_text_edit">Using Blender</div>
+					</div>
+					<div class="folder_content">
+						<div class="nav_tutorial" asset_idx="55aa44a384b255e38f8fa33c05128146">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Disclaimer</div>
+						</div>
+						<div class="nav_tutorial" asset_idx="f61be3b2bbdea54bb109fd1213895a9a">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Introduction to Blender</div>
+						</div>
+					</div>
+				</div>
+				<div id_folder_name="nil" class="nav_folder">
+					<div class="folder_name">
+						<div class="folder_triangle">
+							<div class="folder_triangle_ico"></div>
+						</div>
+						<div class="fname_text fname_text_edit">Porting to Source</div>
+					</div>
+					<div class="folder_content">
+						<div id_folder_name="nil" class="nav_folder">
+							<div class="folder_name">
+								<div class="folder_triangle">
+									<div class="folder_triangle_ico"></div>
+								</div>
+								<div class="fname_text fname_text_edit" style="">Materials and Textures</div>
+							</div>
+							<div class="folder_content">
+								<div id_folder_name="nil" class="nav_folder">
+									<div class="folder_name">
+										<div class="folder_triangle">
+											<div class="folder_triangle_ico"></div>
+										</div>
+										<div class="fname_text fname_text_edit" style="">Stuff I expect you to know</div>
+									</div>
+									<div class="folder_content">
+										<div class="nav_tutorial" asset_idx="4b4e3c71e269d55c69f12844218c91c2">
+											<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Understanding Bits/Channel</div>
+										</div>
+										<div class="nav_tutorial" asset_idx="4a5af11cd53410d7fdc4b22915f9c71e">
+											<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Wat is sRGB??</div>
+										</div>
+									</div>
+								</div>
+								<div class="nav_tutorial" asset_idx="70f07f02f8eed1480d67d7031e9dee50">
+									<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Porting with VTFedit</div>
+								</div>
+							</div>
+						</div>
+						<div id_folder_name="nil" class="nav_folder">
+							<div class="folder_name">
+								<div class="folder_triangle">
+									<div class="folder_triangle_ico"></div>
+								</div>
+								<div class="fname_text fname_text_edit" style="">Models and Animations</div>
+							</div>
+							<div class="folder_content">
+								<div id_folder_name="nil" class="nav_folder">
+									<div class="folder_name">
+										<div class="folder_triangle">
+											<div class="folder_triangle_ico"></div>
+										</div>
+										<div class="fname_text fname_text_edit" style="">Stuff I expect you to know</div>
+									</div>
+									<div class="folder_content">
+										<div class="nav_tutorial" asset_idx="aab9b72fc048c2bd7b846d939fbab5db">
+											<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">What and How - QC Files</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id_folder_name="nil" class="nav_folder">
+							<div class="folder_name">
+								<div class="folder_triangle">
+									<div class="folder_triangle_ico"></div>
+								</div>
+								<div class="fname_text fname_text_edit" style="">Special Effects</div>
+							</div>
+							<div class="folder_content">
+								<div id_folder_name="nil" class="nav_folder">
+									<div class="folder_name">
+										<div class="folder_triangle">
+											<div class="folder_triangle_ico"></div>
+										</div>
+										<div class="fname_text fname_text_edit" style="">Stuff I expect you to know</div>
+									</div>
+									<div class="folder_content"></div>
+								</div>
+							</div>
+						</div>
+						<div id_folder_name="nil" class="nav_folder">
+							<div class="folder_name">
+								<div class="folder_triangle">
+									<div class="folder_triangle_ico"></div>
+								</div>
+								<div class="fname_text fname_text_edit" style="">Sounds</div>
+							</div>
+							<div class="folder_content">
+								<div id_folder_name="nil" class="nav_folder">
+									<div class="folder_name">
+										<div class="folder_triangle">
+											<div class="folder_triangle_ico"></div>
+										</div>
+										<div class="fname_text fname_text_edit">Stuff I expect you to know</div>
+									</div>
+									<div class="folder_content">
+										<div asset_idx="4e382c57d8f5e0d433c8c0e9cd05549e" class="nav_tutorial">
+											<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Using ambeint_generic for music</div>
+										</div>
+									</div>
+								</div>
+								<div class="nav_tutorial" asset_idx="5a1a5625c8e135635dbc196179a4ad02">
+									<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Sound to Source using .wav</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div style="display: none" id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text">Addons</div>
-    </div>
-    <div class="folder_content">
-        <div class="nav_tutorial" asset_idx="d5e5e1501d75a992a7d87cb8ff7302e7">
-            <div class="tut_name_text">How to SourceIO</div>
-        </div>
-    </div>
+	<div class="folder_name">
+		<div class="folder_triangle">
+			<div class="folder_triangle_ico"></div>
+		</div>
+		<div class="fname_text fname_text_edit">Addons</div>
+	</div>
+	<div class="folder_content">
+		<div class="nav_tutorial" asset_idx="d5e5e1501d75a992a7d87cb8ff7302e7">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">How to SourceIO</div>
+		</div>
+	</div>
 </div>
 <div style="display: none" id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text">FAQ</div>
-    </div>
-    <div class="folder_content">
-        <div class="nav_tutorial" asset_idx="003d5d59babf434e4cb00870a57c8eb1">
-            <div class="tut_name_text">Vertex count</div>
-        </div>
-    </div>
+	<div class="folder_name">
+		<div class="folder_triangle">
+			<div class="folder_triangle_ico"></div>
+		</div>
+		<div class="fname_text fname_text_edit">FAQ</div>
+	</div>
+	<div class="folder_content">
+		<div class="nav_tutorial" asset_idx="003d5d59babf434e4cb00870a57c8eb1">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Vertex count</div>
+		</div>
+	</div>
 </div>
 <div id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text">Other</div>
-    </div>
-    <div class="folder_content">
-        <div class="nav_tutorial" asset_idx="64209384a59680ff02132353980984e1">
-            <div class="tut_name_text">VDC Scrollbars</div>
-        </div>
-        <div class="nav_tutorial" asset_idx="1a4850dc847fd2794d180ad706731e38">
-            <div class="tut_name_text">Installing Strawberry Perl</div>
-        </div>
-    </div>
+	<div class="folder_name">
+		<div class="folder_triangle">
+			<div class="folder_triangle_ico"></div>
+		</div>
+		<div class="fname_text fname_text_edit">Other</div>
+	</div>
+	<div class="folder_content">
+		<div class="nav_tutorial" asset_idx="64209384a59680ff02132353980984e1">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">VDC Scrollbars</div>
+		</div>
+		<div class="nav_tutorial" asset_idx="1a4850dc847fd2794d180ad706731e38">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Installing Strawberry Perl</div>
+		</div>
+	</div>
 </div>
 <div id_folder_name="nil" class="nav_folder">
-    <div class="folder_name">
-        <div class="folder_triangle">
-            <div class="folder_triangle_ico"></div>
-        </div>
-        <div class="fname_text">Lizard vmf</div>
-    </div>
-    <div class="folder_content">
-        <div class="nav_tutorial" asset_idx="5a4bcb957930ad3a8fb26d2c3dfa136d">
-            <div class="tut_name_text">How to use</div>
-        </div>
-    </div>
+	<div class="folder_name">
+		<div class="folder_triangle">
+			<div class="folder_triangle_ico"></div>
+		</div>
+		<div class="fname_text fname_text_edit">Lizard vmf</div>
+	</div>
+	<div class="folder_content">
+		<div class="nav_tutorial" asset_idx="5a4bcb957930ad3a8fb26d2c3dfa136d">
+			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">How to use</div>
+		</div>
+	</div>
 </div>
