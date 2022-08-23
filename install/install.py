@@ -37,12 +37,11 @@ with open(str(server / 'launcher.cmd'), 'w') as launcher:
 	launcher.write('"' + str(server) + '"')
 	launcher.write('\n')
 
-	launcher.write('"' + str(server / 'htbin' / 'python' / 'bin' / 'python.exe') + '"')
-	launcher.write(' -m http.server --cgi')
-
+	launcher.write('explorer "http://localhost:8000/"')
 	launcher.write('\n')
 
-	launcher.write('explorer "http://localhost:8000/"')
+	launcher.write('"' + str(server / 'htbin' / 'python' / 'bin' / 'python.exe') + '"')
+	launcher.write(' -m http.server --cgi')
 
 
 print('------------------------ DONE ------------------------')
