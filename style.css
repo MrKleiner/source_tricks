@@ -189,6 +189,7 @@ img
   margin-left: 10px;
   padding: 10px 0px 10px;
   padding-right: 20px;
+  min-height: 46px;
 }
 
 .article_content
@@ -471,7 +472,7 @@ img
 	margin-top: 10px;
 }
 
-.image_adder_btn, .add_box, .cum_on_a_lizard, .delete_box, .preview_page, .ctg_button, .ctg_cancel_operation, .mkbold_text, .add_new_dir_to_root
+.image_adder_btn, .add_box, .cum_on_a_lizard, .preview_page, .ctg_button, .ctg_cancel_operation, .mkbold_text, .add_new_dir_to_root
 {
 	user-select: none;
 	color: white;
@@ -496,9 +497,9 @@ img
 
 .delete_box
 {
-	width: 30px;
-	margin-top: 5px;
-	color: black;
+	/*width: 30px;*/
+	/*margin-top: 5px;*/
+	/*color: black;*/
 }
 
 .preview_page
@@ -1461,8 +1462,14 @@ co.code_qtext, co.code_qtext * {
 .box_edit_btns_other
 {
 	display: flex;
-	flex-direction: column;
+	/*flex-direction: column;*/
+	flex-wrap: wrap;
 	margin-left: 5px;
+}
+
+.box_edit_btns_other
+{
+
 }
 
 .boxedit_btn
@@ -1472,15 +1479,26 @@ co.code_qtext, co.code_qtext * {
 	align-items: center;
 	justify-content: center;
 	color: white;
-	background: black;
-	border-radius: 5px;
+	/*background: black;*/
+	border-radius: 3px;
 	padding: 3px;
 	font-family: 'Roboto';
 	font-size: 13px;
 	user-select: none;
-	width: 100%;
+	/*width: 100%;*/
+	/*important todo: tut_step div img width 100% !!!!!!!!!!!!!!!!!!!;*/
+	width: 23px !important;
+	height: 23px !important;
+	margin-left: 5px;
+
+	object-fit: cover;
+	object-position: center;
 }
 
+.boxedit_btn:hover
+{
+	background: rgba(0, 0, 0, 0.5);
+}
 
 .boxedit_btn:active
 {
@@ -1601,4 +1619,37 @@ co.code_qtext, co.code_qtext * {
 	white-space: break-spaces;
 }
 
+#addbox
+{
+	display: flex;
+	background: #222222f2;
+}
 
+#addbox_btn
+{
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-family: 'Roboto';
+	font-weight: 500;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-right: 5px;
+	background: black;
+	width: 40px;
+	height: 60px;
+	align-self: center;
+	border-radius: 10px;
+}
+
+#addbox_btn:hover
+{
+	background: gray;
+}
+
+#addbox_btn:active
+{
+	outline: 2px solid lime;
+}
