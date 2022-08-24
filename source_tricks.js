@@ -211,10 +211,13 @@ document.addEventListener('keyup', event => {
 
 
 
-
-document.addEventListener('wheel', event => {
-
-});
+// HO LEE FUK
+// WHAT THE FUCK IS WRONG WITH CHROME ???????
+window.addEventListener('wheel', event => {
+    if (event.target.closest('input[type="number"]')){
+        event.stopPropagation(), {passive:false};
+    }
+}, { passive: false });
 
 
 
