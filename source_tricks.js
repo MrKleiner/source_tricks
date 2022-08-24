@@ -214,8 +214,11 @@ document.addEventListener('keyup', event => {
 // HO LEE FUK
 // WHAT THE FUCK IS WRONG WITH CHROME ???????
 window.addEventListener('wheel', event => {
-    if (event.target.closest('input[type="number"]')){
-        event.stopPropagation(), {passive:false};
+	// const inpnumber = event.target.closest('input[type="number"]')
+	const imgsize = event.target.closest('.edit_img_size');
+    if (imgsize){
+        event.stopPropagation();
+        editimg_apply_size(imgsize, event)
     }
 }, { passive: false });
 
