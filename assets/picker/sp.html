@@ -16,6 +16,8 @@
 	<body>
 
 		<div id="pick">
+			<div style="color: white; user-select: none; font-family: 'Arial';" id="slider_indicator">10</div>
+			<input oninput="$('#slider_indicator').text(this.value)" type="range" step="1" id="power" value="10" min="10" max="512">
 			<input class="target" type="text" placeholder="target hex" value="#00a4d6"/>
 			<button class="execute">Compute</button>
 			<div id="result_pool">

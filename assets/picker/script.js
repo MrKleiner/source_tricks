@@ -306,9 +306,10 @@ $(document).ready(() => {
     const solver = new Solver(color);
 
     var manysolve = [];
-    for (var sex of range(10)){
+    for (var sex of range(int($('#power').val()))){
     	manysolve.push(solver.solve())
     }
+    console.log(manysolve)
 
     const result = manysolve.reduce(function(prev, curr) {
 		return prev.loss < curr.loss ? prev : curr;
