@@ -584,47 +584,47 @@ function activate_edit_mode(evee)
 		// a dictionary of what each button does and its visual appearence
 		var btnlist = [
 			{
-				'vis': 'Background',
-				'sys': 'backColor',
-				'add': 'colour'
-			},
-			{
-				'vis': 'Bold',
-				'sys': 'bold',
-				'add': 'none'
-			},
-			{
-				'vis': 'Make a Link',
-				'sys': 'createLink',
-				'add': 'text'
-			},
-			{
-				'vis': 'Colour',
+				'vis': '',
 				'sys': 'foreColor',
 				'add': 'colour'
 			},
 			{
-				'vis': 'Ordered List',
+				'vis': '',
+				'sys': 'backColor',
+				'add': 'colour'
+			},
+			{
+				'vis': '',
 				'sys': 'insertOrderedList',
 				'add': 'none'
 			},
 			{
-				'vis': 'Unordered List',
+				'vis': '',
 				'sys': 'insertUnorderedList',
 				'add': 'none'
 			},
 			{
-				'vis': 'Italic',
+				'vis': '',
+				'sys': 'bold',
+				'add': 'none'
+			},
+			{
+				'vis': '',
 				'sys': 'italic',
 				'add': 'none'
 			},
 			{
-				'vis': 'Underline',
+				'vis': '',
 				'sys': 'underline',
 				'add': 'none'
 			},
 			{
-				'vis': 'Remove Format',
+				'vis': '',
+				'sys': 'createLink',
+				'add': 'text'
+			},
+			{
+				'vis': '',
 				'sys': 'unlink',
 				'add': 'none'
 			}

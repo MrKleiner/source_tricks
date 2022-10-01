@@ -31,6 +31,13 @@
 	src: url('fonts/consolas/consolaz.ttf');
 }
 
+@font-face
+{
+	font-family: 'iconz';
+	font-weight: 100;
+	src: url('fonts/mat_icons/regular.ttf');
+}
+
 
 html
 {
@@ -1219,13 +1226,15 @@ co.code_qtext, co.code_qtext * {
 	padding: 5px;
 	background: black;
 	color: white;
-	width: 150px;
+	width: 20px;
+	height: 20px;
+	/*aspect-ratio: 1/1;*/
 	align-items: center;
 	justify-content: center;
 	margin: 5px;
 	border-radius: 5px;
-	font-size: 15px;
-	font-family: 'Roboto';
+	font-size: 20px;
+	font-family: 'iconz', sans-serif;
 	font-weight: 400;
 	user-select: none;
 }
