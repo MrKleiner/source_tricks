@@ -209,6 +209,22 @@ document.addEventListener('keyup', event => {
 
 });
 
+// keypress does not register Backspace
+document.addEventListener('mouseover', event => {
+
+	if (event.target.closest('[liztooltip]')) { showliztooltip(event.target.closest('[liztooltip]')) }else{ showliztooltip(event.target.closest('[liztooltip]')) }
+
+});
+
+
+// actual mouse pos before any events
+document.addEventListener('mousemove', event => {
+	window.actualmpos = {
+		'x': event.clientX,
+		'y': event.clientY,
+		'tgt': event.target
+	}
+});
 
 
 // HO LEE FUK
@@ -586,54 +602,64 @@ function activate_edit_mode(evee)
 			{
 				'vis': '',
 				'sys': 'foreColor',
-				'add': 'colour'
+				'add': 'colour',
+				'tooltip': 'Set Text Colour'
 			},
 			{
 				'vis': '',
 				'sys': 'backColor',
-				'add': 'colour'
+				'add': 'colour',
+				'tooltip': 'Set Background Colour'
 			},
 			{
 				'vis': '',
 				'sys': 'insertOrderedList',
-				'add': 'none'
+				'add': 'none',
+				'tooltip': 'Ordered List'
 			},
 			{
 				'vis': '',
 				'sys': 'insertUnorderedList',
-				'add': 'none'
+				'add': 'none',
+				'tooltip': 'Unordered List'
 			},
 			{
 				'vis': '',
 				'sys': 'bold',
-				'add': 'none'
+				'add': 'none',
+				'tooltip': 'Bold'
 			},
 			{
 				'vis': '',
 				'sys': 'italic',
-				'add': 'none'
+				'add': 'none',
+				'tooltip': 'Italic, Sherlock'
 			},
 			{
 				'vis': '',
 				'sys': 'underline',
-				'add': 'none'
+				'add': 'none',
+				'tooltip': 'Underline'
 			},
 			{
 				'vis': '',
 				'sys': 'createLink',
-				'add': 'text'
+				'add': 'text',
+				'tooltip': 'Insert Link'
 			},
 			{
 				'vis': '',
 				'sys': 'unlink',
-				'add': 'none'
+				'add': 'none',
+				'tooltip': 'Remove All Formatting'
 			}
 		]
 
 		// populate the Word editor box
 		for (let bt of btnlist){
 			// todo: transfer this to ${}
-			var rawbtn = lizard.ehtml(`<div class="word_btn">` + bt['vis'] + `</div>`);
+			// var rawbtn = lizard.ehtml(`<div class="word_btn">` + bt['vis'] + `</div>`);
+			var rawbtn = lizard.ehtml(`<div class="word_btn">${bt['vis']} <liztooltip liztooltip_prms="bottom:1:5:200">${bt['tooltip']}</liztooltip></div>`);
 			// rawbtn.setAttribute('vis', bt['vis']);
 			rawbtn.setAttribute('sys', bt['sys']);
 			rawbtn.setAttribute('add', bt['add']);
@@ -682,9 +708,9 @@ function activate_edit_mode(evee)
 					</div>
 
 					<div class="box_edit_btns_other">
-						<img draggable="false" src="assets/img_icon.svg" img_action="add" class="add_img boxedit_btn">
-						<img draggable="false" src="assets/brush.svg" class="set_box_border_colour boxedit_btn">
-						<img draggable="false" src="assets/rubbish.png" class="delete_box boxedit_btn">
+						<img liztooltip_prms="bottom:1:5:200" liztooltip="Add Image" draggable="false" src="assets/img_icon.svg" img_action="add" class="add_img boxedit_btn">
+						<img liztooltip_prms="bottom:1:5:200" liztooltip="Set Border Colour" draggable="false" src="assets/brush.svg" class="set_box_border_colour boxedit_btn">
+						<img liztooltip_prms="bottom:1:5:200" liztooltip="Delete Box (Hold ctrl)" draggable="false" src="assets/rubbish.png" class="delete_box boxedit_btn">
 					</div>
 
 				</div>
@@ -792,6 +818,9 @@ function activate_edit_mode(evee)
 			restore['box'].classList.remove('hljs');
 			restore['box'].contentEditable = true;
 		}
+
+		// evaluate tooltips
+		init_liztooltips()
 
 	}
 }
@@ -1751,7 +1780,7 @@ async function article_saver()
 	console.log('Basic info', article); fbi.console_log(article)
 
 	console.log('Compiling Article Text...');
-	console.time('Done Compiling Article Text in')
+	console.time('Done Compiling Article Text in');
 	window.imgsave_queue = [];
 	// process boxes one by one
 	for (var box of document.querySelectorAll('.tut_step')){
@@ -1841,10 +1870,10 @@ async function article_saver()
 
 	// set cool indicator back to green
 	document.querySelector('#article_save_btn').style.backgroundImage = `url('assets/btnidle.png'), url('assets/indicator_green.png'), url('assets/indicator_red.png')`;
-	
+
 	// collapse group and show time
 	console.timeEnd('Full Save'); console.groupEnd('Article Save');
-	
+
 	// hide console log
 	$('#save_feedback').css('display', 'none');
 
