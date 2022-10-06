@@ -44,7 +44,7 @@
 						<div class="folder_triangle">
 							<div class="folder_triangle_ico"></div>
 						</div>
-						<div class="fname_text fname_text_edit" style="">What are shaders?</div>
+						<div class="fname_text fname_text_edit" style="">Shaders</div>
 					</div>
 					<div class="folder_content">
 						<div class="nav_tutorial" asset_idx="53afff25c1199b8b485d91a907afab1b">
@@ -58,6 +58,9 @@
 						</div>
 						<div class="nav_tutorial" asset_idx="805de950a9df74d5bd29241a1e2b8309">
 							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Shaders in Source</div>
+						</div>
+						<div asset_idx="3f24fd71920091075769d40600d91881" class="nav_tutorial">
+							<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Shadermodel 3.0</div>
 						</div>
 					</div>
 				</div>
