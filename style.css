@@ -1607,10 +1607,10 @@ co.code_qtext, co.code_qtext * {
 
 .tut_step[isvdccode] .tut_step_head_text
 {
-	color: black;
+	color: #cdd3de;
 	padding: 1em;
-    border-left: 6px solid #666666 !important;
-    background-color: #D8D7D6;
+    border-left: 6px solid #52768f !important;
+    background-color: #1a1e24;
     line-height: 1.1em;
     font-size: 100%;
     font-family: monospace,sans-serif;
