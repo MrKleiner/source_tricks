@@ -158,6 +158,7 @@ liztooltip
   display: flex;
   flex-direction: column;
   width: 300px;
+  min-width: 300px;
   /*margin: 6em 2vw;*/
   margin: 6em 50px 0px 30px;
 }
@@ -174,7 +175,7 @@ liztooltip
 {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	/*width: 100%;*/
 	min-height: 551px;
 	max-height: 1350px;
 	background: rgba(9, 9, 17, 0.22);
