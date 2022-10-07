@@ -1596,7 +1596,8 @@ async function article_loader(a_id=null, force=false)
 	// --------------------------------
 
 	// Set body width accounting the quick index width
-	$('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
+	// important todo: this is not needed anymore
+	// $('body').css('min-width', 1360 + $('.rquick_index').outerWidth(true));
 
 	// scroll into view
 	var scroll_id = decodeURI(window.location.hash).replace('#', '');

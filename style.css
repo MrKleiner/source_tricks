@@ -60,12 +60,12 @@ div
 
 body
 { 
-  background-image: url("assets/bg.png");
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  min-width: 1351px;
+	background-image: url("assets/bg.png");
+	background-attachment: fixed;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	/*min-width: 1351px;*/
 }
 
 img
@@ -247,16 +247,17 @@ liztooltip
   display: flex;
   flex-direction: column;
   /*height: 1000px;*/
-  width: 97%;
+  /*width: 97%;*/
   /*background: ;*/
   margin-top: 10px;
+  padding-right: 290px;
 }
 
 .tut_step
 {
   display: inline-block;
   /*width: 50%;*/
-  width: 1000px;
+  /*width: 1000px;*/
   margin-top: 60px;
   margin-right: 0px;
 }
@@ -397,7 +398,7 @@ liztooltip
   .rquick_indexss
   {
     /*margin-right: 1px;*/
-    margin-right: 300px;
+    /* margin-right: 300px; */
   }
 }
 
@@ -1607,7 +1608,7 @@ co.code_qtext, co.code_qtext * {
 
 .tut_step[isvdccode] .tut_step_head_text
 {
-	color: #cdd3de;
+	color: #cdd3de !important;
 	padding: 1em;
     border-left: 6px solid #52768f !important;
     background-color: #1a1e24;
@@ -1615,6 +1616,18 @@ co.code_qtext, co.code_qtext * {
     font-size: 100%;
     font-family: monospace,sans-serif;
 }
+/*
+important todo:
+account for text pasted from outer sources
+somehow...
+*/
+.tut_step[isvdccode] .tut_step_head_text *
+{
+	color: #cdd3de !important;
+}
+
+
+
 
 
 .edit_img_size
