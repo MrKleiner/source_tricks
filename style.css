@@ -244,14 +244,14 @@ liztooltip
 
 .article_content
 {
-  /*display: inline-block;*/
-  display: flex;
-  flex-direction: column;
-  /*height: 1000px;*/
-  /*width: 97%;*/
-  /*background: ;*/
-  margin-top: 10px;
-  padding-right: 290px;
+	/*display: inline-block;*/
+	display: flex;
+	flex-direction: column;
+	/*height: 1000px;*/
+	/*width: 97%;*/
+	/*background: ;*/
+	margin-top: 10px;
+	padding-right: 350px;
 }
 
 .tut_step
