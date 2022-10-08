@@ -450,7 +450,15 @@ function ctg_name_actuator(etgt, evee)
 	}
 }
 
-
+// takes text input as an input
+function ctg_name_apply(etgt, evee)
+{
+	if (evee.keyCode == 13)
+	{
+		$(etgt).removeAttr('contenteditable');
+		$(etgt).blur();
+	}
+}
 
 
 
@@ -1502,7 +1510,7 @@ async function article_loader(a_id=null, force=false)
 		`);
 
 		// set text
-		emptybox.find('.tut_step_head_text').html(tbox['text']);
+		emptybox.find('.tut_step_head_text').html(lizard.UTF8ArrToStr(lizard.base64DecToArr(tbox['text'])));
 
 		// todo: legacy fallback...
 		emptybox.find('.tut_step_head_text').css({
@@ -1791,7 +1799,7 @@ async function article_saver()
 			'border': getComputedStyle($(box).find('.tut_step_head_text')[0]).borderBlock,
 			'hasborder': $(box).find('.box_edit_enable_border')[0].checked,
 			'chapter': $(box).find('.boxedit_chapter').val().trim(),
-			'text': $(box).find('.tut_step_head_text')[0].innerHTML,
+			'text': lizard.base64EncArr(lizard.strToUTF8Arr($(box).find('.tut_step_head_text')[0].innerHTML)),
 			'iscode': box.hasAttribute('iscode'),
 			'isvdccode': box.hasAttribute('isvdccode'),
 			'contents': []
