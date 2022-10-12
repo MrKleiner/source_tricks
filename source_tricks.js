@@ -16,6 +16,15 @@ if (window.location.hash != ''){
 
 
 
+// important todo: 
+// css has access to attributes...
+// don't set image width with the style attribute
+// set abstract attribute and then pull its value with css
+
+
+
+
+
 document.addEventListener('click', event => {
 	// console.log('click_registered');
 
@@ -1123,7 +1132,7 @@ function editimg_apply_size(tgt, evee)
 		$(tgt).closest('.imgcont_media_unit').find('img')[0].style.width = null
 		tgt.value = '';
 	}else{
-		$(tgt).closest('.imgcont_media_unit').find('img')[0].style.width = str(tgt.value) + 'px';
+		$(tgt).closest('.imgcont_media_unit').find('img')[0].style.maxWidth = str(tgt.value) + 'px';
 		// evee.preventDefault()
 	}
 
@@ -1361,7 +1370,7 @@ async function satisfy_image_queue()
 		console.timeEnd('Loaded Img');
 
 		// apply style
-		$(theimg).css('width', im['content']['imgsize'] + 'px');
+		$(theimg).css('max-width', im['content']['imgsize'] + 'px');
 
 		// wrap image into a container
 		var imgcont = $('<div class="imgcont_media_unit"></div>');
