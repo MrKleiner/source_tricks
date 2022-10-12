@@ -1659,13 +1659,14 @@ async function article_loader(a_id=null, force=false)
 async function send_article_text(txt, arcl_id)
 {
 	return new Promise(function(resolve, reject){
+		const payload = new Blob([txt], {type: 'text/plain'});
 		fetch('htbin/manager.py?do=save_text&article_id=' + arcl_id, {
 		    'headers': {
 		        'accept': '*/*',
 		        'cache-control': 'no-cache',
 		        'pragma': 'no-cache'
 		    },
-		    'body': txt,
+		    'body': payload,
 		    'method': 'POST',
 		    'mode': 'cors',
 		    'credentials': 'omit'
@@ -1684,6 +1685,8 @@ async function send_article_image(imgb, imagename, arcl_id)
 {
 	return new Promise(function(resolve, reject){
 
+		const payload = new Blob([imgb], {type: 'text/plain'});
+
 		var prms = new URLSearchParams({
 			do: 'save_img',
 			article_id: arcl_id,
@@ -1696,7 +1699,7 @@ async function send_article_image(imgb, imagename, arcl_id)
 		        'cache-control': 'no-cache',
 		        'pragma': 'no-cache'
 		    },
-		    'body': imgb,
+		    'body': payload,
 		    'method': 'POST',
 		    'mode': 'cors',
 		    'credentials': 'omit'
