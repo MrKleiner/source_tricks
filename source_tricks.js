@@ -1808,7 +1808,9 @@ async function article_saver()
 		console.log('Processing box', box); fbi.console_log('Processing a box...', {'margin-top': '15px'})
 		// write down general info about the box
 		var mkbox = {
-			'border': getComputedStyle($(box).find('.tut_step_head_text')[0]).borderBlock,
+			// important todo: flex items have different border definition....
+			// 'border': getComputedStyle($(box).find('.tut_step_head_text')[0]).borderBlock,
+			'border': getComputedStyle($(box).find('.tut_step_head_text')[0]).borderBlockStart,
 			'hasborder': $(box).find('.box_edit_enable_border')[0].checked,
 			'chapter': $(box).find('.boxedit_chapter').val().trim(),
 			'text': lizard.base64EncArr(lizard.strToUTF8Arr($(box).find('.tut_step_head_text')[0].innerHTML)),
