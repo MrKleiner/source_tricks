@@ -1,11 +1,11 @@
 <div id_folder_name="nil" class="nav_folder">
 	<div class="folder_name">
 		<div class="folder_triangle">
-			<div class="folder_triangle_ico folder_tri_closed"></div>
+			<div class="folder_triangle_ico"></div>
 		</div>
 		<div class="fname_text fname_text_edit">Mapping</div>
 	</div>
-	<div class="folder_content e_hidden">
+	<div class="folder_content">
 		<div asset_idx="e24d7b112e3c7e3de7cc27191fc3ea13" class="nav_tutorial">
 			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">Precise brush alignment</div>
 		</div>
@@ -20,19 +20,19 @@
 <div id_folder_name="nil" class="nav_folder">
 	<div class="folder_name">
 		<div class="folder_triangle">
-			<div class="folder_triangle_ico folder_tri_closed"></div>
+			<div class="folder_triangle_ico"></div>
 		</div>
 		<div class="fname_text fname_text_edit" style="">WRD's Ultimate Source Guide</div>
 	</div>
-	<div class="folder_content e_hidden">
+	<div class="folder_content">
 		<div id_folder_name="nil" class="nav_folder">
 			<div class="folder_name">
 				<div class="folder_triangle">
-					<div class="folder_triangle_ico folder_tri_closed"></div>
+					<div class="folder_triangle_ico"></div>
 				</div>
 				<div class="fname_text fname_text_edit">Knowledge</div>
 			</div>
-			<div class="folder_content e_hidden">
+			<div class="folder_content">
 				<div class="nav_tutorial" asset_idx="52d2393cfb69b613b1c2ceabe325e807">
 					<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">What are Meshes?</div>
 				</div>
@@ -242,11 +242,11 @@
 <div id_folder_name="nil" class="nav_folder">
 	<div class="folder_name">
 		<div class="folder_triangle">
-			<div class="folder_triangle_ico folder_tri_closed"></div>
+			<div class="folder_triangle_ico"></div>
 		</div>
 		<div class="fname_text fname_text_edit">Lizard vmf</div>
 	</div>
-	<div class="folder_content e_hidden">
+	<div class="folder_content">
 		<div class="nav_tutorial" asset_idx="5a4bcb957930ad3a8fb26d2c3dfa136d">
 			<div class="tut_name_text tut_name_text_edit" style="border-left: 0px solid rgb(99, 182, 215);">How to use</div>
 		</div>
