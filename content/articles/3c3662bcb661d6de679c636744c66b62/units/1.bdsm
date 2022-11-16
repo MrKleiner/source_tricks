@@ -1,0 +1,8 @@
+{
+	"utype": "ltext_rimg",
+	"text": "Modes allow editing different aspects of objects. While Object Mode allows you to position/rotate/scale them, Edit Mode allows changing their geometry, Pose Mode allows posing them, and so on. You can change the current mode using the Mode selector in the 3D Viewport header. Which modes are available depends on the object’s type. The complete list is shown below. Apart from using the selector, you can also press Ctrl-Tab to bring up a pie menu around the cursor for faster access. (If the selected obфввыфвфывject is an Armature, this shortcut will instead switch between Object Mode and Pose Mode.)",
+	"img": "content/articles/3c3662bcb661d6de679c636744c66b62/assets/cybersex.jpg",
+	"img_x": 90,
+	"img_y": 150,
+	"img_caption": "Giga Chad Ы"
+}

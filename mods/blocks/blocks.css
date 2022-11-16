@@ -1,0 +1,238 @@
+
+
+
+.article_entry
+{
+	margin-top: 10px;
+	line-height: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*Text block from the left and an image from the right*/
+/*======================================================*/
+
+.article_entry .image_unit
+{
+	object-fit: contain;
+	object-position: center;
+	margin-left: 15px;
+}
+
+
+.article_entry[atype='ltext_rimg']
+{
+	display: flex;
+}
+
+.article_entry[atype='ltext_rimg'] .image_unit .image_caption
+{
+	font-style: italic;
+	color: rgb(190, 190, 190);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*Pure text*/
+/*======================================================*/
+
+/*none*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*Header*/
+/*======================================================*/
+
+.article_entry[atype='header']
+{
+	font-size: 24px;
+	font-weight: 400;
+	margin: 20px 0px 20px 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*Note*/
+/*======================================================*/
+
+.article_entry[atype='note'] .note_icon
+{
+	font-family: 'mat_icons';
+}
+
+.article_entry[atype='note'] .note_header
+{
+	display: flex;
+	padding: 6px 12px;
+	font-size: 17px;
+	/*background: #3182b1b0;*/
+	background: #3e6883;
+}
+
+.article_entry[atype='note'] .note_text
+{
+	display: flex;
+	padding: 15px;
+	background: #00000033;
+}
+
+.article_entry[atype='note'] .note_title
+{
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*Hint*/
+/*======================================================*/
+
+.article_entry[atype='hint'] .hint_icon
+{
+	font-family: 'mat_icons';
+}
+
+.article_entry[atype='hint'] .hint_header
+{
+	display: flex;
+	padding: 6px 12px;
+	font-size: 17px;
+	/*background: #3182b1b0;*/
+	background: #3e834d;
+}
+
+.article_entry[atype='hint'] .hint_text
+{
+	display: flex;
+	padding: 15px;
+	background: #00000033;
+}
+
+.article_entry[atype='hint'] .hint_title
+{
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*See also*/
+/*======================================================*/
+
+.article_entry[atype='see_also'] .see_also_icon
+{
+	font-family: 'mat_icons';
+}
+
+.article_entry[atype='see_also'] .see_also_header
+{
+	display: flex;
+	padding: 6px 12px;
+	font-size: 17px;
+	/*background: #3182b1b0;*/
+	background: #3f3e83;
+}
+
+.article_entry[atype='see_also'] .see_also_text
+{
+	display: flex;
+	padding: 15px;
+	background: #00000033;
+}
+
+.article_entry[atype='see_also'] .see_also_title
+{
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

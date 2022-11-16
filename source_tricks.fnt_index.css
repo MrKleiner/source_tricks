@@ -1,0 +1,99 @@
+/*==============================================*/
+/*lato*/
+/*==============================================*/
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 100;
+	font-style: italic;
+	src: url('/fonts/lato/100.italic.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 100;
+	font-style: normal;
+	src: url('/fonts/lato/100.normal.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 200;
+	font-style: italic;
+	src: url('/fonts/lato/200.italic.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 200;
+	font-style: normal;
+	src: url('/fonts/lato/200.normal.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 300;
+	font-style: italic;
+	src: url('/fonts/lato/300.italic.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 300;
+	font-style: normal;
+	src: url('/fonts/lato/300.normal.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 400;
+	font-style: italic;
+	src: url('/fonts/lato/400.italic.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 400;
+	font-style: normal;
+	src: url('/fonts/lato/400.normal.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 500;
+	font-style: italic;
+	src: url('/fonts/lato/500.italic.ttf');
+}
+@font-face
+{
+	font-family: 'lato';
+	font-weight: 500;
+	font-style: normal;
+	src: url('/fonts/lato/500.normal.ttf');
+}
+
+
+
+
+
+
+
+
+/*==============================================*/
+/*mat_icons*/
+/*==============================================*/
+@font-face
+{
+	font-family: 'mat_icons';
+	font-weight: 200;
+	font-style: normal;
+	src: url('/fonts/mat_icons/200.normal.ttf');
+}
+
+
+
+
+
+
+
+

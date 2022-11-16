@@ -1,1 +1,14 @@
-@import url('mods_c/core/core.css');
+
+
+/*FONTS*/
+@import url('/source_tricks.fnt_index.css');
+
+
+
+
+
+
+/*MODULES*/
+@import url('/mods_c/core/core.css');
+
+@import url('/mods_c/blocks/blocks.css');

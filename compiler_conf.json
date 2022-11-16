@@ -19,6 +19,14 @@
 	//		- module_name
 	"jsmodules": "mods",
 
+	// only counts if present, not false, not empty and not null
+	// add fonts as binaries
+	// should point to a folder with a number of subfolders where each file is a font:
+	// weight.style.ttf/woff/whatever
+	// e.g. 400.italic.ttf
+	// folder name is used as the font family name
+	"fonts": "fonts",
+
 	// minimal requirement: function pool name (where to store all the functions)
 	"sys_name": "source_tricks",
 
