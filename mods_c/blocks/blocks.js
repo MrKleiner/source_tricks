@@ -113,6 +113,63 @@ window.bootlegger.blocks.see_also = async function(block_info)
 
 
 
+// super simple monospace blocks
+// no highlight no anything
+// but still useful
+window.bootlegger.blocks.vdc_code = function(block_info)
+{
+	print('ok, spawning shit:', block_info)
+	$('#article_blocks').append(`
+		<div atype="vdc_code" class="article_entry">
+			<div class="text_block vdc_code_text">${lizard.atob(block_info.text)}</div>
+		</div>
+	`)
+}
+
+
+
+
+// a singular image
+window.bootlegger.blocks.raw_img = function(block_info)
+{
+	const align_dict = {
+		'left': 'flex-start',
+		'right': 'flex-end',
+		'center': 'center'
+	}
+	print('ok, spawning shit:', block_info)
+	$('#article_blocks').append(`
+		<div 
+			atype="raw_img"
+			class="article_entry"
+			style="align-items: ${align_dict[block_info.align] ? align_dict[block_info.align] : ''}"
+		>
+			<img style="width:${block_info.size*100}%" class="img_entry" src="${block_info.src}">
+			<div class="img_caption">${block_info.caption}</div>
+		</div>
+	`)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -38,6 +38,7 @@
 .article_entry[atype='ltext_rimg']
 {
 	display: flex;
+	justify-content: space-between;
 }
 
 .article_entry[atype='ltext_rimg'] .image_unit .image_caption
@@ -211,6 +212,78 @@
 {
 	padding-left: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*See also*/
+/*======================================================*/
+
+.article_entry[atype='vdc_code'] .vdc_code_text
+{
+	color: #cdd3de !important;
+	padding: 1em;
+	tab-size: 4;
+	border-left: 6px solid #52768f !important;
+	background-color: #1a1e24;
+	line-height: 1.1em;
+	font-size: 100%;
+	font-family: monospace,sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/*Pure image*/
+/*======================================================*/
+.article_entry[atype='raw_img']
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.article_entry[atype='raw_img'] .img_entry
+{
+	max-width: 100% !important;
+}
+
+.article_entry[atype='raw_img'] .img_caption
+{
+	padding: 2px;
+	font-style: italic;
+	color: rgb(190, 190, 190);
+}
+
+
+
+
 
 
 

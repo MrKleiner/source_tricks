@@ -56,6 +56,9 @@ window.bootlegger.core.article_loader = async function(article_id)
 
 	$('#article_blocks').empty()
 
+	// show title
+	$('#article #article_header').text(article_index.atitle)
+
 	for (let unit of range(article_index.unit_count)){
 		var block = await window.bootlegger.core.get_article_unit(article_id, unit)
 		
