@@ -8,16 +8,20 @@ $this.ltext_rimg = async function(block_info)
 {
 	// height: ${block_info.img_y}px;
 	print('ok, spawning shit:', block_info)
+
+	// wait for the image to cache
+	const imgcache = await $all.core.await_img_buffer(block_info.img)
+
 	$('#article_blocks').append(`
 		<div atype="ltext_rimg" class="article_entry">
 			<div class="text_block">${block_info.text}</div>
 			<div class="image_unit">
 				<img 
-					class="image_elem"
+					class="image_elem imgmax"
 
 					imgw="${block_info.img_x}"
 					imgh="${block_info.img_y}"
-					src="${block_info.img}"
+					src="${imgcache.src}"
 					style="width: ${block_info.img_x}px;"
 				>
 				<div class="image_caption">${block_info.img_caption}</div>
@@ -90,6 +94,24 @@ $this.hint = async function(block_info)
 
 
 
+// A big bold title
+$this.warning = async function(block_info)
+{
+	// height: ${block_info.img_y}px;
+	print('ok, spawning shit:', block_info)
+	$('#article_blocks').append(`
+		<div atype="warning" class="article_entry">
+			<div class="warning_header">
+				<div class="warning_icon"></div>
+				<div class="warning_title">Warning</div>
+			</div>
+			<div class="text_block warning_text">${block_info.text}</div>
+		</div>
+	`)
+}
+
+
+
 
 // A big bold title
 $this.see_also = async function(block_info)
@@ -126,7 +148,7 @@ $this.vdc_code = function(block_info)
 
 
 // a singular image
-$this.raw_img = function(block_info)
+$this.raw_img = async function(block_info)
 {
 	const align_dict = {
 		'left': 'flex-start',
@@ -134,13 +156,21 @@ $this.raw_img = function(block_info)
 		'center': 'center'
 	}
 	print('ok, spawning shit:', block_info)
+
+	// await image cache
+	const imgcache = await $all.core.await_img_buffer(block_info.src)
+
 	$('#article_blocks').append(`
 		<div 
 			atype="raw_img"
 			class="article_entry"
 			style="align-items: ${align_dict[block_info.align] ? align_dict[block_info.align] : ''}"
 		>
-			<img style="width:${block_info.size*100}%" class="img_entry" src="${block_info.src}">
+			<img 
+				style="width:${block_info.size*100}%"
+				class="img_entry imgmax"
+				src="${imgcache.src}"
+			>
 			<div class="img_caption">${block_info.caption}</div>
 		</div>
 	`)
@@ -148,7 +178,27 @@ $this.raw_img = function(block_info)
 
 
 
+$this.signed_enum = function(block_info)
+{
+	print('ok, spawning shit:', block_info)
 
+	var entries = []
+
+	for (var entry of block_info.enum_entries){
+		entries.push(`
+			<div class="enum_unit">
+				<div class="enum_unit_title">${entry.title}</div>
+				<div class="enum_unit_text">${entry.text}</div>
+			</div>
+		`)
+	}
+
+	$('#article_blocks').append(`
+		<div atype="signed_enum" class="article_entry">
+			${entries.join('')}
+		</div>
+	`)
+}
 
 
 

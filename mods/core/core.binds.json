@@ -1,0 +1,18 @@
+{
+	"click": [
+		{
+			"selector": ".imgmax",
+			"function": "$this.maximize_image",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		},
+		{
+			"selector": "#img_fullscreen",
+			"function": "$this.remove_fullscreen_img",
+			"pass_event": false,
+			"pass_element": true,
+			"pass_params": ""
+		}
+	]
+}

@@ -82,8 +82,10 @@
 
 .article_entry[atype='header']
 {
+	font-family: 'Roboto Slab', serif;
 	font-size: 24px;
-	font-weight: 400;
+	/*font-weight: 400;*/
+	font-weight: 600;
 	margin: 20px 0px 20px 0px;
 }
 
@@ -167,6 +169,43 @@
 }
 
 .article_entry[atype='hint'] .hint_title
+{
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+/*======================================================*/
+/*Hint*/
+/*======================================================*/
+
+.article_entry[atype='warning'] .warning_icon
+{
+	font-family: 'mat_icons';
+	transform: scale(1.2);
+}
+
+.article_entry[atype='warning'] .warning_header
+{
+	display: flex;
+	padding: 6px 12px;
+	font-size: 17px;
+	/*background: #3182b1b0;*/
+	background: #ffd3336b;
+}
+
+.article_entry[atype='warning'] .warning_text
+{
+	display: flex;
+	padding: 15px;
+	background: #00000033;
+}
+
+.article_entry[atype='warning'] .warning_title
 {
 	padding-left: 10px;
 }
@@ -284,6 +323,46 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*======================================================*/
+/* Enums */
+/*======================================================*/
+.article_entry[atype='signed_enum']
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.article_entry[atype='signed_enum'] .enum_unit
+{
+	display: flex;
+	flex-direction: column;
+	margin-top: 12px;
+}
+
+
+.article_entry[atype='signed_enum'] .enum_unit .enum_unit_title
+{
+	font-weight: 400;
+}
+
+.article_entry[atype='signed_enum'] .enum_unit .enum_unit_text
+{
+	padding-left: 24px;
+}
 
 
 
