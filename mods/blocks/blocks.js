@@ -227,4 +227,4 @@ $this.signed_enum = function(block_info)
 
 
 
-$all.core.article_loader('3c3662bcb661d6de679c636744c66b62')
+// $all.core.article_loader('3c3662bcb661d6de679c636744c66b62')

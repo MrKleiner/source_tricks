@@ -1,0 +1,4 @@
+{
+	"utype": "warning",
+	"text": "The more levels you show at once, the more time it will take to list them all (typically, it will be exponential, showing three levels at once may take three orders of magnitude more time to be fully listed)."
+}

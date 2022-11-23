@@ -1,0 +1,25 @@
+{
+	"utype": "signed_enum",
+	"enum_entries": [
+		{
+			"title": "Cube",
+			"text": "The gray cube in the center of the scene is a mesh object. Its orange outline indicates that it’s selected. The orange dot in the center is its Origin, which indicates its precise location."
+		},
+		{
+			"title": "Light",
+			"text": "The set of concentric black circles is a light source illuminating the cube."
+		},
+		{
+			"title": "Camera",
+			"text": "The pyramid with a big triangle above it is the camera, which is used as the point of view for rendering."
+		},
+		{
+			"title": "3D Cursor",
+			"text": "The 3D cursor, a cross with a red-and-white circle, determines where newly added objects are placed and can also serve as a transformation pivot point."
+		},
+		{
+			"title": "Grid Floor",
+			"text": "The gray lines forming a floor mark the zero height of the world. The red and green lines are the axes of the world coordinate system. They meet at the world origin, which is also where the origin of the Cube is located. The Grid Floor settings are in the Viewport Overlays popover."
+		}
+	]
+}

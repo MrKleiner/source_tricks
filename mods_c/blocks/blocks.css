@@ -113,6 +113,7 @@
 .article_entry[atype='note'] .note_icon
 {
 	font-family: 'mat_icons';
+	transform: scale(1.2);
 }
 
 .article_entry[atype='note'] .note_header
@@ -150,6 +151,7 @@
 .article_entry[atype='hint'] .hint_icon
 {
 	font-family: 'mat_icons';
+	transform: scale(1.2);
 }
 
 .article_entry[atype='hint'] .hint_header
@@ -180,7 +182,7 @@
 
 
 /*======================================================*/
-/*Hint*/
+/*Warning*/
 /*======================================================*/
 
 .article_entry[atype='warning'] .warning_icon
@@ -229,6 +231,7 @@
 .article_entry[atype='see_also'] .see_also_icon
 {
 	font-family: 'mat_icons';
+	transform: scale(1.2);
 }
 
 .article_entry[atype='see_also'] .see_also_header

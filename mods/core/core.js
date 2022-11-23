@@ -108,7 +108,6 @@ $this.article_loader = async function(article_id)
 		print('loaded a block:', block)
 
 		// Each block is of a certain type
-		// The blocks modules contains evaluators from them
 		// The block type in the block json corresponds to the function name in the blocks module
 		if(block.utype in $all.blocks){
 			await $all.blocks[block.utype](block)
