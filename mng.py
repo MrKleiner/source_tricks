@@ -37,27 +37,3 @@ else:
 	mf = open(theroot / 'path_to_python.cum', 'w')
 	mf.write('')
 	mf.close()
-
-
-
-
-
-# FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX
-# FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX
-# FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX FUCK LINUX
-def dog(queue):
-	while True:
-		time.sleep(0.5)
-		if len(queue) <= 0:
-			continue
-
-		for worker in len(queue):
-			pass
-
-		proc = queue[worker]
-		# print(p.is_alive())
-		if not proc.is_alive():
-			# print('bro wtf')
-			proc.terminate()
-			proc.join()
-			del queue[worker]
