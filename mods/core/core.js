@@ -110,7 +110,7 @@ $this.article_loader = async function(article_id)
 		// Each block is of a certain type
 		// The block type in the block json corresponds to the function name in the blocks module
 		if(block.utype in $all.blocks){
-			await $all.blocks[block.utype](block)
+			await (new $all.blocks[block.utype](block))
 		}else{
 			print('Unknown block type:', block.utype)
 		}

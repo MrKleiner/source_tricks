@@ -41,7 +41,7 @@
 	// Path to the root folder containing modules folder, variables, fonts, etc
 	// If not present, false, empty, null or invalid - each path field would require an absolute path
 	// otherwise - hybrid: If absoulte, then use absolute, if relative then use relative
-	"project": "C:/custom/source_tricks/source_tricks",
+	"project": "E:/!webdesign/source_tricks/source_tricks",
 
 	// folder name with compiled modules
 	// auto = use original modules folder name

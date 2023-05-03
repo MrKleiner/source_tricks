@@ -1,34 +1,81 @@
 
+// todo block types:
+// tables
 
 
+$this.blocks = {};
 
 
 // Text block from the left and an image from the right
-$this.ltext_rimg = async function(block_info)
+class block_ltext_rimg
 {
-	// height: ${block_info.img_y}px;
-	print('ok, spawning shit:', block_info)
+	// constructor(height, width) {
+	constructor(block_info) {
+		// basically, fuck js
+		const self = this;
 
-	// wait for the image to cache
-	const imgcache = await $all.core.await_img_buffer(block_info.img)
+		// initialize the block creation process
+		return new Promise(async function(resolve, reject){
+			// associate an id with this block for later operations
+			const block_id = lizard.rndwave(24)
 
-	$('#article_blocks').append(`
-		<div atype="ltext_rimg" class="article_entry">
-			<div class="text_block">${block_info.text}</div>
-			<div class="image_unit">
-				<img 
-					class="image_elem imgmax"
+			// call spawner, which will return the element itself
+			// and store the resulting html element in the class
+			self.block_elem = await self.spawn(block_info, block_id)
 
-					imgw="${block_info.img_x}"
-					imgh="${block_info.img_y}"
-					src="${imgcache.src}"
-					style="width: ${block_info.img_x}px;"
-				>
-				<div class="image_caption">${block_info.img_caption}</div>
+			// store global reference to the class
+			$this.blocks[block_id] = self;
+
+			// append block to the article
+			$('#article_blocks').append(self.block_elem);
+
+			// return the block element to the one who called "new"
+			resolve(self.block_elem)
+		});
+	};
+
+	get html() {
+		return this.block_elem
+	};
+
+	// the spawn function should always return the element
+	async spawn(block_info, blid){
+		// height: ${block_info.img_y}px;
+		print('ok, spawning shit:', block_info)
+
+		// wait for the image to cache
+		const imgcache = await $all.core.await_img_buffer(block_info.img)
+
+		// create the block element
+		const block = $(`
+			<div block_id="${blid}" atype="ltext_rimg" class="article_entry">
+				<div class="text_block">${block_info.text}</div>
+				<div class="image_unit">
+					<img 
+						class="image_elem imgmax"
+
+						imgw="${block_info.img_x}"
+						imgh="${block_info.img_y}"
+						src="${imgcache.src}"
+						style="width: ${block_info.img_x}px;"
+					>
+					<div class="image_caption">${block_info.img_caption}</div>
+				</div>
 			</div>
-		</div>
-	`)
+		`);
+
+		// and also return the block element itself
+		return block
+	};
+
+
 }
+$this.ltext_rimg = block_ltext_rimg;
+
+
+
+
+
 
 
 
@@ -227,4 +274,4 @@ $this.signed_enum = function(block_info)
 
 
 
-// $all.core.article_loader('3c3662bcb661d6de679c636744c66b62')
+$all.core.article_loader('3c3662bcb661d6de679c636744c66b62')
