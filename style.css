@@ -1609,7 +1609,7 @@ co.code_qtext, co.code_qtext * {
 
 .tut_step[isvdccode] .tut_step_head_text
 {
-	color: #cdd3de !important;
+	color: #cdd3de;
 	padding: 1em;
     border-left: 6px solid #52768f !important;
     background-color: #1a1e24;
@@ -1624,7 +1624,7 @@ somehow...
 */
 .tut_step[isvdccode] .tut_step_head_text *
 {
-	color: #cdd3de !important;
+	/*color: #cdd3de;*/
 }
 
 
